@@ -1,2 +1,2 @@
-# climate-predict
-use ml to predict weather changes
+# climate-prediction
+use ml to predict climate changes
