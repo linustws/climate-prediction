@@ -1,2 +1,3 @@
-# climate-prediction
-use ml to predict climate changes
+# Singapore Weather Prediction
+
+using time series ml
