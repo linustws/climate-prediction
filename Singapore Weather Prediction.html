@@ -14602,7 +14602,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[91]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># setup</span>
@@ -14637,6 +14637,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">px</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;plotly&#39;</span> <span class="c1"># plotly, plotly_dark</span>
 <span class="n">pyo</span><span class="o">.</span><span class="n">init_notebook_mode</span><span class="p">(</span><span class="n">connected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;iframe&quot;</span> <span class="c1"># must trust notebook for it to work, use iframe for lab</span>
+
+<span class="c1"># Set the seed for numpy module</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="c1"># Set the seed for tensorflow module</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14796,7 +14802,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[92]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">api_endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://data.gov.sg/api/action/datastore_search&quot;</span>
@@ -14898,7 +14904,7 @@ month
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[93]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># rename columns</span>
@@ -14973,7 +14979,7 @@ datetime
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[94]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">series_monthly_mean_temp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mean_temp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># resample to monthly mean</span>
@@ -15065,7 +15071,7 @@ datetime
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_4.html"
+    src="iframe_figures/figure_94.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15083,7 +15089,7 @@ datetime
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[95]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">series_yearly_mean_temp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;mean_temp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># resample to yearly mean</span>
@@ -15129,7 +15135,7 @@ datetime
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_5.html"
+    src="iframe_figures/figure_95.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15169,7 +15175,7 @@ datetime
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[96]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
@@ -15223,7 +15229,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[97]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ywm&#39;</span><span class="p">)</span>
@@ -15288,7 +15294,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[98]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">perform_adf_test</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
@@ -15366,7 +15372,7 @@ p-value: 0.0002
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[105]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split 70:30 (28, 12)</span>
@@ -15406,13 +15412,13 @@ p-value: 0.0002
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model Fitting Time: 0.4781529903411865
+<pre>Model Fitting Time: 0.4866049289703369
                                SARIMAX Results                                
 ==============================================================================
 Dep. Variable:              mean_temp   No. Observations:                  348
 Model:                ARIMA(12, 0, 0)   Log Likelihood                -236.362
-Date:                Wed, 07 Jun 2023   AIC                            500.724
-Time:                        22:00:50   BIC                            554.655
+Date:                Thu, 08 Jun 2023   AIC                            500.724
+Time:                        20:25:25   BIC                            554.655
 Sample:                    01-31-1982   HQIC                           522.195
                          - 12-31-2010                                         
 Covariance Type:                  opg                                         
@@ -15466,7 +15472,7 @@ Warnings:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[106]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
@@ -15520,7 +15526,7 @@ Warnings:
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_10.html"
+    src="iframe_figures/figure_106.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15549,7 +15555,7 @@ Warnings:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[107]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test_data&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
@@ -15586,7 +15592,7 @@ Warnings:
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_12.html"
+    src="iframe_figures/figure_107.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15618,9 +15624,9 @@ Root Mean Squared Error: 0.7288853463855004
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h5 id="AR(3)-Model:">AR(3) Model:<a class="anchor-link" href="#AR(3)-Model:">&#182;</a></h5><p>Mean Absolute Percent Error: 0.0242
-Root Mean Squared Error: 0.8109909048459675</p>
+Root Mean Squared Error: 0.8109909048888814</p>
 <h5 id="AR(12)-Model:">AR(12) Model:<a class="anchor-link" href="#AR(12)-Model:">&#182;</a></h5><p>Mean Absolute Percent Error: 0.0215
-Root Mean Squared Error: 0.7288853508475853</p>
+Root Mean Squared Error: 0.7288853463855004</p>
 <h5 id="AR(12)-did-better-than-AR(3)-here,-as-predicted-by-the-lags-of-the-PACF.-Also,-we-can-see-that-the-further-we-predict-into-the-future,-the-worst-the-predictions.">AR(12) did better than AR(3) here, as predicted by the lags of the PACF. Also, we can see that the further we predict into the future, the worst the predictions.<a class="anchor-link" href="#AR(12)-did-better-than-AR(3)-here,-as-predicted-by-the-lags-of-the-PACF.-Also,-we-can-see-that-the-further-we-predict-into-the-future,-the-worst-the-predictions.">&#182;</a></h5>
 </div>
 </div>
@@ -15645,7 +15651,7 @@ Root Mean Squared Error: 0.7288853508475853</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[110]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create the model</span>
@@ -15699,7 +15705,7 @@ Root Mean Squared Error: 0.7288853508475853</p>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model Fitting Time: 71.9193708896637
+<pre>Model Fitting Time: 72.70002675056458
 </pre>
 </div>
 </div>
@@ -15714,7 +15720,7 @@ Root Mean Squared Error: 0.7288853508475853</p>
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_13.html"
+    src="iframe_figures/figure_110.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15743,7 +15749,7 @@ Root Mean Squared Error: 0.7288853508475853</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[111]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test_data&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions_rolling</span><span class="p">})</span>
@@ -15780,7 +15786,7 @@ Root Mean Squared Error: 0.7288853508475853</p>
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_14.html"
+    src="iframe_figures/figure_111.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15812,9 +15818,9 @@ Root Mean Squared Error: 0.4852945337116935
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h5 id="AR(3)-Model-(Rolling-Window):">AR(3) Model (Rolling Window):<a class="anchor-link" href="#AR(3)-Model-(Rolling-Window):">&#182;</a></h5><p>Mean Absolute Percent Error: 0.0158
-Root Mean Squared Error: 0.536293871433379</p>
+Root Mean Squared Error: 0.5362938714312385</p>
 <h5 id="AR(12)-Model-(Rolling-Window):">AR(12) Model (Rolling Window):<a class="anchor-link" href="#AR(12)-Model-(Rolling-Window):">&#182;</a></h5><p>Mean Absolute Percent Error: 0.0139
-Root Mean Squared Error: 0.4852945335224512</p>
+Root Mean Squared Error: 0.4852945337116935</p>
 <h5 id="As-shown-here,-the-RMSE-of-rolling-window-(0.48529)-is-lower-than-that-of-the-non-rolling-window-(0.72889)-of-AR(12),-and-it-predicts-a-better-shape-as-it-predicts-in-1-month-intervals-of-the-test-data-consecutively-rather-than-predicting-over-the-whole-test-data.-The-downside-is-that-rolling-window-takes-a-much-longer-time-to-train.">As shown here, the RMSE of rolling window (0.48529) is lower than that of the non-rolling window (0.72889) of AR(12), and it predicts a better shape as it predicts in 1 month intervals of the test data consecutively rather than predicting over the whole test data. The downside is that rolling window takes a much longer time to train.<a class="anchor-link" href="#As-shown-here,-the-RMSE-of-rolling-window-(0.48529)-is-lower-than-that-of-the-non-rolling-window-(0.72889)-of-AR(12),-and-it-predicts-a-better-shape-as-it-predicts-in-1-month-intervals-of-the-test-data-consecutively-rather-than-predicting-over-the-whole-test-data.-The-downside-is-that-rolling-window-takes-a-much-longer-time-to-train.">&#182;</a></h5>
 </div>
 </div>
@@ -15836,7 +15842,7 @@ Root Mean Squared Error: 0.4852945335224512</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[112]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">)</span>
@@ -15890,7 +15896,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[113]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split 70:30 (28, 12)</span>
@@ -15930,13 +15936,13 @@ class="
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model Fitting Time: 0.05095386505126953
+<pre>Model Fitting Time: 0.0760040283203125
                                SARIMAX Results                                
 ==============================================================================
 Dep. Variable:              mean_temp   No. Observations:                  348
 Model:                 ARIMA(0, 0, 2)   Log Likelihood                -298.502
-Date:                Wed, 07 Jun 2023   AIC                            605.004
-Time:                        22:02:23   BIC                            620.413
+Date:                Thu, 08 Jun 2023   AIC                            605.004
+Time:                        20:29:02   BIC                            620.413
 Sample:                    01-31-1982   HQIC                           611.139
                          - 12-31-2010                                         
 Covariance Type:                  opg                                         
@@ -15986,7 +15992,7 @@ The coefficients 0.73 and 0.40 represent the weights assigned to the lagged pred
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[114]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
@@ -16040,7 +16046,7 @@ The coefficients 0.73 and 0.40 represent the weights assigned to the lagged pred
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_17.html"
+    src="iframe_figures/figure_114.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16069,7 +16075,7 @@ The coefficients 0.73 and 0.40 represent the weights assigned to the lagged pred
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[115]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test_data&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
@@ -16106,7 +16112,7 @@ The coefficients 0.73 and 0.40 represent the weights assigned to the lagged pred
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_18.html"
+    src="iframe_figures/figure_115.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16158,7 +16164,7 @@ Root Mean Squared Error: 0.813192975445521
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[116]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># for easier comparison</span>
@@ -16207,7 +16213,7 @@ Root Mean Squared Error: 0.813192975445521
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_19.html"
+    src="iframe_figures/figure_116.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16248,7 +16254,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_19.html"
+    src="iframe_figures/figure_116.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16277,7 +16283,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[117]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">first_diff</span><span class="p">)</span>
@@ -16331,7 +16337,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[118]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">first_diff</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ywm&#39;</span><span class="p">)</span>
@@ -16396,7 +16402,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[119]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
@@ -16436,13 +16442,13 @@ class="
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model Fitting Time: 2.6150529384613037
+<pre>Model Fitting Time: 2.6048777103424072
                                SARIMAX Results                                
 ==============================================================================
 Dep. Variable:              mean_temp   No. Observations:                  479
 Model:                ARIMA(9, 0, 12)   Log Likelihood                -287.025
-Date:                Wed, 07 Jun 2023   AIC                            620.050
-Time:                        22:02:26   BIC                            715.999
+Date:                Thu, 08 Jun 2023   AIC                            620.050
+Time:                        20:29:21   BIC                            715.999
 Sample:                    02-28-1982   HQIC                           657.768
                          - 12-31-2021                                         
 Covariance Type:                  opg                                         
@@ -16507,7 +16513,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[120]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
@@ -16561,7 +16567,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_23.html"
+    src="iframe_figures/figure_120.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16579,7 +16585,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[121]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test_data&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
@@ -16616,7 +16622,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_24.html"
+    src="iframe_figures/figure_121.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16678,7 +16684,7 @@ Root Mean Squared Error: 0.5841389478876554
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[122]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">first_diff</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">diff</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
@@ -16725,7 +16731,7 @@ Root Mean Squared Error: 0.5841389478876554
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_25.html"
+    src="iframe_figures/figure_122.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16743,7 +16749,7 @@ Root Mean Squared Error: 0.5841389478876554
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[123]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">first_diff</span><span class="p">)</span>
@@ -16786,7 +16792,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[124]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">first_diff</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ywm&#39;</span><span class="p">)</span>
@@ -16829,7 +16835,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[125]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
@@ -16869,13 +16875,13 @@ class="
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model Fitting Time: 2.6661369800567627
+<pre>Model Fitting Time: 2.488986015319824
                                SARIMAX Results                                
 ==============================================================================
 Dep. Variable:              mean_temp   No. Observations:                  480
 Model:                ARIMA(9, 1, 12)   Log Likelihood                -285.269
-Date:                Wed, 07 Jun 2023   AIC                            614.538
-Time:                        22:02:29   BIC                            706.316
+Date:                Thu, 08 Jun 2023   AIC                            614.538
+Time:                        20:29:32   BIC                            706.316
 Sample:                    01-31-1982   HQIC                           650.617
                          - 12-31-2021                                         
 Covariance Type:                  opg                                         
@@ -16939,7 +16945,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[126]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
@@ -16993,7 +16999,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_29.html"
+    src="iframe_figures/figure_126.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17011,7 +17017,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[127]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test_data&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
@@ -17048,7 +17054,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_30.html"
+    src="iframe_figures/figure_127.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17079,7 +17085,7 @@ Root Mean Squared Error: 0.40002647470247793
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h5 id="Compared-to-using-just-the-ARMA-model-with-first-difference-performed,-with-both-AR(9)-and-MA(12),-the-ARIMA-model-performed-better,-having-a-RMSE-(0.40205),-lower-than-that-of-the-ARMA-model-(0.58413).">Compared to using just the ARMA model with first difference performed, with both AR(9) and MA(12), the ARIMA model performed better, having a RMSE (0.40205), lower than that of the ARMA model (0.58413).<a class="anchor-link" href="#Compared-to-using-just-the-ARMA-model-with-first-difference-performed,-with-both-AR(9)-and-MA(12),-the-ARIMA-model-performed-better,-having-a-RMSE-(0.40205),-lower-than-that-of-the-ARMA-model-(0.58413).">&#182;</a></h5>
+<h5 id="Compared-to-using-just-the-ARMA-model-with-first-difference-performed,-with-both-AR(9)-and-MA(12),-the-ARIMA-model-performed-better,-having-a-RMSE-(0.40003),-lower-than-that-of-the-ARMA-model-(0.58414).">Compared to using just the ARMA model with first difference performed, with both AR(9) and MA(12), the ARIMA model performed better, having a RMSE (0.40003), lower than that of the ARMA model (0.58414).<a class="anchor-link" href="#Compared-to-using-just-the-ARMA-model-with-first-difference-performed,-with-both-AR(9)-and-MA(12),-the-ARIMA-model-performed-better,-having-a-RMSE-(0.40003),-lower-than-that-of-the-ARMA-model-(0.58414).">&#182;</a></h5>
 </div>
 </div>
 </div>
@@ -17099,7 +17105,7 @@ Root Mean Squared Error: 0.40002647470247793
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[128]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create the model</span>
@@ -17197,10 +17203,6 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 Maximum Likelihood optimization failed to converge. Check mle_retvals
 
-/Users/linustws/opt/anaconda3/envs/singapore-weather-prediction/lib/python3.9/site-packages/statsmodels/base/model.py:607: ConvergenceWarning:
-
-Maximum Likelihood optimization failed to converge. Check mle_retvals
-
 </pre>
 </div>
 </div>
@@ -17210,7 +17212,20 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model Fitting Time: 30.83571195602417
+<pre>Model Fitting Time: 29.885125160217285
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/Users/linustws/opt/anaconda3/envs/singapore-weather-prediction/lib/python3.9/site-packages/statsmodels/base/model.py:607: ConvergenceWarning:
+
+Maximum Likelihood optimization failed to converge. Check mle_retvals
+
 </pre>
 </div>
 </div>
@@ -17225,7 +17240,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_31.html"
+    src="iframe_figures/figure_128.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17243,7 +17258,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[129]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test_data&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions_rolling</span><span class="p">})</span>
@@ -17280,7 +17295,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_32.html"
+    src="iframe_figures/figure_129.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17311,7 +17326,7 @@ Root Mean Squared Error: 0.4101693694305862
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h5 id="Here-although-it-seems-like-the-rolling-forecast-origin-of-the-ARIMA-model-predicted-values-that-had-a-closer-shape-following-that-of-the-test-data,-it-has-a-slightly-higher-RMSE-(0.40820)-compared-to-the-non-rolling-version-(0.40205).-It-seems-that-the-rolling-forecast-origin-is-less-effective-when-predicting-over-a-short-time-period.-It-took-quite-a-while-to-fit-the-model,-even-though-we-reduced-our-test-data-to-just-1-year.-This-is-probably-due-to-the-higher-orders-or-AR-and-MA-that-we-used.">Here although it seems like the rolling forecast origin of the ARIMA model predicted values that had a closer shape following that of the test data, it has a slightly higher RMSE (0.40820) compared to the non-rolling version (0.40205). It seems that the rolling forecast origin is less effective when predicting over a short time period. It took quite a while to fit the model, even though we reduced our test data to just 1 year. This is probably due to the higher orders or AR and MA that we used.<a class="anchor-link" href="#Here-although-it-seems-like-the-rolling-forecast-origin-of-the-ARIMA-model-predicted-values-that-had-a-closer-shape-following-that-of-the-test-data,-it-has-a-slightly-higher-RMSE-(0.40820)-compared-to-the-non-rolling-version-(0.40205).-It-seems-that-the-rolling-forecast-origin-is-less-effective-when-predicting-over-a-short-time-period.-It-took-quite-a-while-to-fit-the-model,-even-though-we-reduced-our-test-data-to-just-1-year.-This-is-probably-due-to-the-higher-orders-or-AR-and-MA-that-we-used.">&#182;</a></h5>
+<h5 id="Here-although-it-seems-like-the-rolling-forecast-origin-of-the-ARIMA-model-predicted-values-that-had-a-closer-shape-following-that-of-the-test-data,-it-has-a-slightly-higher-RMSE-(0.41017)-compared-to-the-non-rolling-version-(0.40003).-It-seems-that-the-rolling-forecast-origin-is-less-effective-when-predicting-over-a-short-time-period.-It-took-quite-a-while-to-fit-the-model,-even-though-we-reduced-our-test-data-to-just-1-year.-This-is-probably-due-to-the-higher-orders-or-AR-and-MA-that-we-used.">Here although it seems like the rolling forecast origin of the ARIMA model predicted values that had a closer shape following that of the test data, it has a slightly higher RMSE (0.41017) compared to the non-rolling version (0.40003). It seems that the rolling forecast origin is less effective when predicting over a short time period. It took quite a while to fit the model, even though we reduced our test data to just 1 year. This is probably due to the higher orders or AR and MA that we used.<a class="anchor-link" href="#Here-although-it-seems-like-the-rolling-forecast-origin-of-the-ARIMA-model-predicted-values-that-had-a-closer-shape-following-that-of-the-test-data,-it-has-a-slightly-higher-RMSE-(0.41017)-compared-to-the-non-rolling-version-(0.40003).-It-seems-that-the-rolling-forecast-origin-is-less-effective-when-predicting-over-a-short-time-period.-It-took-quite-a-while-to-fit-the-model,-even-though-we-reduced-our-test-data-to-just-1-year.-This-is-probably-due-to-the-higher-orders-or-AR-and-MA-that-we-used.">&#182;</a></h5>
 </div>
 </div>
 </div>
@@ -17331,7 +17346,7 @@ Root Mean Squared Error: 0.4101693694305862
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[130]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fig_monthly_mean_temp.show() # for easier comparison</span>
@@ -17380,7 +17395,7 @@ Root Mean Squared Error: 0.4101693694305862
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_33.html"
+    src="iframe_figures/figure_130.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17409,7 +17424,7 @@ Root Mean Squared Error: 0.4101693694305862
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[131]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform seasonal differencing</span>
@@ -17457,7 +17472,7 @@ Root Mean Squared Error: 0.4101693694305862
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_34.html"
+    src="iframe_figures/figure_131.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17497,7 +17512,7 @@ Root Mean Squared Error: 0.4101693694305862
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[132]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">seasonal_diff</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
@@ -17542,7 +17557,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[133]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">seasonal_diff</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ywm&#39;</span><span class="p">)</span>
@@ -17598,7 +17613,7 @@ class="
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[134]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
@@ -17640,13 +17655,13 @@ class="
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model Fitting Time: 2.1419923305511475
+<pre>Model Fitting Time: 1.8197648525238037
                                     SARIMAX Results                                     
 ========================================================================================
 Dep. Variable:                        mean_temp   No. Observations:                  480
 Model:             ARIMA(1, 1, 1)x(1, 1, 1, 12)   Log Likelihood                -277.962
-Date:                          Wed, 07 Jun 2023   AIC                            565.924
-Time:                                  22:03:03   BIC                            586.655
+Date:                          Thu, 08 Jun 2023   AIC                            565.924
+Time:                                  20:32:57   BIC                            586.655
 Sample:                              01-31-1982   HQIC                           574.082
                                    - 12-31-2021                                         
 Covariance Type:                            opg                                         
@@ -17691,7 +17706,7 @@ Warnings:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[135]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
@@ -17745,7 +17760,7 @@ Warnings:
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_38.html"
+    src="iframe_figures/figure_135.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17763,7 +17778,7 @@ Warnings:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[136]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test_data&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
@@ -17800,7 +17815,7 @@ Warnings:
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_39.html"
+    src="iframe_figures/figure_136.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17831,7 +17846,7 @@ Root Mean Squared Error: 0.5200608882024743
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h5 id="Seems-like-our-SARIMA-model-performed-worse-than-our-ARIMA-model-(RMSE=0.40205).-Let's-try-applying-the-rolling-forecast-origin.">Seems like our SARIMA model performed worse than our ARIMA model (RMSE=0.40205). Let's try applying the rolling forecast origin.<a class="anchor-link" href="#Seems-like-our-SARIMA-model-performed-worse-than-our-ARIMA-model-(RMSE=0.40205).-Let's-try-applying-the-rolling-forecast-origin.">&#182;</a></h5>
+<h5 id="Seems-like-our-SARIMA-model-performed-worse-than-our-ARIMA-model-(RMSE=0.40003).-Let's-try-applying-the-rolling-forecast-origin.">Seems like our SARIMA model performed worse than our ARIMA model (RMSE=0.40003). Let's try applying the rolling forecast origin.<a class="anchor-link" href="#Seems-like-our-SARIMA-model-performed-worse-than-our-ARIMA-model-(RMSE=0.40003).-Let's-try-applying-the-rolling-forecast-origin.">&#182;</a></h5>
 </div>
 </div>
 </div>
@@ -17840,7 +17855,7 @@ Root Mean Squared Error: 0.5200608882024743
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[137]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">normal_order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -17897,7 +17912,7 @@ Root Mean Squared Error: 0.5200608882024743
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Model Fitting Time: 17.052558183670044
+<pre>Model Fitting Time: 14.356170177459717
 </pre>
 </div>
 </div>
@@ -17912,7 +17927,7 @@ Root Mean Squared Error: 0.5200608882024743
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_40.html"
+    src="iframe_figures/figure_137.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17930,7 +17945,7 @@ Root Mean Squared Error: 0.5200608882024743
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[138]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test_data&#39;</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">predictions_rolling</span><span class="p">})</span>
@@ -17967,7 +17982,7 @@ Root Mean Squared Error: 0.5200608882024743
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_41.html"
+    src="iframe_figures/figure_138.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17998,7 +18013,7 @@ Root Mean Squared Error: 0.43694862169817994
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h5 id="We-can-see-that-the-rolling-forecast-origin-on-the-SARIMA-model-did-better,-but-it-still-fell-short-to-the-ARIMA-model-(rolling-window-RMSE=0.40820-and-non-rolling-RMSE=0.40205).-Perhaps,-the-orders-chosen-were-not-the-best-or-the-SARIMA-overfitted-to-a-greater-extent.">We can see that the rolling forecast origin on the SARIMA model did better, but it still fell short to the ARIMA model (rolling window RMSE=0.40820 and non-rolling RMSE=0.40205). Perhaps, the orders chosen were not the best or the SARIMA overfitted to a greater extent.<a class="anchor-link" href="#We-can-see-that-the-rolling-forecast-origin-on-the-SARIMA-model-did-better,-but-it-still-fell-short-to-the-ARIMA-model-(rolling-window-RMSE=0.40820-and-non-rolling-RMSE=0.40205).-Perhaps,-the-orders-chosen-were-not-the-best-or-the-SARIMA-overfitted-to-a-greater-extent.">&#182;</a></h5>
+<h5 id="We-can-see-that-the-rolling-forecast-origin-on-the-SARIMA-model-did-better,-but-it-still-fell-short-to-the-ARIMA-model-(rolling-window-RMSE=0.41017-and-non-rolling-RMSE=0.40003).-Perhaps,-the-orders-chosen-were-not-the-best-or-the-SARIMA-overfitted-to-a-greater-extent.">We can see that the rolling forecast origin on the SARIMA model did better, but it still fell short to the ARIMA model (rolling window RMSE=0.41017 and non-rolling RMSE=0.40003). Perhaps, the orders chosen were not the best or the SARIMA overfitted to a greater extent.<a class="anchor-link" href="#We-can-see-that-the-rolling-forecast-origin-on-the-SARIMA-model-did-better,-but-it-still-fell-short-to-the-ARIMA-model-(rolling-window-RMSE=0.41017-and-non-rolling-RMSE=0.40003).-Perhaps,-the-orders-chosen-were-not-the-best-or-the-SARIMA-overfitted-to-a-greater-extent.">&#182;</a></h5>
 </div>
 </div>
 </div>
@@ -18027,7 +18042,7 @@ Root Mean Squared Error: 0.43694862169817994
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
@@ -18038,7 +18053,7 @@ Root Mean Squared Error: 0.43694862169817994
 <span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
 
 <span class="c1"># Find optimal ARIMA order using auto_arima</span>
-<span class="n">model_arima</span> <span class="o">=</span> <span class="n">auto_arima</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_d</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_p</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_q</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_order</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_cores</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">information_criterion</span><span class="o">=</span><span class="s1">&#39;aic&#39;</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stepwise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">model_arima</span> <span class="o">=</span> <span class="n">auto_arima</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_d</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_p</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_q</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_order</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_cores</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">information_criterion</span><span class="o">=</span><span class="s1">&#39;aic&#39;</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stepwise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Get the best ARIMA order</span>
 <span class="n">order_arima</span> <span class="o">=</span> <span class="n">model_arima</span><span class="o">.</span><span class="n">order</span>
@@ -18063,179 +18078,113 @@ Root Mean Squared Error: 0.43694862169817994
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre> ARIMA(0,0,0)(0,0,0)[0]             : AIC=4703.909, Time=0.02 sec
- ARIMA(0,0,1)(0,0,0)[0]             : AIC=4044.152, Time=0.06 sec
- ARIMA(0,0,2)(0,0,0)[0]             : AIC=3447.842, Time=0.49 sec
- ARIMA(0,0,3)(0,0,0)[0]             : AIC=3001.604, Time=0.64 sec
- ARIMA(0,0,4)(0,0,0)[0]             : AIC=inf, Time=2.44 sec
- ARIMA(0,0,5)(0,0,0)[0]             : AIC=2384.561, Time=0.86 sec
- ARIMA(0,0,6)(0,0,0)[0]             : AIC=2168.781, Time=1.18 sec
- ARIMA(0,0,7)(0,0,0)[0]             : AIC=inf, Time=5.74 sec
- ARIMA(0,0,8)(0,0,0)[0]             : AIC=4086.632, Time=0.82 sec
- ARIMA(0,0,9)(0,0,0)[0]             : AIC=inf, Time=4.11 sec
- ARIMA(0,0,10)(0,0,0)[0]             : AIC=inf, Time=4.67 sec
- ARIMA(0,0,11)(0,0,0)[0]             : AIC=1578.521, Time=2.08 sec
- ARIMA(0,0,12)(0,0,0)[0]             : AIC=inf, Time=4.92 sec
- ARIMA(1,0,0)(0,0,0)[0]             : AIC=inf, Time=0.04 sec
- ARIMA(1,0,1)(0,0,0)[0]             : AIC=923.908, Time=0.11 sec
- ARIMA(1,0,2)(0,0,0)[0]             : AIC=923.974, Time=0.08 sec
- ARIMA(1,0,3)(0,0,0)[0]             : AIC=855.327, Time=0.41 sec
- ARIMA(1,0,4)(0,0,0)[0]             : AIC=836.260, Time=0.59 sec
- ARIMA(1,0,5)(0,0,0)[0]             : AIC=821.881, Time=0.62 sec
- ARIMA(1,0,6)(0,0,0)[0]             : AIC=823.465, Time=1.01 sec
- ARIMA(1,0,7)(0,0,0)[0]             : AIC=811.098, Time=1.77 sec
- ARIMA(1,0,8)(0,0,0)[0]             : AIC=805.883, Time=1.94 sec
- ARIMA(1,0,9)(0,0,0)[0]             : AIC=830.945, Time=1.65 sec
- ARIMA(1,0,10)(0,0,0)[0]             : AIC=809.541, Time=2.48 sec
- ARIMA(1,0,11)(0,0,0)[0]             : AIC=842.962, Time=2.50 sec
- ARIMA(1,0,12)(0,0,0)[0]             : AIC=791.318, Time=2.96 sec
- ARIMA(2,0,0)(0,0,0)[0]             : AIC=inf, Time=0.04 sec
- ARIMA(2,0,1)(0,0,0)[0]             : AIC=920.574, Time=0.17 sec
- ARIMA(2,0,2)(0,0,0)[0]             : AIC=849.788, Time=0.25 sec
- ARIMA(2,0,3)(0,0,0)[0]             : AIC=923.979, Time=0.18 sec
- ARIMA(2,0,4)(0,0,0)[0]             : AIC=inf, Time=0.50 sec
- ARIMA(2,0,5)(0,0,0)[0]             : AIC=824.482, Time=0.47 sec
- ARIMA(2,0,6)(0,0,0)[0]             : AIC=826.854, Time=0.63 sec
- ARIMA(2,0,7)(0,0,0)[0]             : AIC=825.486, Time=0.99 sec
- ARIMA(2,0,8)(0,0,0)[0]             : AIC=inf, Time=1.57 sec
- ARIMA(2,0,9)(0,0,0)[0]             : AIC=inf, Time=1.92 sec
- ARIMA(2,0,10)(0,0,0)[0]             : AIC=inf, Time=2.53 sec
- ARIMA(2,0,11)(0,0,0)[0]             : AIC=inf, Time=2.02 sec
- ARIMA(2,0,12)(0,0,0)[0]             : AIC=inf, Time=2.80 sec
- ARIMA(3,0,0)(0,0,0)[0]             : AIC=inf, Time=0.11 sec
- ARIMA(3,0,1)(0,0,0)[0]             : AIC=923.853, Time=0.11 sec
- ARIMA(3,0,2)(0,0,0)[0]             : AIC=924.563, Time=0.24 sec
- ARIMA(3,0,3)(0,0,0)[0]             : AIC=926.715, Time=0.27 sec
- ARIMA(3,0,4)(0,0,0)[0]             : AIC=inf, Time=0.54 sec
- ARIMA(3,0,5)(0,0,0)[0]             : AIC=811.023, Time=0.67 sec
- ARIMA(3,0,6)(0,0,0)[0]             : AIC=inf, Time=1.05 sec
- ARIMA(3,0,7)(0,0,0)[0]             : AIC=823.781, Time=0.86 sec
- ARIMA(3,0,8)(0,0,0)[0]             : AIC=inf, Time=3.25 sec
- ARIMA(3,0,9)(0,0,0)[0]             : AIC=inf, Time=2.74 sec
- ARIMA(3,0,10)(0,0,0)[0]             : AIC=inf, Time=6.28 sec
- ARIMA(3,0,11)(0,0,0)[0]             : AIC=inf, Time=13.52 sec
- ARIMA(3,0,12)(0,0,0)[0]             : AIC=inf, Time=8.71 sec
- ARIMA(4,0,0)(0,0,0)[0]             : AIC=inf, Time=0.07 sec
- ARIMA(4,0,1)(0,0,0)[0]             : AIC=808.834, Time=0.43 sec
- ARIMA(4,0,2)(0,0,0)[0]             : AIC=926.004, Time=0.51 sec
- ARIMA(4,0,3)(0,0,0)[0]             : AIC=925.562, Time=0.49 sec
- ARIMA(4,0,4)(0,0,0)[0]             : AIC=930.427, Time=0.65 sec
- ARIMA(4,0,5)(0,0,0)[0]             : AIC=inf, Time=1.09 sec
- ARIMA(4,0,6)(0,0,0)[0]             : AIC=inf, Time=2.69 sec
- ARIMA(4,0,7)(0,0,0)[0]             : AIC=825.358, Time=2.44 sec
- ARIMA(4,0,8)(0,0,0)[0]             : AIC=inf, Time=2.09 sec
- ARIMA(4,0,9)(0,0,0)[0]             : AIC=inf, Time=4.97 sec
- ARIMA(4,0,10)(0,0,0)[0]             : AIC=inf, Time=2.97 sec
- ARIMA(4,0,11)(0,0,0)[0]             : AIC=inf, Time=3.09 sec
- ARIMA(4,0,12)(0,0,0)[0]             : AIC=inf, Time=8.60 sec
- ARIMA(5,0,0)(0,0,0)[0]             : AIC=inf, Time=0.09 sec
- ARIMA(5,0,1)(0,0,0)[0]             : AIC=800.917, Time=0.50 sec
- ARIMA(5,0,2)(0,0,0)[0]             : AIC=inf, Time=0.65 sec
- ARIMA(5,0,3)(0,0,0)[0]             : AIC=930.242, Time=0.61 sec
- ARIMA(5,0,4)(0,0,0)[0]             : AIC=inf, Time=0.82 sec
- ARIMA(5,0,5)(0,0,0)[0]             : AIC=inf, Time=2.14 sec
- ARIMA(5,0,6)(0,0,0)[0]             : AIC=inf, Time=1.65 sec
- ARIMA(5,0,7)(0,0,0)[0]             : AIC=inf, Time=1.56 sec
- ARIMA(5,0,8)(0,0,0)[0]             : AIC=inf, Time=2.03 sec
- ARIMA(5,0,9)(0,0,0)[0]             : AIC=inf, Time=2.68 sec
- ARIMA(5,0,10)(0,0,0)[0]             : AIC=inf, Time=4.10 sec
- ARIMA(5,0,11)(0,0,0)[0]             : AIC=inf, Time=7.42 sec
- ARIMA(5,0,12)(0,0,0)[0]             : AIC=inf, Time=6.58 sec
- ARIMA(6,0,0)(0,0,0)[0]             : AIC=inf, Time=0.14 sec
- ARIMA(6,0,1)(0,0,0)[0]             : AIC=793.178, Time=0.64 sec
- ARIMA(6,0,2)(0,0,0)[0]             : AIC=inf, Time=1.27 sec
- ARIMA(6,0,3)(0,0,0)[0]             : AIC=932.157, Time=0.92 sec
- ARIMA(6,0,4)(0,0,0)[0]             : AIC=inf, Time=1.49 sec
- ARIMA(6,0,5)(0,0,0)[0]             : AIC=inf, Time=1.51 sec
- ARIMA(6,0,6)(0,0,0)[0]             : AIC=inf, Time=1.79 sec
- ARIMA(6,0,7)(0,0,0)[0]             : AIC=inf, Time=2.09 sec
- ARIMA(6,0,8)(0,0,0)[0]             : AIC=inf, Time=2.79 sec
- ARIMA(6,0,9)(0,0,0)[0]             : AIC=inf, Time=3.15 sec
- ARIMA(6,0,10)(0,0,0)[0]             : AIC=inf, Time=3.93 sec
- ARIMA(6,0,11)(0,0,0)[0]             : AIC=inf, Time=5.37 sec
- ARIMA(6,0,12)(0,0,0)[0]             : AIC=inf, Time=6.92 sec
- ARIMA(7,0,0)(0,0,0)[0]             : AIC=inf, Time=0.16 sec
- ARIMA(7,0,1)(0,0,0)[0]             : AIC=793.117, Time=1.02 sec
- ARIMA(7,0,2)(0,0,0)[0]             : AIC=inf, Time=0.93 sec
- ARIMA(7,0,3)(0,0,0)[0]             : AIC=924.183, Time=0.87 sec
- ARIMA(7,0,4)(0,0,0)[0]             : AIC=927.379, Time=1.18 sec
- ARIMA(7,0,5)(0,0,0)[0]             : AIC=inf, Time=1.52 sec
- ARIMA(7,0,6)(0,0,0)[0]             : AIC=inf, Time=1.66 sec
- ARIMA(7,0,7)(0,0,0)[0]             : AIC=inf, Time=2.25 sec
- ARIMA(7,0,8)(0,0,0)[0]             : AIC=inf, Time=2.97 sec
- ARIMA(7,0,9)(0,0,0)[0]             : AIC=inf, Time=2.90 sec
- ARIMA(7,0,10)(0,0,0)[0]             : AIC=inf, Time=3.56 sec
- ARIMA(7,0,11)(0,0,0)[0]             : AIC=inf, Time=7.69 sec
- ARIMA(7,0,12)(0,0,0)[0]             : AIC=inf, Time=4.61 sec
- ARIMA(8,0,0)(0,0,0)[0]             : AIC=inf, Time=0.26 sec
- ARIMA(8,0,1)(0,0,0)[0]             : AIC=786.944, Time=0.87 sec
- ARIMA(8,0,2)(0,0,0)[0]             : AIC=794.121, Time=1.22 sec
- ARIMA(8,0,3)(0,0,0)[0]             : AIC=inf, Time=1.98 sec
- ARIMA(8,0,4)(0,0,0)[0]             : AIC=891.707, Time=1.77 sec
- ARIMA(8,0,5)(0,0,0)[0]             : AIC=693.386, Time=2.01 sec
- ARIMA(8,0,6)(0,0,0)[0]             : AIC=inf, Time=1.89 sec
- ARIMA(8,0,7)(0,0,0)[0]             : AIC=inf, Time=2.76 sec
- ARIMA(8,0,8)(0,0,0)[0]             : AIC=inf, Time=2.85 sec
- ARIMA(8,0,9)(0,0,0)[0]             : AIC=inf, Time=3.18 sec
- ARIMA(8,0,10)(0,0,0)[0]             : AIC=inf, Time=2.03 sec
- ARIMA(8,0,11)(0,0,0)[0]             : AIC=inf, Time=5.53 sec
- ARIMA(8,0,12)(0,0,0)[0]             : AIC=inf, Time=6.31 sec
- ARIMA(9,0,0)(0,0,0)[0]             : AIC=inf, Time=0.29 sec
- ARIMA(9,0,1)(0,0,0)[0]             : AIC=770.020, Time=1.12 sec
- ARIMA(9,0,2)(0,0,0)[0]             : AIC=694.082, Time=1.31 sec
- ARIMA(9,0,3)(0,0,0)[0]             : AIC=inf, Time=1.97 sec
- ARIMA(9,0,4)(0,0,0)[0]             : AIC=897.199, Time=1.66 sec
- ARIMA(9,0,5)(0,0,0)[0]             : AIC=728.620, Time=1.97 sec
- ARIMA(9,0,6)(0,0,0)[0]             : AIC=inf, Time=2.56 sec
- ARIMA(9,0,7)(0,0,0)[0]             : AIC=inf, Time=2.62 sec
- ARIMA(9,0,8)(0,0,0)[0]             : AIC=inf, Time=3.08 sec
- ARIMA(9,0,9)(0,0,0)[0]             : AIC=inf, Time=4.65 sec
- ARIMA(9,0,10)(0,0,0)[0]             : AIC=inf, Time=4.26 sec
- ARIMA(9,0,11)(0,0,0)[0]             : AIC=inf, Time=4.10 sec
- ARIMA(9,0,12)(0,0,0)[0]             : AIC=803.562, Time=4.69 sec
- ARIMA(10,0,0)(0,0,0)[0]             : AIC=inf, Time=1.20 sec
- ARIMA(10,0,1)(0,0,0)[0]             : AIC=831.694, Time=1.35 sec
- ARIMA(10,0,2)(0,0,0)[0]             : AIC=699.042, Time=1.43 sec
- ARIMA(10,0,3)(0,0,0)[0]             : AIC=688.680, Time=1.98 sec
- ARIMA(10,0,4)(0,0,0)[0]             : AIC=inf, Time=2.29 sec
- ARIMA(10,0,5)(0,0,0)[0]             : AIC=889.656, Time=2.24 sec
- ARIMA(10,0,6)(0,0,0)[0]             : AIC=inf, Time=6.66 sec
- ARIMA(10,0,7)(0,0,0)[0]             : AIC=651.588, Time=8.93 sec
- ARIMA(10,0,8)(0,0,0)[0]             : AIC=inf, Time=3.50 sec
- ARIMA(10,0,9)(0,0,0)[0]             : AIC=inf, Time=3.97 sec
- ARIMA(10,0,10)(0,0,0)[0]             : AIC=inf, Time=5.46 sec
- ARIMA(10,0,11)(0,0,0)[0]             : AIC=inf, Time=6.29 sec
- ARIMA(10,0,12)(0,0,0)[0]             : AIC=inf, Time=8.41 sec
- ARIMA(11,0,0)(0,0,0)[0]             : AIC=inf, Time=1.31 sec
- ARIMA(11,0,1)(0,0,0)[0]             : AIC=786.896, Time=1.57 sec
- ARIMA(11,0,2)(0,0,0)[0]             : AIC=inf, Time=2.35 sec
- ARIMA(11,0,3)(0,0,0)[0]             : AIC=687.362, Time=1.62 sec
- ARIMA(11,0,4)(0,0,0)[0]             : AIC=877.453, Time=1.96 sec
- ARIMA(11,0,5)(0,0,0)[0]             : AIC=823.992, Time=2.25 sec
- ARIMA(11,0,6)(0,0,0)[0]             : AIC=inf, Time=6.71 sec
- ARIMA(11,0,7)(0,0,0)[0]             : AIC=654.537, Time=9.22 sec
- ARIMA(11,0,8)(0,0,0)[0]             : AIC=inf, Time=5.20 sec
- ARIMA(11,0,9)(0,0,0)[0]             : AIC=879.251, Time=7.86 sec
- ARIMA(11,0,10)(0,0,0)[0]             : AIC=inf, Time=4.67 sec
- ARIMA(11,0,11)(0,0,0)[0]             : AIC=inf, Time=5.72 sec
- ARIMA(11,0,12)(0,0,0)[0]             : AIC=807.740, Time=5.95 sec
- ARIMA(12,0,0)(0,0,0)[0]             : AIC=inf, Time=1.37 sec
- ARIMA(12,0,1)(0,0,0)[0]             : AIC=728.599, Time=1.40 sec
- ARIMA(12,0,2)(0,0,0)[0]             : AIC=724.970, Time=1.55 sec
- ARIMA(12,0,3)(0,0,0)[0]             : AIC=706.285, Time=1.49 sec
- ARIMA(12,0,4)(0,0,0)[0]             : AIC=704.167, Time=1.67 sec
- ARIMA(12,0,5)(0,0,0)[0]             : AIC=703.286, Time=1.64 sec
- ARIMA(12,0,6)(0,0,0)[0]             : AIC=656.790, Time=2.41 sec
- ARIMA(12,0,7)(0,0,0)[0]             : AIC=651.352, Time=4.84 sec
- ARIMA(12,0,8)(0,0,0)[0]             : AIC=647.424, Time=3.92 sec
- ARIMA(12,0,9)(0,0,0)[0]             : AIC=inf, Time=9.86 sec
- ARIMA(12,0,10)(0,0,0)[0]             : AIC=inf, Time=4.47 sec
- ARIMA(12,0,11)(0,0,0)[0]             : AIC=679.301, Time=5.81 sec
- ARIMA(12,0,12)(0,0,0)[0]             : AIC=inf, Time=5.70 sec
-
-Best model:  ARIMA(12,0,8)(0,0,0)[0]          
-Total fit time: 444.393 seconds
-Optimal ARIMA order: (12, 0, 8)
+<pre> ARIMA(0,1,0)(0,0,0)[0] intercept   : AIC=913.330, Time=0.03 sec
+ ARIMA(0,1,1)(0,0,0)[0] intercept   : AIC=914.480, Time=0.06 sec
+ ARIMA(0,1,2)(0,0,0)[0] intercept   : AIC=914.540, Time=0.08 sec
+ ARIMA(0,1,3)(0,0,0)[0] intercept   : AIC=inf, Time=0.62 sec
+ ARIMA(0,1,4)(0,0,0)[0] intercept   : AIC=inf, Time=0.50 sec
+ ARIMA(0,1,5)(0,0,0)[0] intercept   : AIC=inf, Time=0.37 sec
+ ARIMA(0,1,6)(0,0,0)[0] intercept   : AIC=inf, Time=0.63 sec
+ ARIMA(0,1,7)(0,0,0)[0] intercept   : AIC=inf, Time=0.83 sec
+ ARIMA(0,1,8)(0,0,0)[0] intercept   : AIC=inf, Time=0.89 sec
+ ARIMA(0,1,9)(0,0,0)[0] intercept   : AIC=inf, Time=1.03 sec
+ ARIMA(0,1,10)(0,0,0)[0] intercept   : AIC=790.067, Time=1.14 sec
+ ARIMA(0,1,11)(0,0,0)[0] intercept   : AIC=791.484, Time=1.37 sec
+ ARIMA(0,1,12)(0,0,0)[0] intercept   : AIC=767.496, Time=1.77 sec
+ ARIMA(1,1,0)(0,0,0)[0] intercept   : AIC=914.383, Time=0.03 sec
+ ARIMA(1,1,1)(0,0,0)[0] intercept   : AIC=911.145, Time=0.16 sec
+ ARIMA(1,1,2)(0,0,0)[0] intercept   : AIC=inf, Time=0.58 sec
+ ARIMA(1,1,3)(0,0,0)[0] intercept   : AIC=inf, Time=0.45 sec
+ ARIMA(1,1,4)(0,0,0)[0] intercept   : AIC=inf, Time=0.55 sec
+ ARIMA(1,1,5)(0,0,0)[0] intercept   : AIC=inf, Time=0.69 sec
+ ARIMA(1,1,6)(0,0,0)[0] intercept   : AIC=809.432, Time=0.72 sec
+ ARIMA(1,1,7)(0,0,0)[0] intercept   : AIC=794.442, Time=1.70 sec
+ ARIMA(1,1,8)(0,0,0)[0] intercept   : AIC=inf, Time=0.60 sec
+ ARIMA(1,1,9)(0,0,0)[0] intercept   : AIC=792.204, Time=1.54 sec
+ ARIMA(1,1,10)(0,0,0)[0] intercept   : AIC=792.736, Time=1.61 sec
+ ARIMA(1,1,11)(0,0,0)[0] intercept   : AIC=797.779, Time=2.64 sec
+ ARIMA(1,1,12)(0,0,0)[0] intercept   : AIC=771.251, Time=2.39 sec
+ ARIMA(2,1,0)(0,0,0)[0] intercept   : AIC=914.550, Time=0.08 sec
+ ARIMA(2,1,1)(0,0,0)[0] intercept   : AIC=913.915, Time=0.29 sec
+ ARIMA(2,1,2)(0,0,0)[0] intercept   : AIC=915.619, Time=0.35 sec
+ ARIMA(2,1,3)(0,0,0)[0] intercept   : AIC=inf, Time=1.29 sec
+ ARIMA(2,1,4)(0,0,0)[0] intercept   : AIC=inf, Time=2.18 sec
+ ARIMA(2,1,5)(0,0,0)[0] intercept   : AIC=inf, Time=1.22 sec
+ ARIMA(2,1,6)(0,0,0)[0] intercept   : AIC=796.767, Time=0.72 sec
+ ARIMA(2,1,7)(0,0,0)[0] intercept   : AIC=791.479, Time=0.99 sec
+ ARIMA(2,1,8)(0,0,0)[0] intercept   : AIC=inf, Time=1.14 sec
+ ARIMA(2,1,9)(0,0,0)[0] intercept   : AIC=801.402, Time=1.28 sec
+ ARIMA(2,1,10)(0,0,0)[0] intercept   : AIC=inf, Time=1.50 sec
+ ARIMA(2,1,11)(0,0,0)[0] intercept   : AIC=762.627, Time=2.08 sec
+ ARIMA(2,1,12)(0,0,0)[0] intercept   : AIC=inf, Time=3.67 sec
+ ARIMA(3,1,0)(0,0,0)[0] intercept   : AIC=908.391, Time=0.22 sec
+ ARIMA(3,1,1)(0,0,0)[0] intercept   : AIC=inf, Time=1.38 sec
+ ARIMA(3,1,2)(0,0,0)[0] intercept   : AIC=805.415, Time=1.18 sec
+ ARIMA(3,1,3)(0,0,0)[0] intercept   : AIC=inf, Time=1.22 sec
+ ARIMA(3,1,4)(0,0,0)[0] intercept   : AIC=inf, Time=1.13 sec
+ ARIMA(3,1,5)(0,0,0)[0] intercept   : AIC=684.351, Time=1.31 sec
+ ARIMA(3,1,6)(0,0,0)[0] intercept   : AIC=inf, Time=1.37 sec
+ ARIMA(3,1,7)(0,0,0)[0] intercept   : AIC=792.975, Time=1.16 sec
+ ARIMA(3,1,8)(0,0,0)[0] intercept   : AIC=794.679, Time=1.83 sec
+ ARIMA(3,1,9)(0,0,0)[0] intercept   : AIC=748.471, Time=1.96 sec
+ ARIMA(3,1,10)(0,0,0)[0] intercept   : AIC=763.290, Time=2.73 sec
+ ARIMA(3,1,11)(0,0,0)[0] intercept   : AIC=760.981, Time=1.93 sec
+ ARIMA(3,1,12)(0,0,0)[0] intercept   : AIC=679.512, Time=2.35 sec
+ ARIMA(4,1,0)(0,0,0)[0] intercept   : AIC=901.225, Time=0.10 sec
+ ARIMA(4,1,1)(0,0,0)[0] intercept   : AIC=inf, Time=0.48 sec
+ ARIMA(4,1,2)(0,0,0)[0] intercept   : AIC=inf, Time=0.63 sec
+ ARIMA(4,1,3)(0,0,0)[0] intercept   : AIC=inf, Time=0.64 sec
+ ARIMA(4,1,4)(0,0,0)[0] intercept   : AIC=781.377, Time=0.88 sec
+ ARIMA(4,1,5)(0,0,0)[0] intercept   : AIC=inf, Time=1.01 sec
+ ARIMA(4,1,6)(0,0,0)[0] intercept   : AIC=704.823, Time=1.01 sec
+ ARIMA(4,1,7)(0,0,0)[0] intercept   : AIC=inf, Time=1.24 sec
+ ARIMA(4,1,8)(0,0,0)[0] intercept   : AIC=724.929, Time=1.22 sec
+ ARIMA(4,1,9)(0,0,0)[0] intercept   : AIC=inf, Time=1.77 sec
+ ARIMA(4,1,10)(0,0,0)[0] intercept   : AIC=752.403, Time=1.67 sec
+ ARIMA(4,1,11)(0,0,0)[0] intercept   : AIC=750.029, Time=1.96 sec
+ ARIMA(4,1,12)(0,0,0)[0] intercept   : AIC=689.948, Time=2.18 sec
+ ARIMA(5,1,0)(0,0,0)[0] intercept   : AIC=882.132, Time=0.16 sec
+ ARIMA(5,1,1)(0,0,0)[0] intercept   : AIC=inf, Time=0.78 sec
+ ARIMA(5,1,2)(0,0,0)[0] intercept   : AIC=inf, Time=0.77 sec
+ ARIMA(5,1,3)(0,0,0)[0] intercept   : AIC=798.044, Time=0.78 sec
+ ARIMA(5,1,4)(0,0,0)[0] intercept   : AIC=inf, Time=1.20 sec
+ ARIMA(5,1,5)(0,0,0)[0] intercept   : AIC=inf, Time=1.23 sec
+ ARIMA(5,1,6)(0,0,0)[0] intercept   : AIC=715.714, Time=1.02 sec
+ ARIMA(5,1,7)(0,0,0)[0] intercept   : AIC=inf, Time=2.41 sec
+ ARIMA(5,1,8)(0,0,0)[0] intercept   : AIC=inf, Time=2.81 sec
+ ARIMA(5,1,9)(0,0,0)[0] intercept   : AIC=inf, Time=1.76 sec
+ ARIMA(5,1,10)(0,0,0)[0] intercept   : AIC=inf, Time=1.75 sec
+ ARIMA(5,1,11)(0,0,0)[0] intercept   : AIC=684.697, Time=2.47 sec
+ ARIMA(5,1,12)(0,0,0)[0] intercept   : AIC=690.453, Time=2.67 sec
+ ARIMA(6,1,0)(0,0,0)[0] intercept   : AIC=866.307, Time=0.16 sec
+ ARIMA(6,1,1)(0,0,0)[0] intercept   : AIC=782.550, Time=0.74 sec
+ ARIMA(6,1,2)(0,0,0)[0] intercept   : AIC=inf, Time=0.81 sec
+ ARIMA(6,1,3)(0,0,0)[0] intercept   : AIC=790.495, Time=0.86 sec
+ ARIMA(6,1,4)(0,0,0)[0] intercept   : AIC=inf, Time=0.88 sec
+ ARIMA(6,1,5)(0,0,0)[0] intercept   : AIC=683.715, Time=1.22 sec
+ ARIMA(6,1,6)(0,0,0)[0] intercept   : AIC=inf, Time=1.23 sec
+ ARIMA(6,1,7)(0,0,0)[0] intercept   : AIC=inf, Time=1.29 sec
+ ARIMA(6,1,8)(0,0,0)[0] intercept   : AIC=inf, Time=1.43 sec
+ ARIMA(6,1,9)(0,0,0)[0] intercept   : AIC=inf, Time=2.15 sec
+ ARIMA(6,1,10)(0,0,0)[0] intercept   : AIC=inf, Time=2.16 sec
+ ARIMA(6,1,11)(0,0,0)[0] intercept   : AIC=685.835, Time=2.23 sec
+ ARIMA(6,1,12)(0,0,0)[0] intercept   : AIC=inf, Time=2.49 sec
+ ARIMA(7,1,0)(0,0,0)[0] intercept   : AIC=851.615, Time=0.15 sec
+ ARIMA(7,1,1)(0,0,0)[0] intercept   : AIC=777.421, Time=0.47 sec
+ ARIMA(7,1,2)(0,0,0)[0] intercept   : AIC=728.293, Time=1.13 sec
+ ARIMA(7,1,3)(0,0,0)[0] intercept   : AIC=inf, Time=1.16 sec
+ ARIMA(7,1,4)(0,0,0)[0] intercept   : AIC=790.843, Time=1.24 sec
+ ARIMA(7,1,5)(0,0,0)[0] intercept   : AIC=685.926, Time=1.22 sec
+ ARIMA(7,1,6)(0,0,0)[0] intercept   : AIC=inf, Time=1.38 sec
+ ARIMA(7,1,7)(0,0,0)[0] intercept   : AIC=inf, Time=3.62 sec
+ ARIMA(7,1,8)(0,0,0)[0] intercept   : AIC=inf, Time=2.54 sec
+ ARIMA(7,1,9)(0,0,0)[0] intercept   : AIC=inf, Time=3.12 sec
+ ARIMA(7,1,10)(0,0,0)[0] intercept   : AIC=inf, Time=1.94 sec
+ ARIMA(7,1,11)(0,0,0)[0] intercept   : AIC=inf, Time=2.32 sec
+ ARIMA(7,1,12)(0,0,0)[0] intercept   : AIC=inf, Time=2.51 sec
+ ARIMA(8,1,0)(0,0,0)[0] intercept   : AIC=827.102, Time=0.23 sec
+ ARIMA(8,1,1)(0,0,0)[0] intercept   : AIC=760.506, Time=0.49 sec
+ ARIMA(8,1,2)(0,0,0)[0] intercept   : AIC=673.124, Time=1.11 sec
 </pre>
 </div>
 </div>
@@ -21295,7 +21244,7 @@ Root Mean Squared Error: 0.9599649661324449</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set seed to ensure determinism and reproduceability (always retest from here)</span>
@@ -21360,7 +21309,7 @@ Root Mean Squared Error: 0.9599649661324449</p>
 <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 
 <span class="c1"># fit model and save history</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span><span class="n">epochs</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span><span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -21381,181 +21330,220 @@ Root Mean Squared Error: 0.9599649661324449</p>
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>(496, 1)
-Model: &#34;sequential_7&#34;
+Model: &#34;sequential_1&#34;
 _________________________________________________________________
  Layer (type)                Output Shape              Param #   
 =================================================================
- lstm_7 (LSTM)               (None, 100)               40800     
+ lstm_1 (LSTM)               (None, 100)               40800     
                                                                  
- dense_7 (Dense)             (None, 1)                 101       
+ dense_1 (Dense)             (None, 1)                 101       
                                                                  
 =================================================================
 Total params: 40,901
 Trainable params: 40,901
 Non-trainable params: 0
 _________________________________________________________________
-Epoch 1/250
-468/468 [==============================] - 10s 19ms/step - loss: 0.0375
-Epoch 2/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0207
-Epoch 3/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0170
-Epoch 4/250
-468/468 [==============================] - 6s 14ms/step - loss: 0.0159
-Epoch 5/250
-468/468 [==============================] - 6s 13ms/step - loss: 0.0157
-Epoch 6/250
-468/468 [==============================] - 6s 14ms/step - loss: 0.0153
-Epoch 7/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0152
-Epoch 8/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0154
-Epoch 9/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0150
-Epoch 10/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0153
-Epoch 11/250
-468/468 [==============================] - 10s 21ms/step - loss: 0.0150
-Epoch 12/250
-468/468 [==============================] - 8s 18ms/step - loss: 0.0149
-Epoch 13/250
-468/468 [==============================] - 8s 18ms/step - loss: 0.0148
-Epoch 14/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0147
-Epoch 15/250
-468/468 [==============================] - 8s 18ms/step - loss: 0.0145
-Epoch 16/250
-468/468 [==============================] - 11s 24ms/step - loss: 0.0152
-Epoch 17/250
-468/468 [==============================] - 13s 28ms/step - loss: 0.0142
-Epoch 18/250
-468/468 [==============================] - 21s 45ms/step - loss: 0.0144
-Epoch 19/250
-468/468 [==============================] - 31s 67ms/step - loss: 0.0140
-Epoch 20/250
-468/468 [==============================] - 12s 25ms/step - loss: 0.0143
-Epoch 21/250
-468/468 [==============================] - 10s 22ms/step - loss: 0.0140
-Epoch 22/250
-468/468 [==============================] - 11s 23ms/step - loss: 0.0139
-Epoch 23/250
-468/468 [==============================] - 12s 25ms/step - loss: 0.0144
-Epoch 24/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0142
-Epoch 25/250
-468/468 [==============================] - 11s 23ms/step - loss: 0.0141
-Epoch 26/250
-468/468 [==============================] - 11s 24ms/step - loss: 0.0141
-Epoch 27/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0135
-Epoch 28/250
-468/468 [==============================] - 11s 24ms/step - loss: 0.0137
-Epoch 29/250
-468/468 [==============================] - 11s 24ms/step - loss: 0.0138
-Epoch 30/250
-468/468 [==============================] - 11s 24ms/step - loss: 0.0135
-Epoch 31/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0135
-Epoch 32/250
-468/468 [==============================] - 13s 27ms/step - loss: 0.0134
-Epoch 33/250
-468/468 [==============================] - 10s 22ms/step - loss: 0.0133
-Epoch 34/250
-468/468 [==============================] - 9s 20ms/step - loss: 0.0132
-Epoch 35/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0122
-Epoch 36/250
-468/468 [==============================] - 8s 18ms/step - loss: 0.0130
-Epoch 37/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0130
-Epoch 38/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0129
-Epoch 39/250
-468/468 [==============================] - 8s 18ms/step - loss: 0.0125
-Epoch 40/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0126
-Epoch 41/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0127
-Epoch 42/250
-468/468 [==============================] - 9s 18ms/step - loss: 0.0124
-Epoch 43/250
-468/468 [==============================] - 8s 18ms/step - loss: 0.0126
-Epoch 44/250
-468/468 [==============================] - 8s 16ms/step - loss: 0.0124
-Epoch 45/250
-468/468 [==============================] - 7s 16ms/step - loss: 0.0121
-Epoch 46/250
-468/468 [==============================] - 8s 16ms/step - loss: 0.0120
-Epoch 47/250
-468/468 [==============================] - 8s 16ms/step - loss: 0.0127
-Epoch 48/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0120
-Epoch 49/250
-468/468 [==============================] - 13s 28ms/step - loss: 0.0125
-Epoch 50/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0120
-Epoch 51/250
-468/468 [==============================] - 9s 20ms/step - loss: 0.0121
-Epoch 52/250
-468/468 [==============================] - 8s 18ms/step - loss: 0.0120
-Epoch 53/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0121
-Epoch 54/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0116
-Epoch 55/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0118
-Epoch 56/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0115
-Epoch 57/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0114
-Epoch 58/250
-468/468 [==============================] - 7s 15ms/step - loss: 0.0110
-Epoch 59/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0114
-Epoch 60/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0113
-Epoch 61/250
-468/468 [==============================] - 7s 14ms/step - loss: 0.0109
-Epoch 62/250
-468/468 [==============================] - 7s 14ms/step - loss: 0.0110
-Epoch 63/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0113
-Epoch 64/250
-468/468 [==============================] - 8s 18ms/step - loss: 0.0108
-Epoch 65/250
-468/468 [==============================] - 6s 14ms/step - loss: 0.0107
-Epoch 66/250
-468/468 [==============================] - 10s 22ms/step - loss: 0.0109
-Epoch 67/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0104
-Epoch 68/250
-468/468 [==============================] - 10s 21ms/step - loss: 0.0103
-Epoch 69/250
-468/468 [==============================] - 7s 16ms/step - loss: 0.0105
-Epoch 70/250
-468/468 [==============================] - 13s 28ms/step - loss: 0.0100
-Epoch 71/250
-468/468 [==============================] - 9s 18ms/step - loss: 0.0103
-Epoch 72/250
-468/468 [==============================] - 10s 21ms/step - loss: 0.0102
-Epoch 73/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0101
-Epoch 74/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0101
-Epoch 75/250
-468/468 [==============================] - 13s 28ms/step - loss: 0.0105
-Epoch 76/250
-468/468 [==============================] - 9s 19ms/step - loss: 0.0098
-Epoch 77/250
-468/468 [==============================] - 9s 18ms/step - loss: 0.0105
-Epoch 78/250
-468/468 [==============================] - 8s 17ms/step - loss: 0.0099
-Epoch 79/250
-468/468 [==============================] - 10s 22ms/step - loss: 0.0098
-Epoch 80/250
-468/468 [==============================] - 12s 26ms/step - loss: 0.0097
-Epoch 81/250
-144/468 [========&gt;.....................] - ETA: 10s - loss: 0.0093</pre>
+Epoch 1/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0375
+Epoch 2/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0207
+Epoch 3/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0170
+Epoch 4/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0159
+Epoch 5/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0157
+Epoch 6/100
+468/468 [==============================] - 3s 7ms/step - loss: 0.0153
+Epoch 7/100
+468/468 [==============================] - 4s 8ms/step - loss: 0.0152
+Epoch 8/100
+468/468 [==============================] - 3s 7ms/step - loss: 0.0154
+Epoch 9/100
+468/468 [==============================] - 3s 7ms/step - loss: 0.0150
+Epoch 10/100
+468/468 [==============================] - 4s 8ms/step - loss: 0.0153
+Epoch 11/100
+468/468 [==============================] - 4s 8ms/step - loss: 0.0150
+Epoch 12/100
+468/468 [==============================] - 4s 9ms/step - loss: 0.0149
+Epoch 13/100
+468/468 [==============================] - 4s 9ms/step - loss: 0.0148
+Epoch 14/100
+468/468 [==============================] - 4s 9ms/step - loss: 0.0147
+Epoch 15/100
+468/468 [==============================] - 4s 9ms/step - loss: 0.0145
+Epoch 16/100
+468/468 [==============================] - 4s 8ms/step - loss: 0.0152
+Epoch 17/100
+468/468 [==============================] - 4s 8ms/step - loss: 0.0142
+Epoch 18/100
+468/468 [==============================] - 4s 9ms/step - loss: 0.0144
+Epoch 19/100
+468/468 [==============================] - 2s 4ms/step - loss: 0.0140
+Epoch 20/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0143
+Epoch 21/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0140
+Epoch 22/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0139
+Epoch 23/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0144
+Epoch 24/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0142
+Epoch 25/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0141
+Epoch 26/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0141
+Epoch 27/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0135
+Epoch 28/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0137
+Epoch 29/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0138
+Epoch 30/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0135
+Epoch 31/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0135
+Epoch 32/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0134
+Epoch 33/100
+468/468 [==============================] - 2s 4ms/step - loss: 0.0133
+Epoch 34/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0132
+Epoch 35/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0122
+Epoch 36/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0130
+Epoch 37/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0130
+Epoch 38/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0129
+Epoch 39/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0125
+Epoch 40/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0126
+Epoch 41/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0127
+Epoch 42/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0124
+Epoch 43/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0126
+Epoch 44/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0124
+Epoch 45/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0121
+Epoch 46/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0120
+Epoch 47/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0127
+Epoch 48/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0120
+Epoch 49/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0125
+Epoch 50/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0120
+Epoch 51/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0121
+Epoch 52/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0120
+Epoch 53/100
+468/468 [==============================] - 2s 4ms/step - loss: 0.0121
+Epoch 54/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0116
+Epoch 55/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0118
+Epoch 56/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0115
+Epoch 57/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0114
+Epoch 58/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0110
+Epoch 59/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0114
+Epoch 60/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0113
+Epoch 61/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0109
+Epoch 62/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0110
+Epoch 63/100
+468/468 [==============================] - 2s 4ms/step - loss: 0.0113
+Epoch 64/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0108
+Epoch 65/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0107
+Epoch 66/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0109
+Epoch 67/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0104
+Epoch 68/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0103
+Epoch 69/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0105
+Epoch 70/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0100
+Epoch 71/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0103
+Epoch 72/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0102
+Epoch 73/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0101
+Epoch 74/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0101
+Epoch 75/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0105
+Epoch 76/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0098
+Epoch 77/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0105
+Epoch 78/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0099
+Epoch 79/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0098
+Epoch 80/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0097
+Epoch 81/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0093
+Epoch 82/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0092
+Epoch 83/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0096
+Epoch 84/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0091
+Epoch 85/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0092
+Epoch 86/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0093
+Epoch 87/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0096
+Epoch 88/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0088
+Epoch 89/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0092
+Epoch 90/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0090
+Epoch 91/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0093
+Epoch 92/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0091
+Epoch 93/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0086
+Epoch 94/100
+468/468 [==============================] - 1s 3ms/step - loss: 0.0086
+Epoch 95/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0083
+Epoch 96/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0085
+Epoch 97/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0082
+Epoch 98/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0083
+Epoch 99/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0078
+Epoch 100/100
+468/468 [==============================] - 2s 3ms/step - loss: 0.0085
+</pre>
 </div>
 </div>
 
@@ -21568,7 +21556,7 @@ Epoch 81/250
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[129]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get loss history</span>
@@ -21612,8 +21600,8 @@ Epoch 81/250
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Minimum training loss: 0.00021389158791862428
-Epoch with minimum training loss: 386
+<pre>Minimum training loss: 0.007844651117920876
+Epoch with minimum training loss: 99
 </pre>
 </div>
 </div>
@@ -21628,7 +21616,7 @@ Epoch with minimum training loss: 386
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_129.html"
+    src="iframe_figures/figure_47.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -21646,7 +21634,7 @@ Epoch with minimum training loss: 386
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[130]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions_norm</span> <span class="o">=</span> <span class="p">[]</span>
@@ -21710,18 +21698,18 @@ Epoch with minimum training loss: 386
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>1/1 [==============================] - 0s 306ms/step
-1/1 [==============================] - 0s 25ms/step
-1/1 [==============================] - 0s 22ms/step
-1/1 [==============================] - 0s 23ms/step
-1/1 [==============================] - 0s 23ms/step
-1/1 [==============================] - 0s 23ms/step
-1/1 [==============================] - 0s 23ms/step
-1/1 [==============================] - 0s 22ms/step
+<pre>1/1 [==============================] - 0s 234ms/step
 1/1 [==============================] - 0s 21ms/step
 1/1 [==============================] - 0s 20ms/step
-1/1 [==============================] - 0s 24ms/step
-1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 19ms/step
+1/1 [==============================] - 0s 20ms/step
+1/1 [==============================] - 0s 20ms/step
+1/1 [==============================] - 0s 19ms/step
+1/1 [==============================] - 0s 19ms/step
+1/1 [==============================] - 0s 19ms/step
+1/1 [==============================] - 0s 19ms/step
+1/1 [==============================] - 0s 20ms/step
+1/1 [==============================] - 0s 18ms/step
 </pre>
 </div>
 </div>
@@ -21736,7 +21724,7 @@ Epoch with minimum training loss: 386
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_130.html"
+    src="iframe_figures/figure_48.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -21754,7 +21742,7 @@ Epoch with minimum training loss: 386
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[132]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print(test_data_no_norm.index)</span>
@@ -21793,7 +21781,7 @@ Epoch with minimum training loss: 386
     scrolling="no"
     width="100%"
     height="545px"
-    src="iframe_figures/figure_132.html"
+    src="iframe_figures/figure_49.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -21807,8 +21795,8 @@ Epoch with minimum training loss: 386
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Mean Absolute Percent Error: 0.0218
-Root Mean Squared Error: 0.7336972947564352
+<pre>Mean Absolute Percent Error: 0.0145
+Root Mean Squared Error: 0.463736843202713
 </pre>
 </div>
 </div>
