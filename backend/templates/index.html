@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singapore Weather Prediction</title>
+    <!-- Add your CSS stylesheets here -->
+    <link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-left">
+        <span class="navbar-brand">Singapore Weather Prediction</span>
+    </div>
+    <div class="navbar-right">
+        <ul class="nav-tabs">
+            <li class="nav-item"><a href="#">Predict</a></li>
+            <li class="nav-item"><a href="#">Model Development</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="body">
+    <div class="input-section">
+        <label for="input-field">Input:</label>
+        <input type="number" id="input-field" min="1" required>
+        <select id="dropdown">
+            <option value="months">Months</option>
+            <option value="years">Years</option>
+        </select>
+        <button id="predict-button">Predict</button>
+    </div>
+    <div class="loading-section">
+        <img id="loading-image" src="{{ url_for('static', filename='loading.gif') }}" alt="Loading...">
+    </div>
+    <div id="graph-section">
+        <!-- The graph will be rendered here -->
+    </div>
+</div>
+
+<!-- Add your JavaScript scripts here -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
