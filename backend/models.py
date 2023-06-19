@@ -131,7 +131,7 @@ class LSTMModel:
         self.loss = None
 
         self.train()
-        self.predict()
+        # self.predict()
 
     def train(self):
         df_monthly_mean_temp = self.series_monthly_mean_temp.to_frame()  # convert Series to DataFrame
@@ -141,26 +141,6 @@ class LSTMModel:
         # create a new DataFrame with the normalized values
         df_normalised_monthly_mean_temp = pd.DataFrame(df_normalised_monthly_mean_temp, columns=['normalised'],
                                                        index=df_monthly_mean_temp.index)
-        mean_normalised_monthly_mean_temp = df_normalised_monthly_mean_temp['normalised'].mean()
-
-        # plot the normalized data
-        fig_normalised_monthly_mean_temp = px.line(df_normalised_monthly_mean_temp,
-                                                   labels={df_normalised_monthly_mean_temp.index.name: 'Datetime',
-                                                           'value': 'Normalised'}, title='Normalised Mean Temperature')
-        fig_normalised_monthly_mean_temp.update_xaxes(dtick='M12', tickangle=45)
-        fig_normalised_monthly_mean_temp.update_yaxes(dtick=0.2, tickangle=45)
-        fig_normalised_monthly_mean_temp.update_traces(hovertemplate='Datetime: %{x}<br>Normalised Value: %{y}')
-
-        # add the mean line
-        fig_normalised_monthly_mean_temp.add_shape(
-            type="line",
-            x0=df_normalised_monthly_mean_temp.index[0],
-            y0=mean_normalised_monthly_mean_temp,
-            x1=df_normalised_monthly_mean_temp.index[-1],
-            y1=mean_normalised_monthly_mean_temp,
-            line=dict(color="red", dash="dot"),
-        )
-        # fig_normalised_monthly_mean_temp.show()
 
         self.train_data = df_monthly_mean_temp[:self.train_end]
         self.test_data = df_monthly_mean_temp[self.train_end + timedelta(days=1):self.test_end]
@@ -174,13 +154,13 @@ class LSTMModel:
         history = self.model.fit(generator, epochs=300)
         self.loss = history.history['loss']
 
-    def predict(self):
+    def predict(self, num_months):
         predictions_norm = []
 
         first_eval_batch = self.train_data_norm[-self.n_input:]
         current_batch = first_eval_batch.reshape((1, self.n_input, self.n_features))
 
-        for i in range(len(self.test_data)):
+        for i in range(num_months):
 
             # get the prediction value for the first batch
             current_pred = self.model.predict(current_batch)[0]
