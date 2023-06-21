@@ -1,8 +1,24 @@
-from flask import request, jsonify
-from models import model
-from app import app
+from flask import Blueprint
+from flask import jsonify
+from flask import render_template
+from flask import request
 
-@app.route('/predict', methods=['POST'])
+from models import model
+
+routes = Blueprint('routes', __name__)
+
+
+@routes.route('/')
+def home():
+    return render_template('index.html')
+
+
+@routes.route('/model')
+def model_page():
+    return render_template('Singapore Weather Prediction.html')
+
+
+@routes.route('/predict', methods=['POST'])
 def predict():
     # Get the input data from the request
     input_data = request.form['input_field']

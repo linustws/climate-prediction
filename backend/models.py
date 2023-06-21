@@ -1,35 +1,25 @@
 # setup
-import matplotlib.pyplot as plt
+import os
+from datetime import datetime
+from datetime import timedelta
+from time import sleep
+
 import numpy as np
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import plotly.io as pio
 import plotly.offline as pyo
 import requests
 import tensorflow as tf
-import os
-import schedule
-
-from datetime import datetime, timedelta
 from keras.layers import Dense
 from keras.layers import Dropout
 from keras.layers import LSTM
 from keras.models import Sequential
 from keras.preprocessing.sequence import TimeseriesGenerator
-from pmdarima import auto_arima
-from sklearn import preprocessing
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from schedule import every
+from schedule import repeat
+from schedule import run_pending
 from sklearn.preprocessing import MinMaxScaler
-from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-from statsmodels.tsa.arima.model import ARIMA
-from statsmodels.tsa.seasonal import seasonal_decompose
-from statsmodels.tsa.stattools import adfuller
-from statsmodels.tsa.statespace.sarimax import SARIMAX
-from statsmodels.tsa.statespace.varmax import VARMAX
-from schedule import every, repeat, run_pending, idle_seconds
-from time import time
-from time import sleep
 
 px.defaults.template = 'plotly'  # plotly, plotly_dark
 pyo.init_notebook_mode(connected=True)
@@ -161,7 +151,6 @@ class LSTMModel:
         current_batch = first_eval_batch.reshape((1, self.n_input, self.n_features))
 
         for i in range(num_months):
-
             # get the prediction value for the first batch
             current_pred = self.model.predict(current_batch)[0]
 
@@ -169,37 +158,39 @@ class LSTMModel:
             predictions_norm.append(current_pred)
 
             # use the prediction to update the batch and remove the first value
-            current_batch = np.append(current_batch[:,1:,:],[[current_pred]],axis=1)
+            current_batch = np.append(current_batch[:, 1:, :], [[current_pred]], axis=1)
 
         predictions = self.scaler.inverse_transform(predictions_norm)
 
         residuals = self.test_data - predictions
 
         # plot_data = pd.DataFrame({'datetime': self.test_data.index, 'test_data': self.test_data.values.flatten(),
-        #                           'predictions': predictions.flatten()})
-        # fig_pred_test = px.line(plot_data, x='datetime', y=['test_data', 'predictions'], labels={'datetime': 'Datetime', 'value': 'Mean Temperature (°C)'}, title='Test Data and Predictions')
-        # fig_pred_test.update_xaxes(dtick='M1', tickangle=45)
-        # fig_pred_test.update_yaxes(dtick=0.5, tickangle=45)
-        # fig_pred_test.update_traces(hovertemplate='Datetime: %{x}<br>Mean Temperature: %{y}°C')
+        # 'predictions': predictions.flatten()}) fig_pred_test = px.line(plot_data, x='datetime', y=['test_data',
+        # 'predictions'], labels={'datetime': 'Datetime', 'value': 'Mean Temperature (°C)'}, title='Test Data and
+        # Predictions') fig_pred_test.update_xaxes(dtick='M1', tickangle=45) fig_pred_test.update_yaxes(dtick=0.5,
+        # tickangle=45) fig_pred_test.update_traces(hovertemplate='Datetime: %{x}<br>Mean Temperature: %{y}°C')
         # fig_pred_test.show()
 
-        print(f"Mean Absolute Percent Error: {round(np.mean(abs(residuals/self.test_data), axis=0).item(), 4)}")
-        print(f"Root Mean Squared Error: {np.sqrt(np.mean(residuals**2, axis=0)).item()}")
+        print(f"Mean Absolute Percent Error: {round(np.mean(abs(residuals / self.test_data), axis=0).item(), 4)}")
+        print(f"Root Mean Squared Error: {np.sqrt(np.mean(residuals ** 2, axis=0)).item()}")
 
 
-model = LSTMModel()
+model = None
 
 
-# schedule the job to run every sunday
-@repeat(every().sunday)
-def job():
-    # update model and retrain data
-    print("Updating model and retraining...")
+def setup():
     global model
     model = LSTMModel()
 
+    # schedule the job to run every sunday
+    @repeat(every().sunday)
+    def job():
+        # update model and retrain data
+        print("Updating model and retraining...")
+        global model
+        model = LSTMModel()
 
-while True:
-    # print(idle_seconds())
-    run_pending()
-    sleep(1)
+    while True:
+        # print(idle_seconds())
+        run_pending()
+        sleep(1)
