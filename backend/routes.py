@@ -15,7 +15,7 @@ def home():
 
 @routes.route('/model')
 def model_page():
-    return render_template('Singapore Weather Prediction.html')
+    return render_template('../frontend/src/lib/model/Singapore Weather Prediction.html')
 
 
 @routes.route('/predict', methods=['POST'])

@@ -1,11 +1,17 @@
-<h1 class="text-3xl font-bold underline">
-    Welcome to SvelteKit
-</h1>
+<div class="body">
+
+</div>
 
 <style lang="postcss">
-    :global(html) {
-        background-color: #F3F4F6; /* Use the hex code for gray-100 */
+    .body {
+        background-image: url("$lib/images/background.png");
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 300;
     }
 </style>
-
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
