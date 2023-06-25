@@ -9129,15 +9129,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box 
+/* This file is a compatability layer.  It allows the usage of flexible box
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this 
+`Modern browsers` comments below).  Browsers that are known to implement this
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+ 
+    Internet Explorer 11+
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -12519,7 +12519,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for 
+  /* This injects handle bars (a short, wide = symbol) for
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -13548,7 +13548,7 @@ datetime
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_4.html"
+    src="src/lib/model/model_iframe_figures/figure_4.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -13606,7 +13606,7 @@ datetime
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_5.html"
+    src="src/lib/model/model_iframe_figures/figure_5.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -13657,7 +13657,7 @@ datetime
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_11_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_11_0.png"
 >
 </div>
 
@@ -13699,7 +13699,7 @@ datetime
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_13_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_13_0.png"
 >
 </div>
 
@@ -13791,7 +13791,7 @@ p-value: 0.0002
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split 70:30 (28, 12)</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
@@ -13825,15 +13825,15 @@ p-value: 0.0002
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Model Fitting Time: 0.32241296768188477
-                               SARIMAX Results                                
+                               SARIMAX Results
 ==============================================================================
 Dep. Variable:              mean_temp   No. Observations:                  348
 Model:                ARIMA(12, 0, 0)   Log Likelihood                -236.362
 Date:                Thu, 15 Jun 2023   AIC                            500.724
 Time:                        02:19:43   BIC                            554.655
 Sample:                    01-31-1982   HQIC                           522.195
-                         - 12-31-2010                                         
-Covariance Type:                  opg                                         
+                         - 12-31-2010
+Covariance Type:                  opg
 ==============================================================================
                  coef    std err          z      P&gt;|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -13929,7 +13929,7 @@ Warnings:
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_10.html"
+    src="src/lib/model/model_iframe_figures/figure_10.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -13986,7 +13986,7 @@ Warnings:
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_11.html"
+    src="src/lib/model/model_iframe_figures/figure_11.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14107,7 +14107,7 @@ Root Mean Squared Error: 0.7288853463855004</p>
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_12.html"
+    src="src/lib/model/model_iframe_figures/figure_12.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14164,7 +14164,7 @@ Root Mean Squared Error: 0.7288853463855004</p>
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_13.html"
+    src="src/lib/model/model_iframe_figures/figure_13.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14235,7 +14235,7 @@ Root Mean Squared Error: 0.4852945337116935</p>
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_32_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_32_0.png"
 >
 </div>
 
@@ -14259,7 +14259,7 @@ Root Mean Squared Error: 0.4852945337116935</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split 70:30 (28, 12)</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
@@ -14293,15 +14293,15 @@ Root Mean Squared Error: 0.4852945337116935</p>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Model Fitting Time: 0.036110877990722656
-                               SARIMAX Results                                
+                               SARIMAX Results
 ==============================================================================
 Dep. Variable:              mean_temp   No. Observations:                  348
 Model:                 ARIMA(0, 0, 2)   Log Likelihood                -298.502
 Date:                Thu, 15 Jun 2023   AIC                            605.004
 Time:                        02:20:45   BIC                            620.413
 Sample:                    01-31-1982   HQIC                           611.139
-                         - 12-31-2010                                         
-Covariance Type:                  opg                                         
+                         - 12-31-2010
+Covariance Type:                  opg
 ==============================================================================
                  coef    std err          z      P&gt;|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -14393,7 +14393,7 @@ The coefficients 0.73 and 0.40 represent the weights assigned to the lagged pred
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_16.html"
+    src="src/lib/model/model_iframe_figures/figure_16.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14450,7 +14450,7 @@ The coefficients 0.73 and 0.40 represent the weights assigned to the lagged pred
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_17.html"
+    src="src/lib/model/model_iframe_figures/figure_17.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14541,7 +14541,7 @@ Root Mean Squared Error: 0.813192975445521
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_4.html"
+    src="src/lib/model/model_iframe_figures/figure_4.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14562,7 +14562,7 @@ Root Mean Squared Error: 0.813192975445521
 1982-04-30   -0.2
 1982-05-31    1.0
 1982-06-30    0.4
-             ... 
+             ...
 2022-12-31   -0.6
 2023-01-31   -0.3
 2023-02-28    0.4
@@ -14584,7 +14584,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_18.html"
+    src="src/lib/model/model_iframe_figures/figure_18.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14629,7 +14629,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_43_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_43_0.png"
 >
 </div>
 
@@ -14671,7 +14671,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_45_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_45_0.png"
 >
 </div>
 
@@ -14703,7 +14703,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="n">train_data</span> <span class="o">=</span> <span class="n">first_diff</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
@@ -14737,15 +14737,15 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Model Fitting Time: 1.7389419078826904
-                               SARIMAX Results                                
+                               SARIMAX Results
 ==============================================================================
 Dep. Variable:              mean_temp   No. Observations:                  479
 Model:                ARIMA(9, 0, 12)   Log Likelihood                -287.025
 Date:                Thu, 15 Jun 2023   AIC                            620.050
 Time:                        02:20:47   BIC                            715.999
 Sample:                    02-28-1982   HQIC                           657.768
-                         - 12-31-2021                                         
-Covariance Type:                  opg                                         
+                         - 12-31-2021
+Covariance Type:                  opg
 ==============================================================================
                  coef    std err          z      P&gt;|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -14856,7 +14856,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_22.html"
+    src="src/lib/model/model_iframe_figures/figure_22.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14905,7 +14905,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_23.html"
+    src="src/lib/model/model_iframe_figures/figure_23.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -14999,7 +14999,7 @@ Root Mean Squared Error: 0.5841389478876554
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_24.html"
+    src="src/lib/model/model_iframe_figures/figure_24.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15036,7 +15036,7 @@ Root Mean Squared Error: 0.5841389478876554
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_55_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_55_0.png"
 >
 </div>
 
@@ -15070,7 +15070,7 @@ Root Mean Squared Error: 0.5841389478876554
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_56_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_56_0.png"
 >
 </div>
 
@@ -15086,7 +15086,7 @@ Root Mean Squared Error: 0.5841389478876554
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
@@ -15120,15 +15120,15 @@ Root Mean Squared Error: 0.5841389478876554
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Model Fitting Time: 2.0054309368133545
-                               SARIMAX Results                                
+                               SARIMAX Results
 ==============================================================================
 Dep. Variable:              mean_temp   No. Observations:                  480
 Model:                ARIMA(9, 1, 12)   Log Likelihood                -285.269
 Date:                Thu, 15 Jun 2023   AIC                            614.538
 Time:                        02:20:50   BIC                            706.316
 Sample:                    01-31-1982   HQIC                           650.617
-                         - 12-31-2021                                         
-Covariance Type:                  opg                                         
+                         - 12-31-2021
+Covariance Type:                  opg
 ==============================================================================
                  coef    std err          z      P&gt;|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
@@ -15238,7 +15238,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_28.html"
+    src="src/lib/model/model_iframe_figures/figure_28.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15287,7 +15287,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_29.html"
+    src="src/lib/model/model_iframe_figures/figure_29.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15465,7 +15465,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_30.html"
+    src="src/lib/model/model_iframe_figures/figure_30.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15514,7 +15514,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_31.html"
+    src="src/lib/model/model_iframe_figures/figure_31.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15603,7 +15603,7 @@ Root Mean Squared Error: 0.4101693694305862
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_32.html"
+    src="src/lib/model/model_iframe_figures/figure_32.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15671,7 +15671,7 @@ Root Mean Squared Error: 0.4101693694305862
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_33.html"
+    src="src/lib/model/model_iframe_figures/figure_33.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15730,7 +15730,7 @@ Root Mean Squared Error: 0.4101693694305862
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_70_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_70_0.png"
 >
 </div>
 
@@ -15766,7 +15766,7 @@ Root Mean Squared Error: 0.4101693694305862
 
 
 <div class="output_png output_subarea ">
-<img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_71_0.png"
+<img src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_71_0.png"
 >
 </div>
 
@@ -15921,7 +15921,7 @@ Warnings:
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_37.html"
+    src="src/lib/model/model_iframe_figures/figure_37.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -15970,7 +15970,7 @@ Warnings:
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_38.html"
+    src="src/lib/model/model_iframe_figures/figure_38.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16075,7 +16075,7 @@ Root Mean Squared Error: 0.5200608882024743
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_39.html"
+    src="src/lib/model/model_iframe_figures/figure_39.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16124,7 +16124,7 @@ Root Mean Squared Error: 0.5200608882024743
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_40.html"
+    src="src/lib/model/model_iframe_figures/figure_40.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16554,7 +16554,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_43.html"
+    src="src/lib/model/model_iframe_figures/figure_43.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16603,7 +16603,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_44.html"
+    src="src/lib/model/model_iframe_figures/figure_44.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16803,7 +16803,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_45.html"
+    src="src/lib/model/model_iframe_figures/figure_45.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -16852,7 +16852,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_46.html"
+    src="src/lib/model/model_iframe_figures/figure_46.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17743,7 +17743,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_49.html"
+    src="src/lib/model/model_iframe_figures/figure_49.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17792,7 +17792,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_50.html"
+    src="src/lib/model/model_iframe_figures/figure_50.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -17969,7 +17969,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_51.html"
+    src="src/lib/model/model_iframe_figures/figure_51.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -18026,7 +18026,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_52.html"
+    src="src/lib/model/model_iframe_figures/figure_52.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -18094,7 +18094,7 @@ Root Mean Squared Error: 0.40789190822712473
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_53.html"
+    src="src/lib/model/model_iframe_figures/figure_53.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -18141,7 +18141,7 @@ Root Mean Squared Error: 0.40789190822712473
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_54.html"
+    src="src/lib/model/model_iframe_figures/figure_54.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -18184,7 +18184,7 @@ Root Mean Squared Error: 0.40789190822712473
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_55.html"
+    src="src/lib/model/model_iframe_figures/figure_55.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -18227,7 +18227,7 @@ Root Mean Squared Error: 0.40789190822712473
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_56.html"
+    src="src/lib/model/model_iframe_figures/figure_56.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -18270,7 +18270,7 @@ Root Mean Squared Error: 0.40789190822712473
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_57.html"
+    src="src/lib/model/model_iframe_figures/figure_57.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -18362,7 +18362,7 @@ Root Mean Squared Error: 0.40789190822712473
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_58.html"
+    src="src/lib/model/model_iframe_figures/figure_58.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -18832,7 +18832,7 @@ Epoch with minimum validation loss: 96
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_64.html"
+    src="src/lib/model/model_iframe_figures/figure_64.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -19292,7 +19292,7 @@ datetime
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_70.html"
+    src="src/lib/model/model_iframe_figures/figure_70.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -19343,7 +19343,7 @@ datetime
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_71.html"
+    src="src/lib/model/model_iframe_figures/figure_71.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -20198,7 +20198,7 @@ Epoch with minimum training loss: 298
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_73.html"
+    src="src/lib/model/model_iframe_figures/figure_73.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -20301,7 +20301,7 @@ Epoch with minimum training loss: 298
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_74.html"
+    src="src/lib/model/model_iframe_figures/figure_74.html"
     frameborder="0"
     allowfullscreen
 ></iframe>
@@ -20352,7 +20352,7 @@ Epoch with minimum training loss: 298
     scrolling="no"
     width="100%"
     height="545px"
-    src="model_iframe_figures/figure_75.html"
+    src="src/lib/model/model_iframe_figures/figure_75.html"
     frameborder="0"
     allowfullscreen
 ></iframe>

@@ -1,5 +1,5 @@
-<script>
-    export let data;
-</script>
+<!--<script>-->
+<!--    export let data;-->
+<!--</script>-->
 
-<div>{@html data.htmlContent}</div>
+<!--<div>{@html data.htmlContent}</div>-->
