@@ -3,10 +3,10 @@
     import Navbar from "$lib/Navbar.svelte";
 </script>
 
-<main class="container">
-<Navbar/>
+<main>
+    <Navbar/>
 
-<slot/>
+    <slot/>
 </main>
 
 <style lang="postcss">
@@ -14,9 +14,7 @@
         margin: 0;
         height: 100%;
         overflow: auto;
-    }
-    .container {
-        overflow: hidden;
+        //overflow: hidden;
         background-image: url("$lib/images/background.png");
         background-size: cover;
         background-position: center;
@@ -26,5 +24,7 @@
         align-items: center;
         font-size: 1.5rem;
         font-weight: 300;
+        position: fixed;
+        width: 100%;
     }
 </style>
