@@ -14,7 +14,6 @@
         margin: 0;
         height: 100%;
         overflow: auto;
-        //overflow: hidden;
         background-image: url("$lib/images/background.png");
         background-size: cover;
         background-position: center;

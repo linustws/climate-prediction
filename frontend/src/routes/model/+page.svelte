@@ -9,14 +9,9 @@
 </main>
 
 <style lang="postcss">
-    main {
-        margin: 0;
-        height: 100%;
-        overflow: auto;
-    }
     .scroll {
         //overflow: hidden;
-        min-height: 100vh;
+        min-height: 95vh;
         display: flex;
         flex-direction: column;
         align-items: center;
