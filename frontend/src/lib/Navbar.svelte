@@ -1,13 +1,107 @@
-<nav class="flex items-center justify-between px-10">
-    <h2 class="title">Singapore Weather Prediction</h2>
-    <ul>
-        <li class="list-none inline-block p-3"><a href="/">Predict</a></li>
-        <li class="list-none inline-block p-3"><a href="/model">Model</a></li>
-    </ul>
-    <button type="button"></button>
-</nav>
+<script src="https://kit.fontawesome.com/4d4be74bf7.js" crossorigin="anonymous"></script>
+
+<header>
+    <div class="title">
+        Singapore Weather Prediction
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/"><i class="fa fa-chart-line"></i>Predict</a></li>
+            <li><a href="/model"><i class="fas fa-cubes"></i>Model</a></li>
+        </ul>
+    </nav>
+    <div class="github"><a href="https://github.com/linustws/singapore-weather-prediction"><i class="fab fa-github"></i></a></div>
+</header>
 
 <style lang="postcss">
+    header {
+        display: grid;
+        gap: 0.5rem;
+        //padding: 0.5rem;
+        width: 100%;
+        min-width: 750px;
+        background: var(--background-color);
+        box-shadow: 3px 3px 8px 0px var(--background-color);
+        --color: #008aff;
+        grid-template-columns: max-content auto min-content;
+        grid-template-areas: "title nav github";
+    }
 
+    header > * {
+        align-self: center;
+    }
 
+    .title{
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        color: var(--foreground-color);
+        overflow: hidden;
+    }
+
+    header nav > ul {
+        justify-content: end;
+    }
+
+    header a {
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        color: var(--foreground-color);
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        --slantness: 4rem;
+    }
+
+    header a::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: calc( (100% + var(--slantness)) * -1);
+        top: 0%;
+        bottom: 0%;
+        width: calc(100% + var(--slantness));
+        clip-path: polygon(0% 0%, 100% 0%, calc(100% - var(--slantness)) 100%, 0% 100%);
+        background: var(--color);
+        opacity: 0;
+        transition: all var(--transition);
+    }
+
+    header a:hover > i {
+        color: var(--background-color);
+    }
+
+    header a:hover::after {
+        left: 0%;
+        opacity: 1;
+    }
+
+    .github {
+        grid-area: github;
+        place-self: end;
+        color: var(--color);
+        font-size: 27.5px;
+        transition: all var(--transition);
+    }
+
+    nav > ul {
+        grid-area: nav;
+        place-self: center;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        gap: 0.5rem;
+        list-style: none;
+    }
+
+    nav a > i {
+        margin-right: 0.5em;
+        color: var(--color);
+        font-size: 0.7em;
+        transition: all var(--transition);
+    }
 </style>
