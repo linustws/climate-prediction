@@ -1,4 +1,7 @@
-<script src="https://kit.fontawesome.com/4d4be74bf7.js" crossorigin="anonymous"></script>
+<script>
+    import { ChartLineSolid, CubesSolid, GithubBrand } from 'svelte-awesome-icons';
+</script>
+
 
 <header>
     <div class="title">
@@ -6,11 +9,11 @@
     </div>
     <nav class="navbar">
         <ul>
-            <li><a href="/"><i class="fa fa-chart-line"></i>Predict</a></li>
-            <li><a href="/model"><i class="fas fa-cubes"></i>Model</a></li>
+            <li><a href="/"><ChartLineSolid />Predict</a></li>
+            <li><a href="/model"><CubesSolid />Model</a></li>
         </ul>
     </nav>
-    <div class="github"><a href="https://github.com/linustws/singapore-weather-prediction"><i class="fab fa-github"></i></a></div>
+    <div class="github"><a href="https://github.com/linustws/singapore-weather-prediction"><GithubBrand /></a></div>
 </header>
 
 <style lang="postcss">
@@ -82,7 +85,7 @@
 
     .github {
         grid-area: github;
-        place-self: end;
+        //place-self: end;
         color: var(--color);
         font-size: 27.5px;
         transition: all var(--transition);
