@@ -18,6 +18,7 @@
 
 <style lang="postcss">
     header {
+        position: fixed;
         display: grid;
         gap: 0.5rem;
         //padding: 0.5rem;
