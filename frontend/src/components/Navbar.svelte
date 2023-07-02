@@ -9,11 +9,11 @@
     </div>
     <nav class="navbar">
         <ul>
-            <li><a href="/"><ChartLineSolid />Predict</a></li>
-            <li><a href="/model"><CubesSolid />Model</a></li>
+            <li><a href="/"><i><ChartLineSolid /></i>Predict</a></li>
+            <li><a href="/model"><i><CubesSolid /></i>Model</a></li>
         </ul>
     </nav>
-    <div class="github"><a href="https://github.com/linustws/singapore-weather-prediction"><GithubBrand /></a></div>
+    <div class="github"><a href="https://github.com/linustws/singapore-weather-prediction"><i><GithubBrand /></i></a></div>
 </header>
 
 <style lang="postcss">
@@ -25,7 +25,7 @@
         width: 100%;
         min-width: 750px;
         background: var(--background-color);
-        box-shadow: 3px 3px 8px 0px var(--background-color);
+        box-shadow: 3px 3px 8px 0 var(--background-color);
         --color: #008aff;
         grid-template-columns: max-content auto min-content;
         grid-template-areas: "title nav github";
@@ -90,6 +90,20 @@
         color: var(--color);
         font-size: 27.5px;
         transition: all var(--transition);
+    }
+
+    .github a {
+        display: flex;
+        align-items: center;
+        padding: 6px 1rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        color: var(--foreground-color);
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        --slantness: 4rem;
+        margin-right: 1rem;
     }
 
     nav > ul {
