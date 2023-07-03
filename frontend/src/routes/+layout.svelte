@@ -6,7 +6,7 @@
 <main>
     <Navbar/>
 
-    <slot/>
+    <div class="slot"><slot/></div>
 </main>
 
 <style lang="postcss">
@@ -23,6 +23,8 @@
         font-weight: 300;
         position: fixed;
         overflow: auto;
-
+    }
+    .slot {
+        margin-top: 3.5rem;
     }
 </style>
