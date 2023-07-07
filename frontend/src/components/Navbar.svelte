@@ -9,11 +9,11 @@
     </div>
     <nav class="navbar">
         <ul>
-            <li><a href="/"><i><ChartLineSolid/></i>Predict</a></li>
-            <li><a href="/model"><i><CubesSolid/></i>Model</a></li>
+            <li><a href="/"><i><ChartLineSolid class="outline-none"/></i>Predict</a></li>
+            <li><a href="/model"><i><CubesSolid class="outline-none"/></i>Model</a></li>
         </ul>
     </nav>
-    <div class="github"><a href="https://github.com/linustws/singapore-weather-prediction"><i><GithubBrand/></i></a></div>
+    <div class="github"><a href="https://github.com/linustws/singapore-weather-prediction"><i><GithubBrand class="outline-none"/></i></a></div>
 </header>
 
 <style lang="postcss">
@@ -21,7 +21,6 @@
         position: fixed;
         display: grid;
         gap: 0.5rem;
-        //padding: 0.5rem;
         width: 100%;
         min-width: 750px;
         background: var(--background-color);
@@ -86,7 +85,6 @@
 
     .github {
         grid-area: github;
-        //place-self: end;
         color: var(--color);
         font-size: 27.5px;
         transition: all var(--transition);
