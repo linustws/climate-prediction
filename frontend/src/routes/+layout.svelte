@@ -21,6 +21,22 @@
         position: fixed;
         overflow: auto;
     }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 10px 10px transparent;
+        border: solid 3px transparent;
+        margin-top: 3.5rem;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        box-shadow: inset 0 0 10px 10px rgba(43, 43, 43, 0.75);
+        border-radius: 1rem;
+        border: solid 3px transparent;
+    }
     .slot {
         margin-top: 3.5rem;
     }
