@@ -5,7 +5,7 @@
 <!--<div>{@html data.htmlContent}</div>-->
 
 
-<main class="scroll">
+<main>
     Drink water out of the faucet sleep in the bathroom sink lay on arms while you're using the keyboard. Attack like a
     vicious monster sleep in the bathroom sink. Fooled again thinking the dog likes me love you, then bite you. Munch on
     tasty moths scratch me there, elevator butt purrrrrr so fall over dead (not really but gets sypathy). Murr i hate
@@ -274,13 +274,5 @@
 </main>
 
 <style lang="postcss">
-    .scroll {
-    //overflow: hidden; min-height: 95vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 1.5rem;
-        font-weight: 300;
-    //position: fixed; width: 100%;
-    }
+
 </style>
