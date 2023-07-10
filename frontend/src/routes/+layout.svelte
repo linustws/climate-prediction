@@ -1,6 +1,6 @@
 <script>
     import "../app.css";
-    import Navbar from "../components/Navbar.svelte";
+    import Navbar from "$lib/components/Navbar.svelte";
 </script>
 
 <main>
@@ -37,6 +37,12 @@
         border-radius: 1rem;
         border: solid 3px transparent;
     }
+
+    ::-webkit-scrollbar-thumb:hover {
+        box-shadow: inset 0 0 10px 10px rgba(43, 43, 43, 0.5);
+    }
+
+
     .slot {
         margin-top: 3.5rem;
     }
