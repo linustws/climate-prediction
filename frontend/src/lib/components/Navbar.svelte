@@ -28,6 +28,7 @@
         --color: #008aff;
         grid-template-columns: max-content auto min-content;
         grid-template-areas: "title nav github";
+        z-index: 2;
     }
 
     header > * {
