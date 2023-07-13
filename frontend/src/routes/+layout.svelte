@@ -29,13 +29,14 @@
     ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 10px 10px transparent;
         border: solid 3px transparent;
-        margin-top: 3.5rem;
+        margin-top: 52px;
     }
 
     ::-webkit-scrollbar-thumb {
         box-shadow: inset 0 0 10px 10px rgba(43, 43, 43, 0.75);
         border-radius: 1rem;
         border: solid 3px transparent;
+        height: 100px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
@@ -44,6 +45,6 @@
 
 
     .slot {
-        margin-top: 3.5rem;
+        margin-top: 52px;
     }
 </style>
