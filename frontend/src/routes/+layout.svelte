@@ -22,6 +22,7 @@
         overflow: auto;
     }
 
+    /*
     ::-webkit-scrollbar {
         width: 10px;
     }
@@ -42,6 +43,7 @@
     ::-webkit-scrollbar-thumb:hover {
         box-shadow: inset 0 0 10px 10px rgba(43, 43, 43, 0.5);
     }
+     */
 
 
     .slot {

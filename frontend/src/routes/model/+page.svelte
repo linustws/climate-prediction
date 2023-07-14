@@ -452,7 +452,7 @@ datetime
 <span class="c1"># fig_monthly_total_rainfall = px.line(monthly_total_rainfall, labels=&#123series_monthly_total_rainfall.index.name: 'Datetime', 'value': 'Total Rainfall (mm)'},title='Monthly Total Rainfall')</span>
 <span class="c1"># fig_monthly_total_rainfall.update_xaxes(dtick='M12', tickangle=45)</span>
 <span class="c1"># fig_monthly_total_rainfall.update_yaxes(dtick=100, tickangle=45)</span>
-<span class="c1"># fig_monthly_total_rainfall.update_traces(hovertemplate='Datetime: %{x}&lt;br&gt;Total Rainfall: %{y}mm')</span>
+<span class="c1"># fig_monthly_total_rainfall.update_traces(hovertemplate='Datetime: %&#123x}&lt;br&gt;Total Rainfall: %&#123y}mm')</span>
 
 <span class="c1"># # add the mean line</span>
 <span class="c1"># mean_total_rainfall = np.mean(series_monthly_total_rainfall)</span>
@@ -482,7 +482,7 @@ datetime
 <span class="c1">#                        title='Combined Normalized Data')</span>
 <span class="c1"># fig_combined.update_xaxes(dtick='M12', tickangle=45)</span>
 <span class="c1"># fig_combined.update_yaxes(dtick=1, tickangle=45)</span>
-<span class="c1"># fig_combined.update_traces(hovertemplate='Datetime: %{x}&lt;br&gt;Total Rainfall: %{y}mm')</span>
+<span class="c1"># fig_combined.update_traces(hovertemplate='Datetime: %&#123x}&lt;br&gt;Total Rainfall: %&#123y}mm')</span>
 
 <span class="c1"># # Show the combined graph</span>
 <span class="c1"># fig_combined.show()</span>
@@ -503,7 +503,7 @@ datetime
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_4.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_4.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -554,7 +554,7 @@ datetime
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_5.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_5.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -602,7 +602,7 @@ datetime
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_11_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_11_0.png">
                         </div>
 
                     </div>
@@ -643,7 +643,7 @@ datetime
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_13_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_13_0.png">
                         </div>
 
                     </div>
@@ -868,7 +868,7 @@ Warnings:
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_10.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_10.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -918,7 +918,7 @@ Warnings:
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_11.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_11.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1032,7 +1032,7 @@ Root Mean Squared Error: 0.7288853463855004
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_12.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_12.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1082,7 +1082,7 @@ Root Mean Squared Error: 0.7288853463855004
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_13.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_13.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1150,7 +1150,7 @@ Root Mean Squared Error: 0.4852945337116935
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_32_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_32_0.png">
                         </div>
 
                     </div>
@@ -1303,7 +1303,7 @@ Warnings:
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_16.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_16.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1353,7 +1353,7 @@ Warnings:
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_17.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_17.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1437,7 +1437,7 @@ Root Mean Squared Error: 0.813192975445521
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_4.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_4.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1473,7 +1473,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_18.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_18.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1515,7 +1515,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_43_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_43_0.png">
                         </div>
 
                     </div>
@@ -1556,7 +1556,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_45_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_45_0.png">
                         </div>
 
                     </div>
@@ -1736,7 +1736,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_22.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_22.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1778,7 +1778,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_23.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_23.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1865,7 +1865,7 @@ Root Mean Squared Error: 0.5841389478876554
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_24.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_24.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1899,7 +1899,7 @@ Root Mean Squared Error: 0.5841389478876554
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_55_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_55_0.png">
                         </div>
 
                     </div>
@@ -1932,7 +1932,7 @@ Root Mean Squared Error: 0.5841389478876554
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_56_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_56_0.png">
                         </div>
 
                     </div>
@@ -2095,7 +2095,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_28.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_28.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2137,7 +2137,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_29.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_29.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2308,7 +2308,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_30.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_30.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2350,7 +2350,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_31.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_31.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2432,7 +2432,7 @@ Root Mean Squared Error: 0.4101693694305862
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_32.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_32.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2493,7 +2493,7 @@ Root Mean Squared Error: 0.4101693694305862
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_33.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_33.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2549,7 +2549,7 @@ Root Mean Squared Error: 0.4101693694305862
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_70_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_70_0.png">
                         </div>
 
                     </div>
@@ -2584,7 +2584,7 @@ Root Mean Squared Error: 0.4101693694305862
 
 
                         <div class="output_png output_subarea ">
-                            <img src="model_matplotlib_figures/Singapore%20Weather%20Prediction_71_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_71_0.png">
                         </div>
 
                     </div>
@@ -2734,7 +2734,7 @@ Warnings:
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_37.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_37.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2776,7 +2776,7 @@ Warnings:
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_38.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_38.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2874,7 +2874,7 @@ Root Mean Squared Error: 0.5200608882024743
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_39.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_39.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2916,7 +2916,7 @@ Root Mean Squared Error: 0.5200608882024743
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_40.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_40.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -3339,7 +3339,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_43.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_43.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -3381,7 +3381,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_44.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_44.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -3574,7 +3574,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_45.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_45.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -3616,7 +3616,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_46.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_46.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4500,7 +4500,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_49.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_49.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4542,7 +4542,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_50.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_50.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4712,7 +4712,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_51.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_51.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4762,7 +4762,7 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_52.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_52.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4823,7 +4823,7 @@ Root Mean Squared Error: 0.40789190822712473
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_53.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_53.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4863,7 +4863,7 @@ Root Mean Squared Error: 0.40789190822712473
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_54.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_54.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4899,7 +4899,7 @@ Root Mean Squared Error: 0.40789190822712473
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_55.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_55.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4935,7 +4935,7 @@ Root Mean Squared Error: 0.40789190822712473
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_56.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_56.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4971,7 +4971,7 @@ Root Mean Squared Error: 0.40789190822712473
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_57.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_57.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -5056,7 +5056,7 @@ Root Mean Squared Error: 0.40789190822712473
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_58.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_58.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -5470,8 +5470,8 @@ Epoch 100/100
 <span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">'loss'</span><span class="p">]</span>
 <span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">'val_loss'</span><span class="p">]</span>
 
-<span class="c1"># print(f"training loss: {loss}")</span>
-<span class="c1"># print(f"validation loss: {val_loss}")</span>
+<span class="c1"># print(f"training loss: &#123loss}")</span>
+<span class="c1"># print(f"validation loss: &#123val_loss}")</span>
 
 <span class="c1"># Find the epoch with the minimum validation loss</span>
 <span class="n">min_val_loss_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -5519,7 +5519,7 @@ Epoch with minimum validation loss: 96
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_64.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_64.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -5972,7 +5972,7 @@ datetime
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_70.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_70.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -6016,7 +6016,7 @@ datetime
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_71.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_71.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -6816,7 +6816,7 @@ Epoch 300/300
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get loss history</span>
 <span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">'loss'</span><span class="p">]</span>
 
-<span class="c1"># print(f"training loss: {loss}")</span>
+<span class="c1"># print(f"training loss: &#123loss}")</span>
 
 <span class="c1"># Find the epoch with the minimum loss </span>
 <span class="n">min_loss_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -6864,7 +6864,7 @@ Epoch with minimum training loss: 298
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_73.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_73.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -6960,7 +6960,7 @@ Epoch with minimum training loss: 298
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_74.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_74.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
@@ -7004,7 +7004,7 @@ Epoch with minimum training loss: 298
 
 
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" src="model_iframe_figures/figure_75.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_75.html" frameborder="0" allowfullscreen=""></iframe>
 
                         </div>
 
