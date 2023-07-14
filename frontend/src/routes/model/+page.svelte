@@ -60,12 +60,16 @@
 <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container" style="margin-left: 308px; width: 1096px;">
 
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h1 id="Singapore-Weather-Prediction" data-toc-modified-id="Singapore-Weather-Prediction-1"><a class="toc-mod-link" id="Singapore-Weather-Prediction-1"></a><span class="toc-item-num">1&nbsp;&nbsp;</span>Singapore Weather Prediction<a class="anchor-link" href="#Singapore-Weather-Prediction">¶</a></h1>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h1 id="Singapore-Weather-Prediction" data-toc-modified-id="Singapore-Weather-Prediction-1"><a
+                            class="toc-mod-link" id="Singapore-Weather-Prediction-1"></a><span class="toc-item-num">1&nbsp;&nbsp;</span>Singapore
+                        Weather Prediction<a class="anchor-link" href="#Singapore-Weather-Prediction">¶</a></h1>
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -73,45 +77,70 @@
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># setup</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span
+                                    class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span
+                                    class="nn">px</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
 <span class="kn">import</span> <span class="nn">plotly.io</span> <span class="k">as</span> <span class="nn">pio</span>
-<span class="kn">import</span> <span class="nn">plotly.offline</span> <span class="k">as</span> <span class="nn">pyo</span>
+<span class="kn">import</span> <span class="nn">plotly.offline</span> <span class="k">as</span> <span
+                                    class="nn">pyo</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
-<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dropout</span>
-<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">LSTM</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span
+                                    class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span
+                                    class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span
+                                    class="n">Dropout</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span
+                                    class="n">LSTM</span>
 <span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
-<span class="kn">from</span> <span class="nn">keras.preprocessing.sequence</span> <span class="kn">import</span> <span class="n">TimeseriesGenerator</span>
-<span class="kn">from</span> <span class="nn">pmdarima</span> <span class="kn">import</span> <span class="n">auto_arima</span>
+<span class="kn">from</span> <span class="nn">keras.preprocessing.sequence</span> <span class="kn">import</span> <span
+                                    class="n">TimeseriesGenerator</span>
+<span class="kn">from</span> <span class="nn">pmdarima</span> <span class="kn">import</span> <span
+                                    class="n">auto_arima</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
-<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
-<span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
-<span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">seasonal_decompose</span>
-<span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
-<span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.sarimax</span> <span class="kn">import</span> <span class="n">SARIMAX</span>
-<span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.varmax</span> <span class="kn">import</span> <span class="n">VARMAX</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span
+                                    class="p">,</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span
+                                    class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span
+                                    class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span
+                                    class="n">ARIMA</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span
+                                    class="n">seasonal_decompose</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span
+                                    class="n">adfuller</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.sarimax</span> <span
+                                    class="kn">import</span> <span class="n">SARIMAX</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.varmax</span> <span
+                                    class="kn">import</span> <span class="n">VARMAX</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
 
-<span class="n">px</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="s1">'plotly'</span> <span class="c1"># plotly, plotly_dark</span>
-<span class="n">pyo</span><span class="o">.</span><span class="n">init_notebook_mode</span><span class="p">(</span><span class="n">connected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">"iframe"</span> <span class="c1"># must trust notebook for it to work, use iframe for lab</span>
+<span class="n">px</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">template</span> <span
+                                    class="o">=</span> <span class="s1">'plotly'</span> <span class="c1"># plotly, plotly_dark</span>
+<span class="n">pyo</span><span class="o">.</span><span class="n">init_notebook_mode</span><span class="p">(</span><span
+                                    class="n">connected</span><span class="o">=</span><span class="kc">True</span><span
+                                    class="p">)</span>
+<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span
+                                    class="n">default</span> <span class="o">=</span> <span
+                                    class="s2">"iframe"</span> <span class="c1"># must trust notebook for it to work, use iframe for lab</span>
 
 <span class="c1"># Set the seed for numpy module</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span
+                                    class="p">(</span><span class="mi">123</span><span class="p">)</span>
 
 <span class="c1"># Set the seed for tensorflow module</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-</pre></div>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span
+                                    class="p">(</span><span class="mi">123</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -126,11 +155,12 @@
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
                             <script type="text/javascript">
                                 window.PlotlyConfig = {MathJaxConfig: 'local'};
-                                if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+                                if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {
+                                    window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});
+                                }
                                 if (typeof require !== 'undefined') {
                                     require.undef("plotly");
                                     requirejs.config({
@@ -138,7 +168,7 @@
                                             'plotly': ['https://cdn.plot.ly/plotly-2.20.0.min']
                                         }
                                     });
-                                    require(['plotly'], function(Plotly) {
+                                    require(['plotly'], function (Plotly) {
                                         window._Plotly = Plotly;
                                     });
                                 }
@@ -152,117 +182,152 @@
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h3 id="Data-Acquisition" data-toc-modified-id="Data-Acquisition-1.0.1"><a class="toc-mod-link" id="Data-Acquisition-1.0.1"></a><span class="toc-item-num">1.0.1&nbsp;&nbsp;</span>Data Acquisition<a class="anchor-link" href="#Data-Acquisition">¶</a></h3><p>Data source: <a href="https://data.gov.sg/">data.gov.sg</a> - National Environment Agency</p>
-                <p>Data format: CKAN APIs</p>
-                <ul>
-                    <li>access to static tabular data such as time series or listings</li>
-                    <li>alternative to the data.gov.sg web interface</li>
-                    <li>provides both RESTful and functional interfaces, all in JSON format, making it suitable for a wide range of clients.</li>
-                </ul>
-                <p>API used: CKAN Datastore Search</p>
-                <ul>
-                    <li>GET URL with endpoint: <a href="https://data.gov.sg/api/action/datastore_search">https://data.gov.sg/api/action/datastore_search</a></li>
-                </ul>
-                <table>
-                    <thead><tr>
-                        <th style="text-align:left">Name</th>
-                        <th style="text-align:left">Description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td style="text-align:left"><strong>resource_id *</strong></td>
-                        <td style="text-align:left">ID or alias of the resource to be searched against</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">limit</td>
-                        <td style="text-align:left">Maximum number of rows to return (optional, default: 100)<br><em>Default value</em>: 100</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">offset</td>
-                        <td style="text-align:left">Offset this number of rows (optional)</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">fields</td>
-                        <td style="text-align:left">Fields to return (optional, default: all fields in original order)</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">filters</td>
-                        <td style="text-align:left">Dictionary of matching conditions, e.g., &#123"key1": "a", "key2": "b"} (optional)</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">q</td>
-                        <td style="text-align:left">Full text query. If it’s a string, it’ll search on all fields on each row.<br>If it’s a dictionary as &#123"key1": "a", "key2": "b"}, it’ll search on each specific field (optional)</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">sort</td>
-                        <td style="text-align:left">Comma-separated field names with ordering, e.g.: "fieldname1, fieldname2 desc" (optional)</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">records_format</td>
-                        <td style="text-align:left">The format for the records return value:<br>'objects' (default) list of &#123fieldname1: value1, ...} dicts,<br>'lists' list of [value1, value2, ...] lists,<br>'csv' string containing comma-separated values with no header,<br>'tsv' string containing tab-separated values with no header<br><em>Available values</em>: objects, lists, csv<br><em>Default value</em>: objects</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <p><em>Note: wanted to predict on different variables at first but decided to narrow my scope to just <strong>temperature</strong>.</em></p>
-                <table>
-                    <thead><tr>
-                        <th style="text-align:left">Variable</th>
-                        <th style="text-align:left">Columns (renamed)</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td style="text-align:left">Surface Air Temperature - Monthly Mean (°C)</td>
-                        <td style="text-align:left">month, mean_temp</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">Surface Air Temperature - Monthly Absolute Extreme Maximum (°C)</td>
-                        <td style="text-align:left">month, max_temp</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">Surface Air Temperature - Monthly Absolute Extreme Minimum (°C)</td>
-                        <td style="text-align:left">month, min_temp</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">Rainfall - Monthly Total (mm)</td>
-                        <td style="text-align:left">month, total_rainfall</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">Rainfall - Monthly Maximum Daily Total  (mm)</td>
-                        <td style="text-align:left">month, max_rainfall_daily</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">Rainfall - Monthly Number of Rain Days (d)</td>
-                        <td style="text-align:left">month, num_rainy_days</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">Relative Humidity - Monthly Mean (%)</td>
-                        <td style="text-align:left">month, mean_rh</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">Relative Humidity - Monthly Absolute Extreme Minimum (%)</td>
-                        <td style="text-align:left">month, min_rh</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:left">Sunshine Duration - Monthly Mean Daily Duration (h)</td>
-                        <td style="text-align:left">month, mean_sunshine_hrs_daily</td>
-                    </tr>
-                    </tbody>
-                </table>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h3 id="Data-Acquisition" data-toc-modified-id="Data-Acquisition-1.0.1"><a class="toc-mod-link"
+                                                                                               id="Data-Acquisition-1.0.1"></a><span
+                            class="toc-item-num">1.0.1&nbsp;&nbsp;</span>Data Acquisition<a class="anchor-link"
+                                                                                            href="#Data-Acquisition">¶</a>
+                    </h3>
+                    <p>Data source: <a href="https://data.gov.sg/">data.gov.sg</a> - National Environment Agency</p>
+                    <p>Data format: CKAN APIs</p>
+                    <ul>
+                        <li>access to static tabular data such as time series or listings</li>
+                        <li>alternative to the data.gov.sg web interface</li>
+                        <li>provides both RESTful and functional interfaces, all in JSON format, making it suitable for
+                            a wide range of clients.
+                        </li>
+                    </ul>
+                    <p>API used: CKAN Datastore Search</p>
+                    <ul>
+                        <li>GET URL with endpoint: <a href="https://data.gov.sg/api/action/datastore_search">https://data.gov.sg/api/action/datastore_search</a>
+                        </li>
+                    </ul>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th style="text-align:left">Name</th>
+                            <th style="text-align:left">Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align:left"><strong>resource_id *</strong></td>
+                            <td style="text-align:left">ID or alias of the resource to be searched against</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">limit</td>
+                            <td style="text-align:left">Maximum number of rows to return (optional, default:
+                                100)<br><em>Default value</em>: 100
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">offset</td>
+                            <td style="text-align:left">Offset this number of rows (optional)</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">fields</td>
+                            <td style="text-align:left">Fields to return (optional, default: all fields in original
+                                order)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">filters</td>
+                            <td style="text-align:left">Dictionary of matching conditions, e.g., &#123"key1": "a",
+                                "key2": "b"} (optional)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">q</td>
+                            <td style="text-align:left">Full text query. If it’s a string, it’ll search on all fields on
+                                each row.<br>If it’s a dictionary as &#123"key1": "a", "key2": "b"}, it’ll search on
+                                each specific field (optional)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">sort</td>
+                            <td style="text-align:left">Comma-separated field names with ordering, e.g.: "fieldname1,
+                                fieldname2 desc" (optional)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">records_format</td>
+                            <td style="text-align:left">The format for the records return value:<br>'objects' (default)
+                                list of &#123fieldname1: value1, ...} dicts,<br>'lists' list of [value1, value2, ...]
+                                lists,<br>'csv' string containing comma-separated values with no header,<br>'tsv' string
+                                containing tab-separated values with no header<br><em>Available values</em>: objects,
+                                lists, csv<br><em>Default value</em>: objects
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p><em>Note: wanted to predict on different variables at first but decided to narrow my scope to
+                        just <strong>temperature</strong>.</em></p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th style="text-align:left">Variable</th>
+                            <th style="text-align:left">Columns (renamed)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align:left">Surface Air Temperature - Monthly Mean (°C)</td>
+                            <td style="text-align:left">month, mean_temp</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Surface Air Temperature - Monthly Absolute Extreme Maximum
+                                (°C)
+                            </td>
+                            <td style="text-align:left">month, max_temp</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Surface Air Temperature - Monthly Absolute Extreme Minimum
+                                (°C)
+                            </td>
+                            <td style="text-align:left">month, min_temp</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Rainfall - Monthly Total (mm)</td>
+                            <td style="text-align:left">month, total_rainfall</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Rainfall - Monthly Maximum Daily Total (mm)</td>
+                            <td style="text-align:left">month, max_rainfall_daily</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Rainfall - Monthly Number of Rain Days (d)</td>
+                            <td style="text-align:left">month, num_rainy_days</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Relative Humidity - Monthly Mean (%)</td>
+                            <td style="text-align:left">month, mean_rh</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Relative Humidity - Monthly Absolute Extreme Minimum (%)</td>
+                            <td style="text-align:left">month, min_rh</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">Sunshine Duration - Monthly Mean Daily Duration (h)</td>
+                            <td style="text-align:left">month, mean_sunshine_hrs_daily</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[2]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">api_endpoint</span> <span class="o">=</span> <span class="s2">"https://data.gov.sg/api/action/datastore_search"</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">api_endpoint</span> <span
+                                class="o">=</span> <span
+                                class="s2">"https://data.gov.sg/api/action/datastore_search"</span>
 
 <span class="c1"># resource ids</span>
 <span class="n">surface_air_temp_monthly_mean_resource_id</span> <span class="o">=</span> <span class="s2">"07654ce7-f97f-49c9-81c6-bd41beba4e96"</span>
@@ -275,7 +340,9 @@
 <span class="c1"># relative_humidity_monthly_abs_extreme_min_resource_id = "585c24a5-76cd-4c48-9341-9223de5adc1d"</span>
 <span class="c1"># sunshine_duration_monthly_mean_daily_resource_id = "0230819f-1c83-4980-b738-56136d6dc300"</span>
 
-<span class="n">resource_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">surface_air_temp_monthly_mean_resource_id</span><span class="p">,</span> <span class="n">rainfall_monthly_total_resource_id</span><span class="p">]</span>
+<span class="n">resource_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">surface_air_temp_monthly_mean_resource_id</span><span
+                                    class="p">,</span> <span class="n">rainfall_monthly_total_resource_id</span><span
+                                    class="p">]</span>
 
 <span class="c1"># resource_ids = [surface_air_temp_monthly_mean_resource_id,</span>
 <span class="c1"># surface_air_temp_monthly_abs_extreme_max_resource_id,</span>
@@ -289,21 +356,42 @@
 
 <span class="c1"># call APIs</span>
 <span class="n">merged_df</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="k">for</span> <span class="n">resource_id</span> <span class="ow">in</span> <span class="n">resource_ids</span><span class="p">:</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="n">api_endpoint</span> <span class="o">+</span> <span class="s2">"?resource_id="</span> <span class="o">+</span> <span class="n">resource_id</span> <span class="o">+</span> <span class="s2">"&amp;limit=1000"</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">'result'</span><span class="p">][</span><span class="s1">'records'</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'month'</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">'_id'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">merged_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">resource_id</span> <span class="ow">in</span> <span
+                                    class="n">resource_ids</span><span class="p">:</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">api_endpoint</span> <span
+                                    class="o">+</span> <span class="s2">"?resource_id="</span> <span class="o">+</span> <span
+                                    class="n">resource_id</span> <span class="o">+</span> <span class="s2">"&amp;limit=1000"</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span
+                                    class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span
+                                    class="p">)</span><span class="o">.</span><span class="n">json</span><span
+                                    class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span
+                                    class="s1">'result'</span><span class="p">][</span><span class="s1">'records'</span><span
+                                    class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                    class="p">(</span><span class="n">data</span><span class="p">)</span><span
+                                    class="o">.</span><span class="n">set_index</span><span class="p">(</span><span
+                                    class="s1">'month'</span><span class="p">)</span><span class="o">.</span><span
+                                    class="n">drop</span><span class="p">(</span><span class="s1">'_id'</span><span
+                                    class="p">,</span> <span class="n">axis</span><span class="o">=</span><span
+                                    class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">merged_df</span> <span class="ow">is</span> <span
+                                    class="kc">None</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"Acquiring data..."</span><span class="p">)</span>
         <span class="n">merged_df</span> <span class="o">=</span> <span class="n">df</span>
         <span class="k">continue</span>
-    <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'month'</span><span class="p">)</span>
+    <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span
+                                    class="n">merge</span><span class="p">(</span><span class="n">merged_df</span><span
+                                    class="p">,</span> <span class="n">df</span><span class="p">,</span> <span
+                                    class="n">on</span><span class="o">=</span><span class="s1">'month'</span><span
+                                    class="p">)</span>
 
 <span class="c1"># data until April 2023 when this was executed</span>
-<span class="n">merged_df</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[:</span><span class="mi">496</span><span class="p">]</span>
+<span class="n">merged_df</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[:</span><span
+                                    class="mi">496</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">merged_df</span><span class="p">)</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -343,13 +431,21 @@ month
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h3 id="Data-Preprocessing" data-toc-modified-id="Data-Preprocessing-1.0.2"><a class="toc-mod-link" id="Data-Preprocessing-1.0.2"></a><span class="toc-item-num">1.0.2&nbsp;&nbsp;</span>Data Preprocessing<a class="anchor-link" href="#Data-Preprocessing">¶</a></h3><p>Rename columns, convert data types, handle missing values, data cleaning, ensuring data is in suitable format for modeling.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h3 id="Data-Preprocessing" data-toc-modified-id="Data-Preprocessing-1.0.2"><a class="toc-mod-link"
+                                                                                                   id="Data-Preprocessing-1.0.2"></a><span
+                            class="toc-item-num">1.0.2&nbsp;&nbsp;</span>Data Preprocessing<a class="anchor-link"
+                                                                                              href="#Data-Preprocessing">¶</a>
+                    </h3>
+                    <p>Rename columns, convert data types, handle missing values, data cleaning, ensuring data is in
+                        suitable format for modeling.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -357,20 +453,41 @@ month
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># rename columns</span>
-<span class="n">new_names</span> <span class="o">=</span> <span class="p">&#123</span><span class="s1">'max_temperature'</span><span class="p">:</span> <span class="s1">'max_temp'</span><span class="p">,</span> <span class="s1">'temp_extremes_min'</span><span class="p">:</span> <span class="s1">'min_temp'</span><span class="p">,</span> <span class="s1">'maximum_rainfall_in_a_day'</span><span class="p">:</span> <span class="s1">'max_rainfall_daily'</span><span class="p">,</span> <span class="s1">'no_of_rainy_days'</span><span class="p">:</span> <span class="s1">'num_rainy_days'</span><span class="p">,</span> <span class="s1">'rh_extremes_minimum'</span><span class="p">:</span> <span class="s1">'min_rh'</span><span class="p">,</span> <span class="s1">'mean_sunshine_hrs'</span><span class="p">:</span> <span class="s1">'mean_sunshine_hrs_daily'</span><span class="p">}</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">new_names</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">'datetime'</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">new_names</span> <span class="o">=</span> <span class="p">&#123</span><span
+                                    class="s1">'max_temperature'</span><span class="p">:</span> <span class="s1">'max_temp'</span><span
+                                    class="p">,</span> <span class="s1">'temp_extremes_min'</span><span
+                                    class="p">:</span> <span class="s1">'min_temp'</span><span class="p">,</span> <span
+                                    class="s1">'maximum_rainfall_in_a_day'</span><span class="p">:</span> <span
+                                    class="s1">'max_rainfall_daily'</span><span class="p">,</span> <span class="s1">'no_of_rainy_days'</span><span
+                                    class="p">:</span> <span class="s1">'num_rainy_days'</span><span class="p">,</span> <span
+                                    class="s1">'rh_extremes_minimum'</span><span class="p">:</span> <span class="s1">'min_rh'</span><span
+                                    class="p">,</span> <span class="s1">'mean_sunshine_hrs'</span><span
+                                    class="p">:</span> <span class="s1">'mean_sunshine_hrs_daily'</span><span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span
+                                    class="n">rename</span><span class="p">(</span><span class="n">columns</span><span
+                                    class="o">=</span><span class="n">new_names</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename_axis</span><span
+                                    class="p">(</span><span class="s1">'datetime'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span
+                                    class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span
+                                    class="n">df</span><span class="o">.</span><span class="n">index</span><span
+                                    class="p">)</span>
 <span class="c1"># df['year'] = df.index.year.astype('int64')</span>
 <span class="c1"># df['month'] = df.index.month.astype('int64')</span>
-<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'raise'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span
+                                    class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span
+                                    class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span
+                                    class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column</span><span
+                                    class="p">],</span> <span class="n">errors</span><span class="o">=</span><span
+                                    class="s1">'raise'</span><span class="p">)</span>
 <span class="c1"># start_datetime = pd.to_datetime('2010-01-01')</span>
 <span class="c1"># df = df[start_datetime:]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 <span class="c1"># df.head()</span>
 <span class="c1"># print(df.dtypes)</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -409,36 +526,77 @@ datetime
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h3 id="Data-Visualisation" data-toc-modified-id="Data-Visualisation-1.0.3"><a class="toc-mod-link" id="Data-Visualisation-1.0.3"></a><span class="toc-item-num">1.0.3&nbsp;&nbsp;</span>Data Visualisation<a class="anchor-link" href="#Data-Visualisation">¶</a></h3>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h3 id="Data-Visualisation" data-toc-modified-id="Data-Visualisation-1.0.3"><a class="toc-mod-link"
+                                                                                                   id="Data-Visualisation-1.0.3"></a><span
+                            class="toc-item-num">1.0.3&nbsp;&nbsp;</span>Data Visualisation<a class="anchor-link"
+                                                                                              href="#Data-Visualisation">¶</a>
+                    </h3>
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[4]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">series_monthly_mean_temp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'mean_temp'</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">'M'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># resample to monthly mean</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">series_monthly_mean_temp</span> <span class="o">=</span> <span
+                                class="n">df</span><span class="p">[</span><span class="s1">'mean_temp'</span><span
+                                class="p">]</span><span class="o">.</span><span class="n">resample</span><span
+                                class="p">(</span><span class="s1">'M'</span><span class="p">)</span><span
+                                class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span
+                                class="c1"># resample to monthly mean</span>
 <span class="c1"># print(series_monthly_mean_temp)</span>
 
 <span class="c1"># line plot for mean temperature</span>
-<span class="n">fig_monthly_mean_temp</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Monthly Mean Temperature'</span><span class="p">)</span>
-<span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_monthly_mean_temp</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">labels</span><span
+                                    class="o">=</span><span class="p">&#123</span><span class="n">series_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="o">.</span><span
+                                    class="n">name</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Monthly Mean Temperature'</span><span class="p">)</span>
+<span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">)</span>
-<span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
+<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span
+                                    class="p">)</span>
+<span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">add_shape</span><span
+                                    class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">series_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">series_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -486,7 +644,8 @@ datetime
 
 <span class="c1"># # Show the combined graph</span>
 <span class="c1"># fig_combined.show()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -501,9 +660,10 @@ datetime
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_4.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_4.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -518,26 +678,62 @@ datetime
                 <div class="prompt input_prompt">In&nbsp;[5]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">series_yearly_mean_temp</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'mean_temp'</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">'Y'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># resample to yearly mean</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">series_yearly_mean_temp</span> <span class="o">=</span> <span
+                                class="n">df</span><span class="p">[</span><span class="s1">'mean_temp'</span><span
+                                class="p">]</span><span class="o">.</span><span class="n">resample</span><span
+                                class="p">(</span><span class="s1">'Y'</span><span class="p">)</span><span
+                                class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span
+                                class="c1"># resample to yearly mean</span>
 <span class="c1"># print(series_yearly_mean_temp)</span>
 
-<span class="n">fig_yearly_mean_temp</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">series_yearly_mean_temp</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">series_yearly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Yearly Mean Temperature'</span><span class="p">)</span>
-<span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_yearly_mean_temp</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">series_yearly_mean_temp</span><span class="p">,</span> <span class="n">labels</span><span
+                                    class="o">=</span><span class="p">&#123</span><span class="n">series_yearly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="o">.</span><span
+                                    class="n">name</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Yearly Mean Temperature'</span><span class="p">)</span>
+<span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">series_yearly_mean_temp</span><span class="p">)</span>
-<span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
+<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span
+                                    class="n">series_yearly_mean_temp</span><span class="p">)</span>
+<span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">add_shape</span><span
+                                    class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">series_yearly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">series_yearly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">series_yearly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">series_yearly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_yearly_mean_temp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -552,9 +748,10 @@ datetime
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_5.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_5.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -564,27 +761,42 @@ datetime
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h3 id="ARIMA-Series-Model-Development" data-toc-modified-id="ARIMA-Series-Model-Development-1.0.4"><a class="toc-mod-link" id="ARIMA-Series-Model-Development-1.0.4"></a><span class="toc-item-num">1.0.4&nbsp;&nbsp;</span>ARIMA Series Model Development<a class="anchor-link" href="#ARIMA-Series-Model-Development">¶</a></h3>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h3 id="ARIMA-Series-Model-Development" data-toc-modified-id="ARIMA-Series-Model-Development-1.0.4">
+                        <a class="toc-mod-link" id="ARIMA-Series-Model-Development-1.0.4"></a><span
+                            class="toc-item-num">1.0.4&nbsp;&nbsp;</span>ARIMA Series Model Development<a
+                            class="anchor-link" href="#ARIMA-Series-Model-Development">¶</a></h3>
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="Use-ACF-and-PACF-to-know-where-to-start" data-toc-modified-id="Use-ACF-and-PACF-to-know-where-to-start-1.0.4.1"><a class="toc-mod-link" id="Use-ACF-and-PACF-to-know-where-to-start-1.0.4.1"></a><span class="toc-item-num">1.0.4.1&nbsp;&nbsp;</span>Use ACF and PACF to know where to start<a class="anchor-link" href="#Use-ACF-and-PACF-to-know-where-to-start">¶</a></h4>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="Use-ACF-and-PACF-to-know-where-to-start"
+                        data-toc-modified-id="Use-ACF-and-PACF-to-know-where-to-start-1.0.4.1"><a class="toc-mod-link"
+                                                                                                  id="Use-ACF-and-PACF-to-know-where-to-start-1.0.4.1"></a><span
+                            class="toc-item-num">1.0.4.1&nbsp;&nbsp;</span>Use ACF and PACF to know where to start<a
+                            class="anchor-link" href="#Use-ACF-and-PACF-to-know-where-to-start">¶</a></h4>
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[6]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span
+                                class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span
+                                class="n">series_monthly_mean_temp</span><span class="p">,</span> <span
+                                class="n">lags</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -597,8 +809,6 @@ datetime
                     <div class="output_area">
 
                         <div class="prompt"></div>
-
-
 
 
                         <div class="output_png output_subarea ">
@@ -611,21 +821,28 @@ datetime
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Based on decaying ACF, we are likely dealing with an Auto Regressive process.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Based on decaying ACF, we are likely dealing with an Auto Regressive process.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[7]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'ywm'</span><span class="p">)</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span
+                                class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span
+                                class="n">series_monthly_mean_temp</span><span class="p">,</span> <span
+                                class="n">method</span><span class="o">=</span><span class="s1">'ywm'</span><span
+                                class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -640,8 +857,6 @@ datetime
                         <div class="prompt"></div>
 
 
-
-
                         <div class="output_png output_subarea ">
                             <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_13_0.png">
                         </div>
@@ -652,35 +867,56 @@ datetime
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Based on decaying PACF, we should start with an Auto Regressive model with lags 1, 3, 9, 10, 11, 12.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Based on decaying PACF, we should start with an Auto Regressive model with lags 1, 3, 9, 10, 11,
+                        12.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="Augmented-Dickey-Fuller-Test" data-toc-modified-id="Augmented-Dickey-Fuller-Test-1.0.4.2"><a class="toc-mod-link" id="Augmented-Dickey-Fuller-Test-1.0.4.2"></a><span class="toc-item-num">1.0.4.2&nbsp;&nbsp;</span>Augmented Dickey-Fuller Test<a class="anchor-link" href="#Augmented-Dickey-Fuller-Test">¶</a></h4>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="Augmented-Dickey-Fuller-Test" data-toc-modified-id="Augmented-Dickey-Fuller-Test-1.0.4.2"><a
+                            class="toc-mod-link" id="Augmented-Dickey-Fuller-Test-1.0.4.2"></a><span
+                            class="toc-item-num">1.0.4.2&nbsp;&nbsp;</span>Augmented Dickey-Fuller Test<a
+                            class="anchor-link" href="#Augmented-Dickey-Fuller-Test">¶</a></h4>
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[8]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">perform_adf_test</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
-    <span class="n">adf_statistic</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">p_value</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'ADF Statistic: </span><span class="si">&#123</span><span class="n">adf_statistic</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'p-value: </span><span class="si">&#123</span><span class="n">p_value</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span
+                                class="nf">perform_adf_test</span><span class="p">(</span><span
+                                class="n">series</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span
+                                    class="n">series</span><span class="p">)</span>
+    <span class="n">adf_statistic</span> <span class="o">=</span> <span class="n">result</span><span
+                                    class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">p_value</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span
+                                    class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s1">'ADF Statistic: </span><span class="si">&#123</span><span class="n">adf_statistic</span><span
+                                    class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span
+                                    class="s1">'</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s1">'p-value: </span><span class="si">&#123</span><span
+                                    class="n">p_value</span><span class="si">:</span><span class="s1">.4f</span><span
+                                    class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
-<span class="n">perform_adf_test</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">)</span>
-</pre></div>
+<span class="n">perform_adf_test</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span
+                                    class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -706,52 +942,84 @@ p-value: 0.0002
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Since p-value &lt; 0.5, time series is stationary.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Since p-value &lt; 0.5, time series is stationary.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h3 id="ARIMA-Series-Model-Validation" data-toc-modified-id="ARIMA-Series-Model-Validation-1.0.5"><a class="toc-mod-link" id="ARIMA-Series-Model-Validation-1.0.5"></a><span class="toc-item-num">1.0.5&nbsp;&nbsp;</span>ARIMA Series Model Validation<a class="anchor-link" href="#ARIMA-Series-Model-Validation">¶</a></h3>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h3 id="ARIMA-Series-Model-Validation" data-toc-modified-id="ARIMA-Series-Model-Validation-1.0.5"><a
+                            class="toc-mod-link" id="ARIMA-Series-Model-Validation-1.0.5"></a><span
+                            class="toc-item-num">1.0.5&nbsp;&nbsp;</span>ARIMA Series Model Validation<a
+                            class="anchor-link" href="#ARIMA-Series-Model-Validation">¶</a></h3>
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="AR-Model" data-toc-modified-id="AR-Model-1.0.5.1"><a class="toc-mod-link" id="AR-Model-1.0.5.1"></a><span class="toc-item-num">1.0.5.1&nbsp;&nbsp;</span>AR Model<a class="anchor-link" href="#AR-Model">¶</a></h4>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="AR-Model" data-toc-modified-id="AR-Model-1.0.5.1"><a class="toc-mod-link"
+                                                                                 id="AR-Model-1.0.5.1"></a><span
+                            class="toc-item-num">1.0.5.1&nbsp;&nbsp;</span>AR Model<a class="anchor-link"
+                                                                                      href="#AR-Model">¶</a></h4>
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[9]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split 70:30 (28, 12)</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="c1"># split 70:30 (28, 12)</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span>
 
 <span class="c1"># create model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span
+                                    class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
 <span class="c1"># fit model</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># summary of the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">summary</span><span class="p">())</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -811,13 +1079,15 @@ Warnings:
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>We should only keep those lags with p-value &lt; 0.5.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>We should only keep those lags with p-value &lt; 0.5.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -825,33 +1095,72 @@ Warnings:
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
-<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">]</span>
+<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># get predictions and residuals</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">pred_end_date</span><span class="p">)</span>
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span
+                                    class="p">,</span> <span class="n">end</span><span class="o">=</span><span
+                                    class="n">pred_end_date</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions</span>
 
 <span class="c1"># print(residuals)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from AR Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from AR Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -866,9 +1175,10 @@ Warnings:
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_10.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_10.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -878,30 +1188,75 @@ Warnings:
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Clear pattern in residual data - means that there's some dynamic data that is failed to be captured i.e. not good.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Clear pattern in residual data - means that there's some dynamic data that is failed to be
+                        captured i.e. not good.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[11]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span
+                                class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">))</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -916,9 +1271,10 @@ Warnings:
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_11.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_11.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -940,32 +1296,42 @@ Root Mean Squared Error: 0.7288853463855004
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>AR(3) Model:</strong>
-                    Mean Absolute Percent Error: 0.0242
-                    Root Mean Squared Error: 0.8109909048888814</p>
-                <p><strong>AR(12) Model:</strong>
-                    Mean Absolute Percent Error: 0.0215
-                    Root Mean Squared Error: 0.7288853463855004</p>
-                <p>AR(12) did better than AR(3) here, as predicted by the lags of the PACF. Also, we can see that the further we predict into the future, the worst the predictions.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>AR(3) Model:</strong>
+                        Mean Absolute Percent Error: 0.0242
+                        Root Mean Squared Error: 0.8109909048888814</p>
+                    <p><strong>AR(12) Model:</strong>
+                        Mean Absolute Percent Error: 0.0215
+                        Root Mean Squared Error: 0.7288853463855004</p>
+                    <p>AR(12) did better than AR(3) here, as predicted by the lags of the PACF. Also, we can see that
+                        the further we predict into the future, the worst the predictions.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="Rolling-Forecast-Origin-(Rolling-Window)" data-toc-modified-id="Rolling-Forecast-Origin-(Rolling-Window)-1.0.5.2"><a class="toc-mod-link" id="Rolling-Forecast-Origin-(Rolling-Window)-1.0.5.2"></a><span class="toc-item-num">1.0.5.2&nbsp;&nbsp;</span>Rolling Forecast Origin (Rolling Window)<a class="anchor-link" href="#Rolling-Forecast-Origin-(Rolling-Window)">¶</a></h4><p>Predict 1 month in advance each time:</p>
-                <p>Train on months 1, 2, ..., k - 3 -&gt; predict month k - 2</p>
-                <p>Train on months 1, 2, ..., k - 3, k - 2 -&gt; predict month k - 1</p>
-                <p>Train on months 1, 2, ..., k - 3, k - 2, k - 1 -&gt; predict month k</p>
-                <p>...</p>
-                <p>Average all predictions</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="Rolling-Forecast-Origin-(Rolling-Window)"
+                        data-toc-modified-id="Rolling-Forecast-Origin-(Rolling-Window)-1.0.5.2"><a class="toc-mod-link"
+                                                                                                   id="Rolling-Forecast-Origin-(Rolling-Window)-1.0.5.2"></a><span
+                            class="toc-item-num">1.0.5.2&nbsp;&nbsp;</span>Rolling Forecast Origin (Rolling Window)<a
+                            class="anchor-link" href="#Rolling-Forecast-Origin-(Rolling-Window)">¶</a></h4>
+                    <p>Predict 1 month in advance each time:</p>
+                    <p>Train on months 1, 2, ..., k - 3 -&gt; predict month k - 2</p>
+                    <p>Train on months 1, 2, ..., k - 3, k - 2 -&gt; predict month k - 1</p>
+                    <p>Train on months 1, 2, ..., k - 3, k - 2, k - 1 -&gt; predict month k</p>
+                    <p>...</p>
+                    <p>Average all predictions</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -973,38 +1339,92 @@ Root Mean Squared Error: 0.7288853463855004
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create the model</span>
-<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span class="p">)</span>
+<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span
+                                    class="o">.</span><span class="n">Series</span><span class="p">(</span><span
+                                    class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span
+                                    class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
-    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                    class="p">:</span>
+    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span
+                                    class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span
+                                    class="p">)</span>
+    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span
+                                    class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span
+                                    class="n">pred</span><span class="o">.</span><span class="n">loc</span><span
+                                    class="p">[</span><span class="n">end_date</span><span class="p">]</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions_rolling</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions_rolling</span>
 
 <span class="c1"># print(residuals_rolling)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from AR Model (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">,</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="n">residuals_rolling</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from AR Model (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">)</span>
+<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span
+                                    class="o">.</span><span class="n">mean</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1030,9 +1450,10 @@ Root Mean Squared Error: 0.7288853463855004
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_12.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_12.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1042,30 +1463,79 @@ Root Mean Squared Error: 0.7288853463855004
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Although there is volatility in residual data, there is less pattern compared to just training on the test data in one shot (as shown above), means predictions will be closer and model is better.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Although there is volatility in residual data, there is less pattern compared to just training on
+                        the test data in one shot (as shown above), means predictions will be closer and model is
+                        better.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[13]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions_rolling</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">plot_data_rolling</span> <span class="o">=</span> <span
+                                class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions_rolling</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data_rolling</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">plot_data_rolling</span><span class="p">,</span> <span
+                                    class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals_rolling</span><span
+                                    class="o">**</span><span class="mi">2</span><span class="p">))</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1080,9 +1550,10 @@ Root Mean Squared Error: 0.7288853463855004
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_13.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_13.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1104,35 +1575,49 @@ Root Mean Squared Error: 0.4852945337116935
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>AR(3) Model (Rolling Window):</strong>
-                    Mean Absolute Percent Error: 0.0158
-                    Root Mean Squared Error: 0.5362938714312385</p>
-                <p><strong>AR(12) Model (Rolling Window):</strong>
-                    Mean Absolute Percent Error: 0.0139
-                    Root Mean Squared Error: 0.4852945337116935</p>
-                <p>As shown here, the RMSE of rolling window (0.48529) is lower than that of the non-rolling window (0.72889) of AR(12), and it predicts a better shape as it predicts in 1 month intervals of the test data consecutively rather than predicting over the whole test data. The downside is that rolling window takes a much longer time to train.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>AR(3) Model (Rolling Window):</strong>
+                        Mean Absolute Percent Error: 0.0158
+                        Root Mean Squared Error: 0.5362938714312385</p>
+                    <p><strong>AR(12) Model (Rolling Window):</strong>
+                        Mean Absolute Percent Error: 0.0139
+                        Root Mean Squared Error: 0.4852945337116935</p>
+                    <p>As shown here, the RMSE of rolling window (0.48529) is lower than that of the non-rolling window
+                        (0.72889) of AR(12), and it predicts a better shape as it predicts in 1 month intervals of the
+                        test data consecutively rather than predicting over the whole test data. The downside is that
+                        rolling window takes a much longer time to train.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="MA-Model" data-toc-modified-id="MA-Model-1.0.5.3"><a class="toc-mod-link" id="MA-Model-1.0.5.3"></a><span class="toc-item-num">1.0.5.3&nbsp;&nbsp;</span>MA Model<a class="anchor-link" href="#MA-Model">¶</a></h4><p>Using ACF, we can know which lag/order to use for the MA model.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="MA-Model" data-toc-modified-id="MA-Model-1.0.5.3"><a class="toc-mod-link"
+                                                                                 id="MA-Model-1.0.5.3"></a><span
+                            class="toc-item-num">1.0.5.3&nbsp;&nbsp;</span>MA Model<a class="anchor-link"
+                                                                                      href="#MA-Model">¶</a></h4>
+                    <p>Using ACF, we can know which lag/order to use for the MA model.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[14]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">)</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span
+                                class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span
+                                class="n">series_monthly_mean_temp</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1147,8 +1632,6 @@ Root Mean Squared Error: 0.4852945337116935
                         <div class="prompt"></div>
 
 
-
-
                         <div class="output_png output_subarea ">
                             <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_32_0.png">
                         </div>
@@ -1159,38 +1642,61 @@ Root Mean Squared Error: 0.4852945337116935
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Based on decaying ACF, we should start with a Moving Average model with lags 1, 2 (for simplicity).</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Based on decaying ACF, we should start with a Moving Average model with lags 1, 2 (for
+                        simplicity).</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[15]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split 70:30 (28, 12)</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="c1"># split 70:30 (28, 12)</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2011</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span>
 
 <span class="c1"># create model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                                    class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 
 <span class="c1"># fit model</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># summary of the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">summary</span><span class="p">())</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1240,19 +1746,23 @@ Warnings:
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>From the constants and the lag terms, we should use the predicted model:</p>
-                <p>ŷ(t) = 28 + 0.73ε(t-1) + 0.40ε(t-2) (ignore ε(t) as current prediction error is caught on the fly)</p>
-                <p>In this equation:</p>
-                <p>ŷ(t) represents the predicted value of the dependent variable at time t.
-                    ε(t-1) represents the prediction error (residual) at time (t-1).
-                    ε(t-2) represents the prediction error (residual) at time (t-2).
-                    The coefficients 0.73 and 0.40 represent the weights assigned to the lagged prediction errors (ε).</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>From the constants and the lag terms, we should use the predicted model:</p>
+                    <p>ŷ(t) = 28 + 0.73ε(t-1) + 0.40ε(t-2) (ignore ε(t) as current prediction error is caught on the
+                        fly)</p>
+                    <p>In this equation:</p>
+                    <p>ŷ(t) represents the predicted value of the dependent variable at time t.
+                        ε(t-1) represents the prediction error (residual) at time (t-1).
+                        ε(t-2) represents the prediction error (residual) at time (t-2).
+                        The coefficients 0.73 and 0.40 represent the weights assigned to the lagged prediction errors
+                        (ε).</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -1260,33 +1770,72 @@ Warnings:
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
-<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">]</span>
+<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># get predictions and residuals</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">pred_end_date</span><span class="p">)</span>
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span
+                                    class="p">,</span> <span class="n">end</span><span class="o">=</span><span
+                                    class="n">pred_end_date</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions</span>
 
 <span class="c1"># print(residuals)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from MA Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from MA Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1301,9 +1850,10 @@ Warnings:
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_16.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_16.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1313,30 +1863,75 @@ Warnings:
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Similar to the AR model above (without rolling window), clear pattern in residual data - means that there's some dynamic data that is failed to be captured i.e. not good.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Similar to the AR model above (without rolling window), clear pattern in residual data - means
+                        that there's some dynamic data that is failed to be captured i.e. not good.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[17]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span
+                                class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">))</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1351,9 +1946,10 @@ Warnings:
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_17.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_17.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1375,52 +1971,99 @@ Root Mean Squared Error: 0.813192975445521
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>As we used MA(2) of 2 lag periods, we could only predict the first 2 months of the test data. The MA model will then predict the rest of the test data as the mean value as shown above. This is a characteristic of the MA model.</p>
-                <p>For simplicity, we will omit the rolling window version of the MA model.</p>
-                <p>AR model uses PACF whereas MA model uses ACF.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>As we used MA(2) of 2 lag periods, we could only predict the first 2 months of the test data. The
+                        MA model will then predict the rest of the test data as the mean value as shown above. This is a
+                        characteristic of the MA model.</p>
+                    <p>For simplicity, we will omit the rolling window version of the MA model.</p>
+                    <p>AR model uses PACF whereas MA model uses ACF.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="ARMA-Model" data-toc-modified-id="ARMA-Model-1.0.5.4"><a class="toc-mod-link" id="ARMA-Model-1.0.5.4"></a><span class="toc-item-num">1.0.5.4&nbsp;&nbsp;</span>ARMA Model<a class="anchor-link" href="#ARMA-Model">¶</a></h4><p>Although the above Augmented Dickey-Fuller Test showed a low p-value implying that the series might be stationary, we cannot be too sure as it seems as if there is a slight upward trend (possibly due to global warming) by just looking at the graph. To confirm, let's perform the first difference to check for stationarity. We can see the difference easier by comparing both graphs as shown below.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="ARMA-Model" data-toc-modified-id="ARMA-Model-1.0.5.4"><a class="toc-mod-link"
+                                                                                     id="ARMA-Model-1.0.5.4"></a><span
+                            class="toc-item-num">1.0.5.4&nbsp;&nbsp;</span>ARMA Model<a class="anchor-link"
+                                                                                        href="#ARMA-Model">¶</a></h4>
+                    <p>Although the above Augmented Dickey-Fuller Test showed a low p-value implying that the series
+                        might be stationary, we cannot be too sure as it seems as if there is a slight upward trend
+                        (possibly due to global warming) by just looking at the graph. To confirm, let's perform the
+                        first difference to check for stationarity. We can see the difference easier by comparing both
+                        graphs as shown below.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[18]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># for easier comparison</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">fig_monthly_mean_temp</span><span class="o">.</span><span
+                                class="n">show</span><span class="p">()</span> <span
+                                class="c1"># for easier comparison</span>
 
-<span class="n">first_diff</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">diff</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">first_diff</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">diff</span><span class="p">()[</span><span
+                                    class="mi">1</span><span class="p">:]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">first_diff</span><span class="p">)</span>
 
 <span class="c1"># line plot for mean temperature</span>
-<span class="n">fig_first_diff</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">first_diff</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'First Difference of Monthly Mean Temperature'</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_first_diff</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">first_diff</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'First Difference of Monthly Mean Temperature'</span><span
+                                    class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">first_diff</span><span class="p">)</span>
+<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">first_diff</span><span
+                                    class="p">)</span>
 <span class="n">fig_first_diff</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_first_diff</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1435,9 +2078,10 @@ Root Mean Squared Error: 0.813192975445521
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_4.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_4.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1471,9 +2115,10 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_18.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_18.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1483,21 +2128,27 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>As the differenced series appears to be more stationary, it suggests that the original series had some form of trend or seasonality that was removed, in so doing, the data is preprocessed.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>As the differenced series appears to be more stationary, it suggests that the original series had
+                        some form of trend or seasonality that was removed, in so doing, the data is preprocessed.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[19]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">first_diff</span><span class="p">)</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span
+                                class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span
+                                class="n">first_diff</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1510,8 +2161,6 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
                     <div class="output_area">
 
                         <div class="prompt"></div>
-
-
 
 
                         <div class="output_png output_subarea ">
@@ -1524,21 +2173,27 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Based on decaying ACF, we are should start with a MA process of order 12.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Based on decaying ACF, we are should start with a MA process of order 12.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[20]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">first_diff</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'ywm'</span><span class="p">)</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span
+                                class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span
+                                class="n">first_diff</span><span class="p">,</span> <span class="n">method</span><span
+                                class="o">=</span><span class="s1">'ywm'</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1553,8 +2208,6 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
                         <div class="prompt"></div>
 
 
-
-
                         <div class="output_png output_subarea ">
                             <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_45_0.png">
                         </div>
@@ -1565,21 +2218,26 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Based on decaying PACF, we are should start with a AR process of order 9.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Based on decaying PACF, we are should start with a AR process of order 9.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>From here on, our test data will only consist of 1 year as it takes very long to fit the model with higher order processes, especially with the Rolling Forecast Origin.</strong></p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>From here on, our test data will only consist of 1 year as it takes very long to fit the
+                        model with higher order processes, especially with the Rolling Forecast Origin.</strong></p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -1587,24 +2245,43 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">first_diff</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">first_diff</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">first_diff</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">first_diff</span><span class="p">[</span><span
+                                    class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span
+                                    class="p">(</span><span class="n">days</span><span class="o">=</span><span
+                                    class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span>
 
 <span class="c1"># create model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span
+                                    class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 
 <span class="c1"># fit model</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># summary of the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">summary</span><span class="p">())</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1693,33 +2370,72 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
-<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">]</span>
+<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># get predictions and residuals</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">pred_end_date</span><span class="p">)</span>
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span
+                                    class="p">,</span> <span class="n">end</span><span class="o">=</span><span
+                                    class="n">pred_end_date</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions</span>
 
 <span class="c1"># print(residuals)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from ARMA Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from ARMA Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1734,9 +2450,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_22.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_22.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1751,17 +2468,59 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="prompt input_prompt">In&nbsp;[23]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span
+                                class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'First Difference of Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;First Difference of Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span
+                                    class="s1">'First Difference of Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;First Difference of Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">))</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1776,9 +2535,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_23.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_23.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1800,55 +2560,96 @@ Root Mean Squared Error: 0.5841389478876554
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Not very good, still has room for improvement.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Not very good, still has room for improvement.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="ARIMA-Model" data-toc-modified-id="ARIMA-Model-1.0.5.5"><a class="toc-mod-link" id="ARIMA-Model-1.0.5.5"></a><span class="toc-item-num">1.0.5.5&nbsp;&nbsp;</span>ARIMA Model<a class="anchor-link" href="#ARIMA-Model">¶</a></h4>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="ARIMA-Model" data-toc-modified-id="ARIMA-Model-1.0.5.5"><a class="toc-mod-link"
+                                                                                       id="ARIMA-Model-1.0.5.5"></a><span
+                            class="toc-item-num">1.0.5.5&nbsp;&nbsp;</span>ARIMA Model<a class="anchor-link"
+                                                                                         href="#ARIMA-Model">¶</a></h4>
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Now, let's use the I component (Integrated) to account for the first difference. Like before, we first analyse the ACF and PACF.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Now, let's use the I component (Integrated) to account for the first difference. Like before, we
+                        first analyse the ACF and PACF.</p>
 
+                </div>
             </div>
-        </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[24]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">first_diff</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">diff</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">first_diff</span> <span
+                                class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                class="o">.</span><span class="n">diff</span><span class="p">()[</span><span class="mi">1</span><span
+                                class="p">:]</span>
 <span class="c1"># print(first_diff)</span>
 
 <span class="c1"># line plot for mean temperature</span>
-<span class="n">fig_first_diff</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">first_diff</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'First Difference of Monthly Mean Temperature'</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_first_diff</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">first_diff</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'First Difference of Monthly Mean Temperature'</span><span
+                                    class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">first_diff</span><span class="p">)</span>
+<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">first_diff</span><span
+                                    class="p">)</span>
 <span class="n">fig_first_diff</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_first_diff</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1863,9 +2664,10 @@ Root Mean Squared Error: 0.5841389478876554
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_24.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_24.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -1880,8 +2682,11 @@ Root Mean Squared Error: 0.5841389478876554
                 <div class="prompt input_prompt">In&nbsp;[25]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">first_diff</span><span class="p">)</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span
+                                class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span
+                                class="n">first_diff</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1894,8 +2699,6 @@ Root Mean Squared Error: 0.5841389478876554
                     <div class="output_area">
 
                         <div class="prompt"></div>
-
-
 
 
                         <div class="output_png output_subarea ">
@@ -1913,8 +2716,12 @@ Root Mean Squared Error: 0.5841389478876554
                 <div class="prompt input_prompt">In&nbsp;[26]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">first_diff</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'ywm'</span><span class="p">)</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span
+                                class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span
+                                class="n">first_diff</span><span class="p">,</span> <span class="n">method</span><span
+                                class="o">=</span><span class="s1">'ywm'</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -1927,8 +2734,6 @@ Root Mean Squared Error: 0.5841389478876554
                     <div class="output_area">
 
                         <div class="prompt"></div>
-
-
 
 
                         <div class="output_png output_subarea ">
@@ -1947,24 +2752,44 @@ Root Mean Squared Error: 0.5841389478876554
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span>
 
 <span class="c1"># create model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span> <span class="c1"># (p, d, q) here we use d as 1 as we only performed 1 difference to make the series stationary.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">12</span><span class="p">))</span> <span
+                                    class="c1"># (p, d, q) here we use d as 1 as we only performed 1 difference to make the series stationary.</span>
 
 <span class="c1"># fit model</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># summary of the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">summary</span><span class="p">())</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2052,33 +2877,72 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
-<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">]</span>
+<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># get predictions and residuals</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">pred_end_date</span><span class="p">)</span>
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span
+                                    class="p">,</span> <span class="n">end</span><span class="o">=</span><span
+                                    class="n">pred_end_date</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions</span>
 
 <span class="c1"># print(residuals)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from ARIMA Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from ARIMA Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2093,9 +2957,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_28.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_28.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2110,17 +2975,58 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="prompt input_prompt">In&nbsp;[29]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span
+                                class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">))</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2135,9 +3041,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_29.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_29.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2159,21 +3066,27 @@ Root Mean Squared Error: 0.40002647470247793
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Compared to using just the ARMA model with first difference performed, with both AR(9) and MA(12), the ARIMA model performed better, having a RMSE (0.40003), lower than that of the ARMA model (0.58414).</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Compared to using just the ARMA model with first difference performed, with both AR(9) and
+                        MA(12), the ARIMA model performed better, having a RMSE (0.40003), lower than that of the ARMA
+                        model (0.58414).</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Let's try to improve it using the rolling forecast origin.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Let's try to improve it using the rolling forecast origin.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -2181,38 +3094,93 @@ Root Mean Squared Error: 0.40002647470247793
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create the model</span>
-<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span class="p">)</span>
+<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span
+                                    class="o">.</span><span class="n">Series</span><span class="p">(</span><span
+                                    class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span
+                                    class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span> <span class="c1"># (p, d, q) here we use d as 1 as we are taking into account the first difference to mitigate the slight upward trend.</span>
-    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
-    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                    class="p">:</span>
+    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">12</span><span class="p">))</span> <span
+                                    class="c1"># (p, d, q) here we use d as 1 as we are taking into account the first difference to mitigate the slight upward trend.</span>
+    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span
+                                    class="p">)</span>
+    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span
+                                    class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span
+                                    class="n">pred</span><span class="o">.</span><span class="n">loc</span><span
+                                    class="p">[</span><span class="n">end_date</span><span class="p">]</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions_rolling</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions_rolling</span>
 
 <span class="c1"># print(residuals_rolling)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from ARIMA Model (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">,</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="n">residuals_rolling</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span
+                                    class="s1">'Residuals from ARIMA Model (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">)</span>
+<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span
+                                    class="o">.</span><span class="n">mean</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2306,9 +3274,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_30.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_30.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2323,17 +3292,61 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="prompt input_prompt">In&nbsp;[31]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions_rolling</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">plot_data_rolling</span> <span class="o">=</span> <span
+                                class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions_rolling</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data_rolling</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">plot_data_rolling</span><span class="p">,</span> <span
+                                    class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals_rolling</span><span
+                                    class="o">**</span><span class="mi">2</span><span class="p">))</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2348,9 +3361,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_31.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_31.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2372,21 +3386,35 @@ Root Mean Squared Error: 0.4101693694305862
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Here although it seems like the rolling forecast origin of the ARIMA model predicted values that had a closer shape following that of the test data, it has a slightly higher RMSE (0.41017) compared to the non-rolling version (0.40003). It seems that the rolling forecast origin is less effective when predicting over a short time period. It took quite a while to fit the model, even though we reduced our test data to just 1 year. This is probably due to the higher orders or AR and MA that we used.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Here although it seems like the rolling forecast origin of the ARIMA model predicted values that
+                        had a closer shape following that of the test data, it has a slightly higher RMSE (0.41017)
+                        compared to the non-rolling version (0.40003). It seems that the rolling forecast origin is less
+                        effective when predicting over a short time period. It took quite a while to fit the model, even
+                        though we reduced our test data to just 1 year. This is probably due to the higher orders or AR
+                        and MA that we used.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="SARIMA-Model" data-toc-modified-id="SARIMA-Model-1.0.5.6"><a class="toc-mod-link" id="SARIMA-Model-1.0.5.6"></a><span class="toc-item-num">1.0.5.6&nbsp;&nbsp;</span>SARIMA Model<a class="anchor-link" href="#SARIMA-Model">¶</a></h4><p>Let's start by performing the first difference to remove the upward trend.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="SARIMA-Model" data-toc-modified-id="SARIMA-Model-1.0.5.6"><a class="toc-mod-link"
+                                                                                         id="SARIMA-Model-1.0.5.6"></a><span
+                            class="toc-item-num">1.0.5.6&nbsp;&nbsp;</span>SARIMA Model<a class="anchor-link"
+                                                                                          href="#SARIMA-Model">¶</a>
+                    </h4>
+                    <p>Let's start by performing the first difference to remove the upward trend.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -2395,27 +3423,57 @@ Root Mean Squared Error: 0.4101693694305862
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fig_monthly_mean_temp.show() # for easier comparison</span>
 
-<span class="n">first_diff</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">diff</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">first_diff</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">diff</span><span class="p">()[</span><span
+                                    class="mi">1</span><span class="p">:]</span>
 <span class="c1"># print(first_diff)</span>
 
 <span class="c1"># line plot for mean temperature</span>
-<span class="n">fig_first_diff</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">first_diff</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'First Difference of Monthly Mean Temperature'</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_first_diff</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">first_diff</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'First Difference of Monthly Mean Temperature'</span><span
+                                    class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_first_diff</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">first_diff</span><span class="p">)</span>
+<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">first_diff</span><span
+                                    class="p">)</span>
 <span class="n">fig_first_diff</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">first_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_first_diff</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2430,9 +3488,10 @@ Root Mean Squared Error: 0.4101693694305862
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_32.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_32.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2442,13 +3501,17 @@ Root Mean Squared Error: 0.4101693694305862
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>By zooming into the above graph, although we removed the upward trend, seasonality can still be observed, just like the original graph. Hence, lets perform a seasonal difference of 12 months, since we can observe the seasonality within every 12 months.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>By zooming into the above graph, although we removed the upward trend, seasonality can still be
+                        observed, just like the original graph. Hence, lets perform a seasonal difference of 12 months,
+                        since we can observe the seasonality within every 12 months.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -2456,27 +3519,60 @@ Root Mean Squared Error: 0.4101693694305862
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform seasonal differencing</span>
-<span class="n">seasonal_diff</span> <span class="o">=</span> <span class="n">first_diff</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">12</span><span class="p">)[</span><span class="mi">12</span><span class="p">:]</span>
+<span class="n">seasonal_diff</span> <span class="o">=</span> <span class="n">first_diff</span><span
+                                    class="o">.</span><span class="n">diff</span><span class="p">(</span><span
+                                    class="mi">12</span><span class="p">)[</span><span class="mi">12</span><span
+                                    class="p">:]</span>
 <span class="c1"># print(seasonal_diff)</span>
 
 <span class="c1"># Line plot for seasonal difference of mean temperature</span>
-<span class="n">fig_seasonal_diff</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">seasonal_diff</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">seasonal_diff</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Seasonal Difference (+ First Difference) of Monthly Mean Temperature'</span><span class="p">)</span>
-<span class="n">fig_seasonal_diff</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_seasonal_diff</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_seasonal_diff</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_seasonal_diff</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span
+                                    class="n">seasonal_diff</span><span class="p">,</span> <span class="n">labels</span><span
+                                    class="o">=</span><span class="p">&#123</span><span
+                                    class="n">seasonal_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Seasonal Difference (+ First Difference) of Monthly Mean Temperature'</span><span
+                                    class="p">)</span>
+<span class="n">fig_seasonal_diff</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_seasonal_diff</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_seasonal_diff</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 
 <span class="c1"># Add the mean line</span>
-<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">seasonal_diff</span><span class="p">)</span>
+<span class="n">mean_temperature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span
+                                    class="n">seasonal_diff</span><span class="p">)</span>
 <span class="n">fig_seasonal_diff</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">seasonal_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">seasonal_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">seasonal_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">seasonal_diff</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_temperature</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_seasonal_diff</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2491,9 +3587,10 @@ Root Mean Squared Error: 0.4101693694305862
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_33.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_33.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2503,35 +3600,52 @@ Root Mean Squared Error: 0.4101693694305862
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Great, now it's hard to observe seasonality. Now we have a time series that is probably stationary.</p>
-                <p>Requirements for having a stationary time series:</p>
-                <ol>
-                    <li><p>Constant mean: The mean of the time series remains constant over time. This means that the average value of the series does not change as time progresses.</p>
-                    </li>
-                    <li><p>Constant variance: The variance (or standard deviation) of the time series remains constant over time. This implies that the spread or dispersion of the data points does not change.</p>
-                    </li>
-                    <li><p>No seasonality: There is no systematic pattern or periodic fluctuations observed in the series. Seasonality refers to regular and predictable variations that occur at specific intervals, such as daily, weekly, or yearly patterns.</p>
-                    </li>
-                    <li><p>No trend: The series does not exhibit a long-term increasing or decreasing pattern. A trend represents a gradual change in the mean or level of the series over an extended period.</p>
-                    </li>
-                </ol>
-                <p>Now we analyse its ACF and PACF.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Great, now it's hard to observe seasonality. Now we have a time series that is probably
+                        stationary.</p>
+                    <p>Requirements for having a stationary time series:</p>
+                    <ol>
+                        <li><p>Constant mean: The mean of the time series remains constant over time. This means that
+                            the average value of the series does not change as time progresses.</p>
+                        </li>
+                        <li><p>Constant variance: The variance (or standard deviation) of the time series remains
+                            constant over time. This implies that the spread or dispersion of the data points does not
+                            change.</p>
+                        </li>
+                        <li><p>No seasonality: There is no systematic pattern or periodic fluctuations observed in the
+                            series. Seasonality refers to regular and predictable variations that occur at specific
+                            intervals, such as daily, weekly, or yearly patterns.</p>
+                        </li>
+                        <li><p>No trend: The series does not exhibit a long-term increasing or decreasing pattern. A
+                            trend represents a gradual change in the mean or level of the series over an extended
+                            period.</p>
+                        </li>
+                    </ol>
+                    <p>Now we analyse its ACF and PACF.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[34]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span class="n">seasonal_diff</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">acf_values</span> <span
+                                class="o">=</span> <span class="n">plot_acf</span><span class="p">(</span><span
+                                class="n">seasonal_diff</span><span class="p">,</span> <span class="n">lags</span><span
+                                class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span
+                                    class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                                    class="mi">51</span><span class="p">,</span> <span class="mi">5</span><span
+                                    class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2544,8 +3658,6 @@ Root Mean Squared Error: 0.4101693694305862
                     <div class="output_area">
 
                         <div class="prompt"></div>
-
-
 
 
                         <div class="output_png output_subarea ">
@@ -2563,10 +3675,18 @@ Root Mean Squared Error: 0.4101693694305862
                 <div class="prompt input_prompt">In&nbsp;[35]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span class="n">seasonal_diff</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'ywm'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pacf_values</span> <span
+                                class="o">=</span> <span class="n">plot_pacf</span><span class="p">(</span><span
+                                class="n">seasonal_diff</span><span class="p">,</span> <span class="n">lags</span><span
+                                class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">method</span><span
+                                class="o">=</span><span class="s1">'ywm'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span
+                                    class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+                                    class="mi">51</span><span class="p">,</span> <span class="mi">5</span><span
+                                    class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2581,8 +3701,6 @@ Root Mean Squared Error: 0.4101693694305862
                         <div class="prompt"></div>
 
 
-
-
                         <div class="output_png output_subarea ">
                             <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_71_0.png">
                         </div>
@@ -2593,13 +3711,23 @@ Root Mean Squared Error: 0.4101693694305862
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>As shown above, there are significant spikes in the ACF plot at lag 1 and 12. In the PACF plot, there is a significant spike at lag 1 and there are significant spikes at intervals of 12 lags. Since we performed a first difference of the original data, d=1 of the normal order, and since we also performed a seasonal difference, D=1 of the seasonal order. Due to the significant spikes at lag 1 of both the ACF and PACF, these are non-seasonal lags, therefore we can set p=1 and q=1 of the normal order. Due to the spikes at lag 12 of both the ACF and PACF, we can set P=1 and Q=1 (since the seasonal lag is 12 months)of the seasonal order. Last but not least, since the seasonal lag happens every 12 months, m=12 of the seasonal order. These characteristics suggest a potential parameter starting point of SARIMA(1,1,1)x(1,1,1,12).</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>As shown above, there are significant spikes in the ACF plot at lag 1 and 12. In the PACF plot,
+                        there is a significant spike at lag 1 and there are significant spikes at intervals of 12 lags.
+                        Since we performed a first difference of the original data, d=1 of the normal order, and since
+                        we also performed a seasonal difference, D=1 of the seasonal order. Due to the significant
+                        spikes at lag 1 of both the ACF and PACF, these are non-seasonal lags, therefore we can set p=1
+                        and q=1 of the normal order. Due to the spikes at lag 12 of both the ACF and PACF, we can set
+                        P=1 and Q=1 (since the seasonal lag is 12 months)of the seasonal order. Last but not least,
+                        since the seasonal lag happens every 12 months, m=12 of the seasonal order. These
+                        characteristics suggest a potential parameter starting point of SARIMA(1,1,1)x(1,1,1,12).</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -2607,26 +3735,51 @@ Root Mean Squared Error: 0.4101693694305862
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span>
 
 <span class="c1"># create model</span>
-<span class="n">normal_order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">seasonal_order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">normal_order</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span class="p">)</span>
+<span class="n">normal_order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+                                    class="mi">1</span><span class="p">)</span>
+<span class="n">seasonal_order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+                                    class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span
+                                    class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span
+                                    class="n">normal_order</span><span class="p">,</span> <span
+                                    class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span
+                                    class="p">)</span>
 
 <span class="c1"># fit model</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># summary of the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">summary</span><span class="p">())</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2677,13 +3830,19 @@ Warnings:
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>From the model summary, we can see that there is a high p-value (&gt;0.5) for the seasonal AR component, so it seems redundant and that there is some discrepancy that we have not accounted for. Note: I used <code>model = SARIMAX(train_data, order=normal_order, seasonal_order=seasonal_order)</code> and there was no difference in result. Seems like the ARIMA function can apply the SARIMA model as well.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>From the model summary, we can see that there is a high p-value (&gt;0.5) for the seasonal AR
+                        component, so it seems redundant and that there is some discrepancy that we have not accounted
+                        for. Note: I used <code>model = SARIMAX(train_data, order=normal_order,
+                            seasonal_order=seasonal_order)</code> and there was no difference in result. Seems like the
+                        ARIMA function can apply the SARIMA model as well.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -2691,33 +3850,72 @@ Warnings:
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
-<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">]</span>
+<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># get predictions and residuals</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">pred_end_date</span><span class="p">)</span>
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span
+                                    class="p">,</span> <span class="n">end</span><span class="o">=</span><span
+                                    class="n">pred_end_date</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions</span>
 
 <span class="c1"># print(residuals)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from SARIMA Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from SARIMA Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2732,9 +3930,10 @@ Warnings:
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_37.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_37.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2749,17 +3948,58 @@ Warnings:
                 <div class="prompt input_prompt">In&nbsp;[38]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span
+                                class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">))</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2774,9 +4014,10 @@ Warnings:
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_38.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_38.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2798,55 +4039,119 @@ Root Mean Squared Error: 0.5200608882024743
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Seems like our SARIMA model performed worse than our ARIMA model (RMSE=0.40003). Let's try applying the rolling forecast origin.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Seems like our SARIMA model performed worse than our ARIMA model (RMSE=0.40003). Let's try
+                        applying the rolling forecast origin.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[39]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">normal_order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">seasonal_order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">normal_order</span> <span
+                                class="o">=</span> <span class="p">(</span><span class="mi">1</span><span
+                                class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+                                class="mi">1</span><span class="p">)</span>
+<span class="n">seasonal_order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+                                    class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span
+                                    class="p">)</span>
 
 <span class="c1"># create the model</span>
-<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span class="p">)</span>
+<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span
+                                    class="o">.</span><span class="n">Series</span><span class="p">(</span><span
+                                    class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span
+                                    class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">normal_order</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span class="p">)</span>
-    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
-    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                    class="p">:</span>
+    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span
+                                    class="n">normal_order</span><span class="p">,</span> <span
+                                    class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span
+                                    class="p">)</span>
+    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span
+                                    class="p">)</span>
+    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span
+                                    class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span
+                                    class="n">pred</span><span class="o">.</span><span class="n">loc</span><span
+                                    class="p">[</span><span class="n">end_date</span><span class="p">]</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions_rolling</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions_rolling</span>
 
 <span class="c1"># print(residuals_rolling)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from SARIMA Model (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">,</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="n">residuals_rolling</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span
+                                    class="s1">'Residuals from SARIMA Model (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">)</span>
+<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span
+                                    class="o">.</span><span class="n">mean</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2872,9 +4177,10 @@ Root Mean Squared Error: 0.5200608882024743
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_39.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_39.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2889,17 +4195,61 @@ Root Mean Squared Error: 0.5200608882024743
                 <div class="prompt input_prompt">In&nbsp;[40]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions_rolling</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">plot_data_rolling</span> <span class="o">=</span> <span
+                                class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions_rolling</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data_rolling</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">plot_data_rolling</span><span class="p">,</span> <span
+                                    class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals_rolling</span><span
+                                    class="o">**</span><span class="mi">2</span><span class="p">))</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -2914,9 +4264,10 @@ Root Mean Squared Error: 0.5200608882024743
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_40.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_40.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -2938,29 +4289,59 @@ Root Mean Squared Error: 0.43694862169817994
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>We can see that the rolling forecast origin on the SARIMA model did better, but it still fell short to the ARIMA model (rolling window RMSE=0.41017 and non-rolling RMSE=0.40003). Perhaps, the orders chosen were not the best or the SARIMA overfitted to a greater extent.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>We can see that the rolling forecast origin on the SARIMA model did better, but it still fell
+                        short to the ARIMA model (rolling window RMSE=0.41017 and non-rolling RMSE=0.40003). Perhaps,
+                        the orders chosen were not the best or the SARIMA overfitted to a greater extent.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h3 id="ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima" data-toc-modified-id="ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima-1.0.6"><a class="toc-mod-link" id="ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima-1.0.6"></a><span class="toc-item-num">1.0.6&nbsp;&nbsp;</span>ARIMA Series Model Refinement: Automated Parameter Selection with <code>auto_arima</code><a class="anchor-link" href="#ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima">¶</a></h3><p>To automate the process of parameter selection in time series modeling, we can use the <code>auto_arima</code> function provided by the <code>pmdarima</code> library. These functions use a combination of algorithms and heuristics to find the best set of parameters for the ARIMA and SARIMA models, respectively.</p>
-                <h4 id="Auto-ARIMA" data-toc-modified-id="Auto-ARIMA-1.0.6.1"><a class="toc-mod-link" id="Auto-ARIMA-1.0.6.1"></a><span class="toc-item-num">1.0.6.1&nbsp;&nbsp;</span>Auto ARIMA<a class="anchor-link" href="#Auto-ARIMA">¶</a></h4><p>The <code>auto_arima</code> function can be used to automatically determine the optimal parameters for an ARIMA model. It considers various combinations of p, d, and q values and evaluates the models based on the AIC (Akaike Information Criterion) or BIC (Bayesian Information Criterion).</p>
-                <p>The AIC and BIC are based on the principle of trade-off between goodness of fit and model complexity. The goal is to find a model that fits the data well but is not overly complex, as overly complex models can lead to overfitting.</p>
-                <p>The AIC is defined as:</p>
-                <p>AIC = -2 <em> log-likelihood + 2 </em> k,</p>
-                <p>where log-likelihood is a measure of how well the model fits the data, and k is the number of parameters in the model. The AIC penalizes models with a larger number of parameters, meaning that models with a higher AIC value are considered less favorable.</p>
-                <p>The BIC is similar to the AIC but includes a stronger penalty for model complexity. It is defined as:</p>
-                <p>BIC = -2 <em> log-likelihood + k </em> log(n),</p>
-                <p>where n is the number of observations in the data. The BIC penalizes models with a larger number of parameters more severely than the AIC, leading to a more conservative model selection.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h3 id="ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima"
+                        data-toc-modified-id="ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima-1.0.6">
+                        <a class="toc-mod-link"
+                           id="ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima-1.0.6"></a><span
+                            class="toc-item-num">1.0.6&nbsp;&nbsp;</span>ARIMA Series Model Refinement: Automated
+                        Parameter Selection with <code>auto_arima</code><a class="anchor-link"
+                                                                           href="#ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima">¶</a>
+                    </h3>
+                    <p>To automate the process of parameter selection in time series modeling, we can use the <code>auto_arima</code>
+                        function provided by the <code>pmdarima</code> library. These functions use a combination of
+                        algorithms and heuristics to find the best set of parameters for the ARIMA and SARIMA models,
+                        respectively.</p>
+                    <h4 id="Auto-ARIMA" data-toc-modified-id="Auto-ARIMA-1.0.6.1"><a class="toc-mod-link"
+                                                                                     id="Auto-ARIMA-1.0.6.1"></a><span
+                            class="toc-item-num">1.0.6.1&nbsp;&nbsp;</span>Auto ARIMA<a class="anchor-link"
+                                                                                        href="#Auto-ARIMA">¶</a></h4>
+                    <p>The <code>auto_arima</code> function can be used to automatically determine the optimal
+                        parameters for an ARIMA model. It considers various combinations of p, d, and q values and
+                        evaluates the models based on the AIC (Akaike Information Criterion) or BIC (Bayesian
+                        Information Criterion).</p>
+                    <p>The AIC and BIC are based on the principle of trade-off between goodness of fit and model
+                        complexity. The goal is to find a model that fits the data well but is not overly complex, as
+                        overly complex models can lead to overfitting.</p>
+                    <p>The AIC is defined as:</p>
+                    <p>AIC = -2 <em> log-likelihood + 2 </em> k,</p>
+                    <p>where log-likelihood is a measure of how well the model fits the data, and k is the number of
+                        parameters in the model. The AIC penalizes models with a larger number of parameters, meaning
+                        that models with a higher AIC value are considered less favorable.</p>
+                    <p>The BIC is similar to the AIC but includes a stronger penalty for model complexity. It is defined
+                        as:</p>
+                    <p>BIC = -2 <em> log-likelihood + k </em> log(n),</p>
+                    <p>where n is the number of observations in the data. The BIC penalizes models with a larger number
+                        of parameters more severely than the AIC, leading to a more conservative model selection.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -2968,20 +4349,48 @@ Root Mean Squared Error: 0.43694862169817994
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span>
 
 <span class="c1"># Find optimal ARIMA order using auto_arima</span>
-<span class="n">model_arima</span> <span class="o">=</span> <span class="n">auto_arima</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_d</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_p</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_q</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_order</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_cores</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">information_criterion</span><span class="o">=</span><span class="s1">'aic'</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stepwise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">model_arima</span> <span class="o">=</span> <span class="n">auto_arima</span><span
+                                    class="p">(</span><span class="n">series_monthly_mean_temp</span><span
+                                    class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">0</span><span
+                                    class="p">,</span> <span class="n">max_d</span><span class="o">=</span><span
+                                    class="mi">3</span><span class="p">,</span> <span class="n">max_p</span><span
+                                    class="o">=</span><span class="mi">12</span><span class="p">,</span> <span
+                                    class="n">max_q</span><span class="o">=</span><span class="mi">12</span><span
+                                    class="p">,</span> <span class="n">max_order</span><span class="o">=</span><span
+                                    class="mi">24</span><span class="p">,</span> <span class="n">parallel</span><span
+                                    class="o">=</span><span class="kc">True</span><span class="p">,</span> <span
+                                    class="n">num_cores</span><span class="o">=</span><span class="kc">None</span><span
+                                    class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span
+                                    class="kc">False</span><span class="p">,</span> <span class="n">information_criterion</span><span
+                                    class="o">=</span><span class="s1">'aic'</span><span class="p">,</span> <span
+                                    class="n">trace</span><span class="o">=</span><span class="kc">True</span><span
+                                    class="p">,</span> <span class="n">stepwise</span><span class="o">=</span><span
+                                    class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Get the best ARIMA order</span>
-<span class="n">order_arima</span> <span class="o">=</span> <span class="n">model_arima</span><span class="o">.</span><span class="n">order</span>
+<span class="n">order_arima</span> <span class="o">=</span> <span class="n">model_arima</span><span
+                                    class="o">.</span><span class="n">order</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Optimal ARIMA order:"</span><span class="p">,</span> <span class="n">order_arima</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Optimal ARIMA order:"</span><span
+                                    class="p">,</span> <span class="n">order_arima</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -3184,17 +4593,26 @@ Optimal ARIMA order: (12, 0, 8)
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order_arima</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span
+                                    class="n">order_arima</span><span class="p">)</span>
 
 <span class="c1"># fit model</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Print model summary</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">summary</span><span class="p">())</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -3296,33 +4714,72 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
-<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">]</span>
+<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># get predictions and residuals</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">pred_end_date</span><span class="p">)</span>
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span
+                                    class="p">,</span> <span class="n">end</span><span class="o">=</span><span
+                                    class="n">pred_end_date</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions</span>
 
 <span class="c1"># print(residuals)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from auto ARIMA Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from auto ARIMA Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -3337,9 +4794,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_43.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_43.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -3354,17 +4812,58 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="prompt input_prompt">In&nbsp;[44]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span
+                                class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">))</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -3379,9 +4878,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_44.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_44.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -3403,27 +4903,35 @@ Root Mean Squared Error: 0.37387541794493334
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>ARIMA(12,0,8)(0,0,0)[0]:</strong>
-                    Mean Absolute Percent Error: 0.0116
-                    Root Mean Squared Error: 0.37387541794493334</p>
-                <p><strong>ARIMA(9,1,9)(0,0,0)[0]:</strong>
-                    Mean Absolute Percent Error: 0.0136
-                    Root Mean Squared Error: 0.45632291182559315</p>
-                <p>The auto ARIMA chose the above 2 orders as the optimal orders, as I tried with different orders of <em>d</em>. Weirdly enough, the ARIMA without first differencing performed better than with first differencing. This shows that differencing is not always necessary or beneficial, or maybe the chosen <em>p</em> and <em>q</em> were not optimal.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>ARIMA(12,0,8)(0,0,0)[0]:</strong>
+                        Mean Absolute Percent Error: 0.0116
+                        Root Mean Squared Error: 0.37387541794493334</p>
+                    <p><strong>ARIMA(9,1,9)(0,0,0)[0]:</strong>
+                        Mean Absolute Percent Error: 0.0136
+                        Root Mean Squared Error: 0.45632291182559315</p>
+                    <p>The auto ARIMA chose the above 2 orders as the optimal orders, as I tried with different orders
+                        of <em>d</em>. Weirdly enough, the ARIMA without first differencing performed better than with
+                        first differencing. This shows that differencing is not always necessary or beneficial, or maybe
+                        the chosen <em>p</em> and <em>q</em> were not optimal.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Since ARIMA(12,0,8)(0,0,0)[0] did better here, let's try using RFO on ARIMA(12,0,8)(0,0,0)[0] to see if it improves the predictions.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Since ARIMA(12,0,8)(0,0,0)[0] did better here, let's try using RFO on ARIMA(12,0,8)(0,0,0)[0] to
+                        see if it improves the predictions.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -3431,38 +4939,91 @@ Root Mean Squared Error: 0.37387541794493334
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create the model</span>
-<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span class="p">)</span>
+<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span
+                                    class="o">.</span><span class="n">Series</span><span class="p">(</span><span
+                                    class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span
+                                    class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
-    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                    class="p">:</span>
+    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span
+                                    class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span
+                                    class="p">)</span>
+    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span
+                                    class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span
+                                    class="n">pred</span><span class="o">.</span><span class="n">loc</span><span
+                                    class="p">[</span><span class="n">end_date</span><span class="p">]</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions_rolling</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions_rolling</span>
 
 <span class="c1"># print(residuals_rolling)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from auto ARIMA Model (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">,</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="n">residuals_rolling</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from auto ARIMA Model (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">)</span>
+<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span
+                                    class="o">.</span><span class="n">mean</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -3572,9 +5133,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_45.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_45.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -3589,17 +5151,61 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="prompt input_prompt">In&nbsp;[46]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions_rolling</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">plot_data_rolling</span> <span class="o">=</span> <span
+                                class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions_rolling</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data_rolling</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">plot_data_rolling</span><span class="p">,</span> <span
+                                    class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals_rolling</span><span
+                                    class="o">**</span><span class="mi">2</span><span class="p">))</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -3614,9 +5220,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_46.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_46.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -3638,20 +5245,35 @@ Root Mean Squared Error: 0.40277785698754665
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>Seems like with RFO, the predictions are worse than without RFO (RMSE=0.37388). Initially I thought that RFO would always perform better but I noticed that this is not always the case, especially in this scenario, when the test data is limited to 1 year, as compared to the initial 70:30 split with test data consisting of 12 years. Perhaps there is a correlation between the sample size and the variability of the data. With a smaller test set (with the 39:1 split), the evaluation of the model's performance becomes more sensitive to individual data points, which can lead to more variability in the results. On the other hand, despite its RMSE being higher, the RFO version's graph has a shape closer to the test data, compared to the non-RFO version.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>Seems like with RFO, the predictions are worse than without RFO (RMSE=0.37388). Initially I
+                        thought that RFO would always perform better but I noticed that this is not always the case,
+                        especially in this scenario, when the test data is limited to 1 year, as compared to the initial
+                        70:30 split with test data consisting of 12 years. Perhaps there is a correlation between the
+                        sample size and the variability of the data. With a smaller test set (with the 39:1 split), the
+                        evaluation of the model's performance becomes more sensitive to individual data points, which
+                        can lead to more variability in the results. On the other hand, despite its RMSE being higher,
+                        the RFO version's graph has a shape closer to the test data, compared to the non-RFO
+                        version.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h4 id="Auto-SARIMA" data-toc-modified-id="Auto-SARIMA-1.0.6.2"><a class="toc-mod-link" id="Auto-SARIMA-1.0.6.2"></a><span class="toc-item-num">1.0.6.2&nbsp;&nbsp;</span>Auto SARIMA<a class="anchor-link" href="#Auto-SARIMA">¶</a></h4>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h4 id="Auto-SARIMA" data-toc-modified-id="Auto-SARIMA-1.0.6.2"><a class="toc-mod-link"
+                                                                                       id="Auto-SARIMA-1.0.6.2"></a><span
+                            class="toc-item-num">1.0.6.2&nbsp;&nbsp;</span>Auto SARIMA<a class="anchor-link"
+                                                                                         href="#Auto-SARIMA">¶</a></h4>
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -3659,22 +5281,57 @@ Root Mean Squared Error: 0.40277785698754665
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split to test 1 year of data as splitting 70:30 takes very long</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span>
 
 <span class="c1"># Find optimal SARIMA order using auto_arima</span>
-<span class="n">model_sarima</span> <span class="o">=</span> <span class="n">auto_arima</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_d</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_D</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_p</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_q</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">max_P</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_Q</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_order</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_cores</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seasonal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">information_criterion</span><span class="o">=</span><span class="s1">'aic'</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stepwise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">model_sarima</span> <span class="o">=</span> <span class="n">auto_arima</span><span
+                                    class="p">(</span><span class="n">series_monthly_mean_temp</span><span
+                                    class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">1</span><span
+                                    class="p">,</span> <span class="n">max_d</span><span class="o">=</span><span
+                                    class="mi">3</span><span class="p">,</span> <span class="n">max_D</span><span
+                                    class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_p</span><span
+                                    class="o">=</span><span class="mi">12</span><span class="p">,</span> <span
+                                    class="n">max_q</span><span class="o">=</span><span class="mi">12</span><span
+                                    class="p">,</span> <span class="n">max_P</span><span class="o">=</span><span
+                                    class="mi">1</span><span class="p">,</span> <span class="n">max_Q</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_order</span><span
+                                    class="o">=</span><span class="mi">26</span><span class="p">,</span> <span
+                                    class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span
+                                    class="p">,</span> <span class="n">num_cores</span><span class="o">=</span><span
+                                    class="kc">None</span><span class="p">,</span> <span class="n">seasonal</span><span
+                                    class="o">=</span><span class="kc">True</span><span class="p">,</span> <span
+                                    class="n">m</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span
+                                    class="n">information_criterion</span><span class="o">=</span><span
+                                    class="s1">'aic'</span><span class="p">,</span> <span class="n">trace</span><span
+                                    class="o">=</span><span class="kc">True</span><span class="p">,</span> <span
+                                    class="n">stepwise</span><span class="o">=</span><span class="kc">False</span><span
+                                    class="p">)</span>
 
 <span class="c1"># Get the best SARIMA order</span>
-<span class="n">normal_order</span> <span class="o">=</span> <span class="n">model_sarima</span><span class="o">.</span><span class="n">order</span>
-<span class="n">seasonal_order</span> <span class="o">=</span> <span class="n">model_sarima</span><span class="o">.</span><span class="n">seasonal_order</span>
+<span class="n">normal_order</span> <span class="o">=</span> <span class="n">model_sarima</span><span class="o">.</span><span
+                                    class="n">order</span>
+<span class="n">seasonal_order</span> <span class="o">=</span> <span class="n">model_sarima</span><span
+                                    class="o">.</span><span class="n">seasonal_order</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Optimal SARIMA order:"</span><span class="p">,</span> <span class="n">normal_order</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Optimal SARIMA seasonal order:"</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Optimal SARIMA order:"</span><span
+                                    class="p">,</span> <span class="n">normal_order</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Optimal SARIMA seasonal order:"</span><span
+                                    class="p">,</span> <span class="n">seasonal_order</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4362,17 +6019,28 @@ Optimal SARIMA seasonal order: (0, 0, 1, 12)
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">normal_order</span><span class="p">,</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span
+                                    class="n">normal_order</span><span class="p">,</span> <span
+                                    class="n">seasonal_order</span><span class="o">=</span><span class="n">seasonal_order</span><span
+                                    class="p">)</span>
 
 <span class="c1"># fit model</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Print model summary</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">summary</span><span class="p">())</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4457,33 +6125,72 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get prediction start and end dates</span>
-<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">pred_start_date</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">]</span>
+<span class="n">pred_end_date</span> <span class="o">=</span> <span class="n">test_data</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="c1"># get predictions and residuals</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">pred_end_date</span><span class="p">)</span>
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model_fit</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">start</span><span class="o">=</span><span class="n">pred_start_date</span><span
+                                    class="p">,</span> <span class="n">end</span><span class="o">=</span><span
+                                    class="n">pred_end_date</span><span class="p">)</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions</span>
 
 <span class="c1"># print(residuals)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from auto SARIMA Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from auto SARIMA Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4498,9 +6205,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_49.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_49.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4515,17 +6223,58 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                 <div class="prompt input_prompt">In&nbsp;[50]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span
+                                class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">))</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4540,9 +6289,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_50.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_50.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4564,20 +6314,24 @@ Root Mean Squared Error: 0.34995830445205695
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>SARIMA(11,0,8)(0,0,0)[12]:</strong>
-                    Mean Absolute Percent Error: 0.0165
-                    Root Mean Squared Error: 0.6175906151774886</p>
-                <p><strong>SARIMA(11,1,6)(0,0,1)[12]:</strong>
-                    Mean Absolute Percent Error: 0.0104
-                    Root Mean Squared Error: 0.34995830445205695</p>
-                <p>The auto SARIMA model chose these 2 optimal models with different orders of <em>d</em>. Here, SARIMA(11,1,6)(0,0,1)[12] was better, even better that that of ARIMA(12,0,8)(0,0,0)[0] (RMSE=0.37388).</p>
-                <p>Let's complete this with the RFO of SARIMA(11,1,6)(0,0,1)[12].</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>SARIMA(11,0,8)(0,0,0)[12]:</strong>
+                        Mean Absolute Percent Error: 0.0165
+                        Root Mean Squared Error: 0.6175906151774886</p>
+                    <p><strong>SARIMA(11,1,6)(0,0,1)[12]:</strong>
+                        Mean Absolute Percent Error: 0.0104
+                        Root Mean Squared Error: 0.34995830445205695</p>
+                    <p>The auto SARIMA model chose these 2 optimal models with different orders of <em>d</em>. Here,
+                        SARIMA(11,1,6)(0,0,1)[12] was better, even better that that of ARIMA(12,0,8)(0,0,0)[0]
+                        (RMSE=0.37388).</p>
+                    <p>Let's complete this with the RFO of SARIMA(11,1,6)(0,0,1)[12].</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -4585,38 +6339,97 @@ Root Mean Squared Error: 0.34995830445205695
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create the model</span>
-<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span class="p">)</span>
+<span class="n">predictions_rolling</span> <span class="o">=</span> <span class="n">pd</span><span
+                                    class="o">.</span><span class="n">Series</span><span class="p">(</span><span
+                                    class="n">dtype</span><span class="o">=</span><span class="s1">'float64'</span><span
+                                    class="p">)</span>
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">enforce_stationarity</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
-    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end_date</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">end_date</span> <span class="ow">in</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                    class="p">:</span>
+    <span class="n">train_data</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">end_date</span> <span class="o">-</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span
+                                    class="n">train_data</span><span class="p">,</span> <span
+                                    class="n">order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span
+                                    class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span
+                                    class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+                                    class="mi">12</span><span class="p">),</span> <span
+                                    class="n">enforce_stationarity</span><span class="o">=</span><span
+                                    class="kc">False</span><span class="p">)</span>
+    <span class="n">model_fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">()</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model_fit</span><span class="o">.</span><span
+                                    class="n">predict</span><span class="p">(</span><span class="n">end_date</span><span
+                                    class="p">)</span>
+    <span class="n">predictions_rolling</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span
+                                    class="n">end_date</span><span class="p">]</span> <span class="o">=</span> <span
+                                    class="n">pred</span><span class="o">.</span><span class="n">loc</span><span
+                                    class="p">[</span><span class="n">end_date</span><span class="p">]</span>
 <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions_rolling</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Model Fitting Time: </span><span class="si">&#123</span><span class="n">end</span><span
+                                    class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">residuals_rolling</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions_rolling</span>
 
 <span class="c1"># print(residuals_rolling)</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from auto SARIMA Model (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">,</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="n">residuals_rolling</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from auto SARIMA Model (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="p">)</span>
+<span class="n">mean_error_rolling</span> <span class="o">=</span> <span class="n">np</span><span
+                                    class="o">.</span><span class="n">mean</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
     <span class="n">y0</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals_rolling</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
     <span class="n">y1</span><span class="o">=</span><span class="n">mean_error_rolling</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4710,9 +6523,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_51.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_51.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4722,30 +6536,77 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>Note: I had to use enforce_stationarity=False here if not I would get a LinAlgError: LU decomposition error.</strong></p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>Note: I had to use enforce_stationarity=False here if not I would get a LinAlgError: LU
+                        decomposition error.</strong></p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[52]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data_rolling</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions_rolling</span><span class="p">})</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">plot_data_rolling</span> <span class="o">=</span> <span
+                                class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span
+                                class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                class="p">,</span> <span class="s1">'predictions'</span><span class="p">:</span> <span
+                                class="n">predictions_rolling</span><span class="p">})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data_rolling</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions (Rolling Window)'</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">plot_data_rolling</span><span class="p">,</span> <span
+                                    class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions (Rolling Window)'</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test_rolling</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">/</span><span class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals_rolling</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals_rolling</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">)),</span><span class="w"> </span><span
+                                    class="mi">4</span><span class="p">)</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals_rolling</span><span
+                                    class="o">**</span><span class="mi">2</span><span class="p">))</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4760,9 +6621,10 @@ Maximum Likelihood optimization failed to converge. Check mle_retvals
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_52.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_52.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4784,29 +6646,42 @@ Root Mean Squared Error: 0.40789190822712473
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>The RFO of SARIMA(11,1,6)(0,0,1)[12] did worse than its non RFO (RMSE=0.34996), similar to the RFO of ARIMA with the non-RFO ARIMA. Overall, looking at the above results, it seems that auto SARIMA and auto ARIMA performed about the same.</p>
-                <p><strong>SARIMA(11,1,6)(0,0,1)[12]:</strong> 0.34996<br><strong>SARIMA(11,1,6)(0,0,1)[12] RFO:</strong> 0.40789<br><strong>ARIMA(12,0,8)(0,0,0)[0]:</strong> 0.37388<br><strong>ARIMA(12,0,8)(0,0,0)[0] RFO:</strong> 0.40278</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>The RFO of SARIMA(11,1,6)(0,0,1)[12] did worse than its non RFO (RMSE=0.34996), similar to the
+                        RFO of ARIMA with the non-RFO ARIMA. Overall, looking at the above results, it seems that auto
+                        SARIMA and auto ARIMA performed about the same.</p>
+                    <p><strong>SARIMA(11,1,6)(0,0,1)[12]:</strong> 0.34996<br><strong>SARIMA(11,1,6)(0,0,1)[12]
+                        RFO:</strong> 0.40789<br><strong>ARIMA(12,0,8)(0,0,0)[0]:</strong> 0.37388<br><strong>ARIMA(12,0,8)(0,0,0)[0]
+                        RFO:</strong> 0.40278</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h3 id="LSTM-Model-Approach" data-toc-modified-id="LSTM-Model-Approach-1.0.7"><a class="toc-mod-link" id="LSTM-Model-Approach-1.0.7"></a><span class="toc-item-num">1.0.7&nbsp;&nbsp;</span>LSTM Model Approach<a class="anchor-link" href="#LSTM-Model-Approach">¶</a></h3>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h3 id="LSTM-Model-Approach" data-toc-modified-id="LSTM-Model-Approach-1.0.7"><a
+                            class="toc-mod-link" id="LSTM-Model-Approach-1.0.7"></a><span class="toc-item-num">1.0.7&nbsp;&nbsp;</span>LSTM
+                        Model Approach<a class="anchor-link" href="#LSTM-Model-Approach">¶</a></h3>
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
                 <div class="prompt input_prompt">In&nbsp;[53]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_monthly_mean_temp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">fig_monthly_mean_temp</span><span class="o">.</span><span
+                                class="n">show</span><span class="p">()</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4821,9 +6696,10 @@ Root Mean Squared Error: 0.40789190822712473
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_53.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_53.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4839,14 +6715,25 @@ Root Mean Squared Error: 0.40789190822712473
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Perform seasonal decomposition (this can help analyse the individual components in greater detail)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">series_monthly_mean_temp</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span
+                                    class="p">(</span><span class="n">series_monthly_mean_temp</span><span
+                                    class="p">)</span>
 
 <span class="c1"># Plot the seasonal decomposition </span>
-<span class="n">fig_decomposition</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">observed</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Seasonal Decomposition - Observed'</span><span class="p">)</span>
-<span class="n">fig_decomposition</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Datetime'</span><span class="p">)</span>
-<span class="n">fig_decomposition</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Observed'</span><span class="p">)</span>
+<span class="n">fig_decomposition</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">results</span><span
+                                    class="o">.</span><span class="n">observed</span><span class="p">,</span> <span
+                                    class="n">title</span><span class="o">=</span><span class="s1">'Seasonal Decomposition - Observed'</span><span
+                                    class="p">)</span>
+<span class="n">fig_decomposition</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Datetime'</span><span class="p">)</span>
+<span class="n">fig_decomposition</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Observed'</span><span class="p">)</span>
 <span class="n">fig_decomposition</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4861,9 +6748,10 @@ Root Mean Squared Error: 0.40789190822712473
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_54.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_54.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4878,11 +6766,21 @@ Root Mean Squared Error: 0.40789190822712473
                 <div class="prompt input_prompt">In&nbsp;[55]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_trend</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">trend</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Seasonal Decomposition - Trend'</span><span class="p">)</span>
-<span class="n">fig_trend</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Datetime'</span><span class="p">)</span>
-<span class="n">fig_trend</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Trend'</span><span class="p">)</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_trend</span> <span
+                                class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                class="n">line</span><span class="p">(</span><span class="n">results</span><span
+                                class="o">.</span><span class="n">trend</span><span class="p">,</span> <span class="n">title</span><span
+                                class="o">=</span><span class="s1">'Seasonal Decomposition - Trend'</span><span
+                                class="p">)</span>
+<span class="n">fig_trend</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Datetime'</span><span class="p">)</span>
+<span class="n">fig_trend</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">title</span><span class="o">=</span><span class="s1">'Trend'</span><span
+                                    class="p">)</span>
 <span class="n">fig_trend</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4897,9 +6795,10 @@ Root Mean Squared Error: 0.40789190822712473
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_55.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_55.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4914,11 +6813,21 @@ Root Mean Squared Error: 0.40789190822712473
                 <div class="prompt input_prompt">In&nbsp;[56]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_seasonal</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">seasonal</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Seasonal Decomposition - Seasonal'</span><span class="p">)</span>
-<span class="n">fig_seasonal</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Datetime'</span><span class="p">)</span>
-<span class="n">fig_seasonal</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Seasonal'</span><span class="p">)</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_seasonal</span> <span
+                                class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                class="n">line</span><span class="p">(</span><span class="n">results</span><span
+                                class="o">.</span><span class="n">seasonal</span><span class="p">,</span> <span
+                                class="n">title</span><span class="o">=</span><span class="s1">'Seasonal Decomposition - Seasonal'</span><span
+                                class="p">)</span>
+<span class="n">fig_seasonal</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Datetime'</span><span class="p">)</span>
+<span class="n">fig_seasonal</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Seasonal'</span><span class="p">)</span>
 <span class="n">fig_seasonal</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4933,9 +6842,10 @@ Root Mean Squared Error: 0.40789190822712473
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_56.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_56.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4950,11 +6860,21 @@ Root Mean Squared Error: 0.40789190822712473
                 <div class="prompt input_prompt">In&nbsp;[57]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_residual</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Seasonal Decomposition - Residual'</span><span class="p">)</span>
-<span class="n">fig_residual</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Datetime'</span><span class="p">)</span>
-<span class="n">fig_residual</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'Residual'</span><span class="p">)</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig_residual</span> <span
+                                class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                class="n">line</span><span class="p">(</span><span class="n">results</span><span
+                                class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">title</span><span
+                                class="o">=</span><span class="s1">'Seasonal Decomposition - Residual'</span><span
+                                class="p">)</span>
+<span class="n">fig_residual</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Datetime'</span><span class="p">)</span>
+<span class="n">fig_residual</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Residual'</span><span class="p">)</span>
 <span class="n">fig_residual</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -4969,9 +6889,10 @@ Root Mean Squared Error: 0.40789190822712473
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_57.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_57.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -4981,13 +6902,16 @@ Root Mean Squared Error: 0.40789190822712473
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>There is no need to make the data stationary here as RNN can work on more complex and non-stationary data compared to the ARIMA models.</strong></p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>There is no need to make the data stationary here as RNN can work on more complex and
+                        non-stationary data compared to the ARIMA models.</strong></p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -4995,40 +6919,91 @@ Root Mean Squared Error: 0.40789190822712473
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set seed to ensure determinism and reproduceability (always retest from here)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'TF_DETERMINISTIC_OPS'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'1'</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_random_seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">enable_op_determinism</span><span class="p">()</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'TF_DETERMINISTIC_OPS'</span><span
+                                    class="p">]</span> <span class="o">=</span> <span class="s1">'1'</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span
+                                    class="o">.</span><span class="n">set_random_seed</span><span
+                                    class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">experimental</span><span
+                                    class="o">.</span><span class="n">enable_op_determinism</span><span
+                                    class="p">()</span>
 
 <span class="c1"># print(series_monthly_mean_temp)</span>
-<span class="n">df_monthly_mean_temp</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>  <span class="c1"># Convert Series to DataFrame</span>
+<span class="n">df_monthly_mean_temp</span> <span class="o">=</span> <span
+                                    class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">to_frame</span><span
+                                    class="p">()</span>  <span class="c1"># Convert Series to DataFrame</span>
 <span class="c1"># print(df_monthly_mean_temp)</span>
 <span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
-<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_monthly_mean_temp</span><span class="p">)</span>
-<span class="n">df_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df_monthly_mean_temp</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_monthly_mean_temp</span><span
+                                    class="p">)</span>
+<span class="n">df_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">scaler</span><span
+                                    class="o">.</span><span class="n">transform</span><span class="p">(</span><span
+                                    class="n">df_monthly_mean_temp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
 <span class="c1"># Create a new DataFrame with the normalized values</span>
-<span class="n">df_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'normalised'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">df_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">df_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">pd</span><span
+                                    class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="p">,</span> <span
+                                    class="n">columns</span><span class="o">=</span><span class="p">[</span><span
+                                    class="s1">'normalised'</span><span class="p">],</span> <span class="n">index</span><span
+                                    class="o">=</span><span class="n">df_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">)</span>
 <span class="c1"># print(df_normalised)</span>
-<span class="n">mean_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">df_normalised_monthly_mean_temp</span><span class="p">[</span><span class="s1">'normalised'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">mean_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="s1">'normalised'</span><span class="p">]</span><span
+                                    class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="c1"># Plot the normalized data</span>
-<span class="n">fig_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Normalised'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Normalised Mean Temperature'</span><span class="p">)</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Normalised Value: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="p">,</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Normalised'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Normalised Mean Temperature'</span><span
+                                    class="p">)</span>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.2</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Normalised Value: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">add_shape</span><span
+                                    class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-    <span class="n">y0</span><span class="o">=</span><span class="n">mean_normalised_monthly_mean_temp</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-    <span class="n">y1</span><span class="o">=</span><span class="n">mean_normalised_monthly_mean_temp</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
+    <span class="n">y0</span><span class="o">=</span><span class="n">mean_normalised_monthly_mean_temp</span><span
+                                    class="p">,</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">y1</span><span class="o">=</span><span class="n">mean_normalised_monthly_mean_temp</span><span
+                                    class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">show</span><span
+                                    class="p">()</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5054,9 +7029,10 @@ Root Mean Squared Error: 0.40789190822712473
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_58.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_58.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -5072,17 +7048,29 @@ Root Mean Squared Error: 0.40789190822712473
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># split train:test to 80:20</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">df_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">df_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span><span class="p">:]</span>
-<span class="n">train_data_norm</span> <span class="o">=</span> <span class="n">df_normalised_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">test_data_norm</span> <span class="o">=</span> <span class="n">df_normalised_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span><span class="p">:]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span
+                                    class="nb">len</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span
+                                    class="p">)</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">df_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">df_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="n">train_end</span><span class="p">:]</span>
+<span class="n">train_data_norm</span> <span class="o">=</span> <span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="p">[:</span><span
+                                    class="n">train_end</span><span class="p">]</span><span class="o">.</span><span
+                                    class="n">values</span>
+<span class="n">test_data_norm</span> <span class="o">=</span> <span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="p">[</span><span
+                                    class="n">train_end</span><span class="p">:]</span><span class="o">.</span><span
+                                    class="n">values</span>
 
 <span class="c1"># print(train_data)</span>
 <span class="c1"># print(test_data)</span>
 <span class="c1"># print(train_data_norm.shape)</span>
 <span class="c1"># print(test_data_norm.shape)</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5097,11 +7085,24 @@ Root Mean Squared Error: 0.40789190822712473
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define generator</span>
 <span class="n">n_input</span> <span class="o">=</span> <span class="mi">12</span>
 <span class="n">n_features</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">generator</span> <span class="o">=</span> <span class="n">TimeseriesGenerator</span><span class="p">(</span><span class="n">train_data_norm</span><span class="p">,</span> <span class="n">train_data_norm</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">n_input</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">TimeseriesGenerator</span><span
+                                    class="p">(</span><span class="n">train_data_norm</span><span
+                                    class="p">,</span> <span class="n">train_data_norm</span><span
+                                    class="p">,</span> <span class="n">length</span><span class="o">=</span><span
+                                    class="n">n_input</span><span class="p">,</span> <span
+                                    class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span
+                                    class="p">)</span>
 
 <span class="c1"># Create the validation generator</span>
-<span class="n">validation_generator</span> <span class="o">=</span> <span class="n">TimeseriesGenerator</span><span class="p">(</span><span class="n">test_data_norm</span><span class="p">,</span> <span class="n">test_data_norm</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">n_input</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
+<span class="n">validation_generator</span> <span class="o">=</span> <span class="n">TimeseriesGenerator</span><span
+                                    class="p">(</span><span class="n">test_data_norm</span><span
+                                    class="p">,</span> <span class="n">test_data_norm</span><span
+                                    class="p">,</span> <span class="n">length</span><span class="o">=</span><span
+                                    class="n">n_input</span><span class="p">,</span> <span
+                                    class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span
+                                    class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5113,11 +7114,21 @@ Root Mean Squared Error: 0.40789190822712473
                 <div class="prompt input_prompt">In&nbsp;[61]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">generator</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Given the Array: </span><span class="se">\n</span><span class="si">&#123</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Predict this y: </span><span class="se">\n</span><span class="s1"> </span><span class="si">&#123</span><span class="n">y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span
+                                class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">generator</span><span
+                                class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Given the Array: </span><span
+                                    class="se">\n</span><span class="si">&#123</span><span class="n">X</span><span
+                                    class="o">.</span><span class="n">flatten</span><span class="p">()</span><span
+                                    class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s1">'Predict this y: </span><span class="se">\n</span><span
+                                    class="s1"> </span><span class="si">&#123</span><span class="n">y</span><span
+                                    class="o">.</span><span class="n">flatten</span><span class="p">()</span><span
+                                    class="si">}</span><span class="s1">'</span><span class="p">)</span>
 <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5147,8 +7158,6 @@ Predict this y:
                         <div class="prompt output_prompt">Out[61]:</div>
 
 
-
-
                         <div class="output_text output_subarea output_execute_result">
                             <pre>(1, 12, 1)</pre>
                         </div>
@@ -5166,13 +7175,27 @@ Predict this y:
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define model</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'tanh'</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_input</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)))</span> <span class="c1"># here i used tanh instead of relu to take advantage of cuDNN to speed up training</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span
+                                    class="p">(</span><span class="mi">100</span><span class="p">,</span> <span
+                                    class="n">activation</span><span class="o">=</span><span
+                                    class="s1">'tanh'</span><span class="p">,</span> <span
+                                    class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span
+                                    class="n">n_input</span><span class="p">,</span> <span
+                                    class="n">n_features</span><span class="p">)))</span> <span class="c1"># here i used tanh instead of relu to take advantage of cuDNN to speed up training</span>
 <span class="c1"># model.add(Dropout(0.2)) </span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span
+                                    class="p">(</span><span class="mi">1</span><span class="p">))</span>
 <span class="c1"># optimizer=tf.keras.optimizers.Adam(learning_rate=0.001)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">'mse'</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span
+                                    class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span
+                                    class="o">.</span><span class="n">keras</span><span class="o">.</span><span
+                                    class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span
+                                    class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span
+                                    class="mf">0.001</span><span class="p">),</span> <span class="n">loss</span><span
+                                    class="o">=</span><span class="s1">'mse'</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5215,8 +7238,14 @@ _________________________________________________________________
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fit model and save history</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span><span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">validation_generator</span><span class="p">)</span>
-</pre></div>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">(</span><span class="n">generator</span><span
+                                    class="p">,</span><span class="n">epochs</span><span class="o">=</span><span
+                                    class="mi">100</span><span class="p">,</span> <span class="n">validation_data</span><span
+                                    class="o">=</span><span class="n">validation_generator</span><span
+                                    class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5467,30 +7496,73 @@ Epoch 100/100
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get loss history</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">'loss'</span><span class="p">]</span>
-<span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">'val_loss'</span><span class="p">]</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span
+                                    class="n">history</span><span class="p">[</span><span class="s1">'loss'</span><span
+                                    class="p">]</span>
+<span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span
+                                    class="n">history</span><span class="p">[</span><span
+                                    class="s1">'val_loss'</span><span class="p">]</span>
 
 <span class="c1"># print(f"training loss: &#123loss}")</span>
 <span class="c1"># print(f"validation loss: &#123val_loss}")</span>
 
 <span class="c1"># Find the epoch with the minimum validation loss</span>
-<span class="n">min_val_loss_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="n">min_val_loss</span> <span class="o">=</span> <span class="n">val_loss</span><span class="p">[</span><span class="n">min_val_loss_epoch</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">min_val_loss_epoch</span> <span class="o">=</span> <span class="n">np</span><span
+                                    class="o">.</span><span class="n">argmin</span><span class="p">(</span><span
+                                    class="n">val_loss</span><span class="p">)</span> <span class="o">+</span> <span
+                                    class="mi">1</span>
+<span class="n">min_val_loss</span> <span class="o">=</span> <span class="n">val_loss</span><span
+                                    class="p">[</span><span class="n">min_val_loss_epoch</span> <span class="o">-</span> <span
+                                    class="mi">1</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Minimum validation loss: </span><span class="si">&#123</span><span class="n">min_val_loss</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Epoch with minimum validation loss: </span><span class="si">&#123</span><span class="n">min_val_loss_epoch</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Minimum validation loss: </span><span class="si">&#123</span><span
+                                    class="n">min_val_loss</span><span class="si">}</span><span class="s2">"</span><span
+                                    class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Epoch with minimum validation loss: </span><span
+                                    class="si">&#123</span><span class="n">min_val_loss_epoch</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Create DataFrame</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">loss_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'epoch'</span><span class="p">:</span> <span class="n">epochs</span><span class="p">,</span> <span class="s1">'training_loss'</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s1">'validation_loss'</span><span class="p">:</span> <span class="n">val_loss</span><span class="p">})</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span
+                                    class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span
+                                    class="p">(</span><span class="n">loss</span><span class="p">)</span> <span
+                                    class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">loss_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span
+                                    class="n">DataFrame</span><span class="p">(&#123</span><span
+                                    class="s1">'epoch'</span><span class="p">:</span> <span class="n">epochs</span><span
+                                    class="p">,</span> <span class="s1">'training_loss'</span><span
+                                    class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span
+                                    class="s1">'validation_loss'</span><span class="p">:</span> <span
+                                    class="n">val_loss</span><span class="p">})</span>
 
 <span class="c1"># Plot loss</span>
-<span class="n">fig_loss</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">loss_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'epoch'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'training_loss'</span><span class="p">,</span> <span class="s1">'validation_loss'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Loss'</span><span class="p">,</span> <span class="s1">'epoch'</span><span class="p">:</span> <span class="s1">'Epoch'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Training and Validation Loss'</span><span class="p">)</span>
-<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Epoch: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Loss: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_loss</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">loss_df</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'epoch'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'training_loss'</span><span
+                                    class="p">,</span> <span class="s1">'validation_loss'</span><span
+                                    class="p">],</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Loss'</span><span class="p">,</span> <span
+                                    class="s1">'epoch'</span><span class="p">:</span> <span
+                                    class="s1">'Epoch'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Training and Validation Loss'</span><span
+                                    class="p">)</span>
+<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Epoch: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Loss: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 <span class="n">fig_loss</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5517,9 +7589,10 @@ Epoch with minimum validation loss: 96
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_64.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_64.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -5534,10 +7607,18 @@ Epoch with minimum validation loss: 96
                 <div class="prompt input_prompt">In&nbsp;[65]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">last_train_batch</span> <span class="o">=</span> <span class="n">train_data_norm</span><span class="p">[</span><span class="o">-</span><span class="mi">12</span><span class="p">:]</span>
-<span class="n">last_train_batch</span> <span class="o">=</span> <span class="n">last_train_batch</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_input</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">last_train_batch</span><span class="p">)</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">last_train_batch</span> <span class="o">=</span> <span class="n">train_data_norm</span><span
+                                class="p">[</span><span class="o">-</span><span class="mi">12</span><span
+                                class="p">:]</span>
+<span class="n">last_train_batch</span> <span class="o">=</span> <span class="n">last_train_batch</span><span class="o">.</span><span
+                                    class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span
+                                    class="p">,</span> <span class="n">n_input</span><span class="p">,</span> <span
+                                    class="n">n_features</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">last_train_batch</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5563,8 +7644,6 @@ Epoch with minimum validation loss: 96
                         <div class="prompt output_prompt">Out[65]:</div>
 
 
-
-
                         <div class="output_text output_subarea output_execute_result">
                             <pre>array([[0.3631621]], dtype=float32)</pre>
                         </div>
@@ -5580,8 +7659,10 @@ Epoch with minimum validation loss: 96
                 <div class="prompt input_prompt">In&nbsp;[66]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_data_norm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_data_norm</span><span
+                                class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5594,8 +7675,6 @@ Epoch with minimum validation loss: 96
                     <div class="output_area">
 
                         <div class="prompt output_prompt">Out[66]:</div>
-
-
 
 
                         <div class="output_text output_subarea output_execute_result">
@@ -5613,22 +7692,40 @@ Epoch with minimum validation loss: 96
                 <div class="prompt input_prompt">In&nbsp;[67]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions_norm</span> <span class="o">=</span> <span class="p">[]</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">predictions_norm</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">first_eval_batch</span> <span class="o">=</span> <span class="n">train_data_norm</span><span class="p">[</span><span class="o">-</span><span class="n">n_input</span><span class="p">:]</span>
-<span class="n">current_batch</span> <span class="o">=</span> <span class="n">first_eval_batch</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_input</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+<span class="n">first_eval_batch</span> <span class="o">=</span> <span class="n">train_data_norm</span><span
+                                    class="p">[</span><span class="o">-</span><span class="n">n_input</span><span
+                                    class="p">:]</span>
+<span class="n">current_batch</span> <span class="o">=</span> <span class="n">first_eval_batch</span><span
+                                    class="o">.</span><span class="n">reshape</span><span class="p">((</span><span
+                                    class="mi">1</span><span class="p">,</span> <span class="n">n_input</span><span
+                                    class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_data</span><span class="p">)):</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span
+                                    class="p">(</span><span class="nb">len</span><span class="p">(</span><span
+                                    class="n">test_data</span><span class="p">)):</span>
 
     <span class="c1"># get the prediction value for the first batch</span>
-    <span class="n">current_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">current_batch</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">current_pred</span> <span class="o">=</span> <span class="n">model</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">current_batch</span><span class="p">)[</span><span
+                                    class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># append the prediction into the array</span>
-    <span class="n">predictions_norm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_pred</span><span class="p">)</span>
+    <span class="n">predictions_norm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span
+                                    class="n">current_pred</span><span class="p">)</span>
 
     <span class="c1"># use the prediction to update the batch and remove the first value</span>
-    <span class="n">current_batch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_batch</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:,:],[[</span><span class="n">current_pred</span><span class="p">]],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
+    <span class="n">current_batch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">append</span><span class="p">(</span><span
+                                    class="n">current_batch</span><span class="p">[:,</span><span
+                                    class="mi">1</span><span class="p">:,:],[[</span><span class="n">current_pred</span><span
+                                    class="p">]],</span><span class="n">axis</span><span class="o">=</span><span
+                                    class="mi">1</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5758,7 +7855,8 @@ Epoch with minimum validation loss: 96
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions_norm</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5771,8 +7869,6 @@ Epoch with minimum validation loss: 96
                     <div class="output_area">
 
                         <div class="prompt output_prompt">Out[68]:</div>
-
-
 
 
                         <div class="output_text output_subarea output_execute_result">
@@ -5893,9 +7989,13 @@ Epoch with minimum validation loss: 96
 <span class="c1"># print(type(test_data))</span>
 <span class="c1"># print(test_data.shape)</span>
 <span class="c1"># print(test_data[:5])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">test_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">predictions_norm</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_data</span><span class="o">.</span><span
+                                    class="n">head</span><span class="p">())</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span
+                                    class="n">inverse_transform</span><span class="p">(</span><span class="n">predictions_norm</span><span
+                                    class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5931,31 +8031,65 @@ datetime
                 <div class="prompt input_prompt">In&nbsp;[70]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">residuals</span> <span
+                                class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span
+                                class="n">predictions</span>
 
 <span class="c1"># print(type(residuals))</span>
 <span class="c1"># print(type(residuals))</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from LSTM Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="s1">'datetime'</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from LSTM Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">axis</span><span class="o">=</span><span
+                                    class="mi">0</span><span class="p">)</span>
 <span class="c1"># print(mean_error)</span>
 <span class="c1"># print(type(mean_error))</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-    <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-    <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
+    <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="o">.</span><span
+                                    class="n">values</span><span class="p">,</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
+    <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="o">.</span><span
+                                    class="n">values</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -5970,9 +8104,10 @@ datetime
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_70.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_70.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -5989,17 +8124,65 @@ datetime
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print(test_data_no_norm.index)</span>
 
-<span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="o">.</span><span class="n">flatten</span><span class="p">()})</span>
+<span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span
+                                    class="n">DataFrame</span><span class="p">(&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                    class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                    class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span
+                                    class="s1">'predictions'</span><span class="p">:</span> <span
+                                    class="n">predictions</span><span class="o">.</span><span
+                                    class="n">flatten</span><span class="p">()})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">),</span><span class="w"> </span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">),</span><span class="w"> </span><span
+                                    class="n">axis</span><span class="o">=</span><span class="mi">0</span><span
+                                    class="p">)</span><span class="o">.</span><span class="n">item</span><span
+                                    class="p">(),</span><span class="w"> </span><span class="mi">4</span><span
+                                    class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">axis</span><span
+                                    class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span
+                                    class="n">item</span><span class="p">()</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -6014,9 +8197,10 @@ datetime
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_71.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_71.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -6038,66 +8222,97 @@ Root Mean Squared Error: 0.6206300301271244
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>lr=0.001<br>No Dropout<br>90:10<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0198
-                    Root Mean Squared Error: 0.6755985619320392</p>
-                <p><strong>LSTM(103 epochs, loss: 0.0085 - val_loss: 0.0119, beyond this point training loss decreases while validation loss fluctuates i.e. overfitting)</strong>
-                    Mean Absolute Percent Error: 0.0215
-                    Root Mean Squared Error: 0.7549385723557431</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0213
-                    Root Mean Squared Error: 0.7878989971160217</p>
-                <p><strong>80:20<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0177
-                    Root Mean Squared Error: 0.6206300301271244</p>
-                <p><strong>LSTM(113 epochs, loss: 0.0077 - val_loss: 0.0134, beyond this point training loss decreases while validation loss fluctuates i.e. overfitting)</strong>
-                    Mean Absolute Percent Error: 0.0191
-                    Root Mean Squared Error: 0.6949460889739134</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0173
-                    Root Mean Squared Error: 0.6148360571951464</p>
-                <p><strong>70:30<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0171
-                    Root Mean Squared Error: 0.5935231394134313</p>
-                <p><strong>LSTM(82 epochs, loss: 0.0101 - val_loss: 0.0121, beyond this point training loss decreases while validation loss fluctuates i.e. overfitting)</strong>
-                    Mean Absolute Percent Error: 0.0194
-                    Root Mean Squared Error: 0.7037250795707977</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0177
-                    Root Mean Squared Error: 0.6491459898664801</p>
-                <p><strong>lr=0.001<br>Dropout=0.2<br>80:20<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0249
-                    Root Mean Squared Error: 0.8411129392339437</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0294
-                    Root Mean Squared Error: 1.0054840656823747</p>
-                <p><strong>lr=0.01 (val_loss not decreasing aft a short while, overfitting)<br>No Dropout<br>80:20<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0273
-                    Root Mean Squared Error: 0.9110724662539238</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0179
-                    Root Mean Squared Error: 0.6357450427997889</p>
-                <p><strong>lr=0.0001 (converges too slowly, underfittng)<br>No Dropout<br>80:20<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0173
-                    Root Mean Squared Error: 0.6130719319221452</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.027
-                    Root Mean Squared Error: 0.9599652594001916</p>
-                <p>It seems that lr=0.001 is the best here, and having dropout regularisation of 0.2 worsened the model's performance, although I only tested it on 80:20 split with 100 and 200 epochs to save time.Also, I learnt that although using the minimum validation loss to find the best fit model (least under/overfitting) is viable, it does not necessarily imply it will have the lowest RMSE. Additionally, it seems that we should not overlook the proportion of the validation dataset. If it's too small, there may not be enough diverse samples to effectively evaluate the model's generalization performance. As a result, the model may become overly tuned to the training data and perform poorly on unseen data. This can lead to overfitting, where the model memorizes the training examples instead of learning the underlying patterns. Here I required more than a year of validation/test data due to the n_input = 12, thus I split that data into ratios instead of a static limit of 1 year as I did with the ARIMA models. I would have did this ratio splitting on the ARIMA models if it did not take so long to train on multiple years of test data but due to this limitation I restricted its test data to a year.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>lr=0.001<br>No Dropout<br>90:10<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0198
+                        Root Mean Squared Error: 0.6755985619320392</p>
+                    <p><strong>LSTM(103 epochs, loss: 0.0085 - val_loss: 0.0119, beyond this point training loss
+                        decreases while validation loss fluctuates i.e. overfitting)</strong>
+                        Mean Absolute Percent Error: 0.0215
+                        Root Mean Squared Error: 0.7549385723557431</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0213
+                        Root Mean Squared Error: 0.7878989971160217</p>
+                    <p><strong>80:20<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0177
+                        Root Mean Squared Error: 0.6206300301271244</p>
+                    <p><strong>LSTM(113 epochs, loss: 0.0077 - val_loss: 0.0134, beyond this point training loss
+                        decreases while validation loss fluctuates i.e. overfitting)</strong>
+                        Mean Absolute Percent Error: 0.0191
+                        Root Mean Squared Error: 0.6949460889739134</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0173
+                        Root Mean Squared Error: 0.6148360571951464</p>
+                    <p><strong>70:30<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0171
+                        Root Mean Squared Error: 0.5935231394134313</p>
+                    <p><strong>LSTM(82 epochs, loss: 0.0101 - val_loss: 0.0121, beyond this point training loss
+                        decreases while validation loss fluctuates i.e. overfitting)</strong>
+                        Mean Absolute Percent Error: 0.0194
+                        Root Mean Squared Error: 0.7037250795707977</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0177
+                        Root Mean Squared Error: 0.6491459898664801</p>
+                    <p><strong>lr=0.001<br>Dropout=0.2<br>80:20<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0249
+                        Root Mean Squared Error: 0.8411129392339437</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0294
+                        Root Mean Squared Error: 1.0054840656823747</p>
+                    <p><strong>lr=0.01 (val_loss not decreasing aft a short while, overfitting)<br>No
+                        Dropout<br>80:20<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0273
+                        Root Mean Squared Error: 0.9110724662539238</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0179
+                        Root Mean Squared Error: 0.6357450427997889</p>
+                    <p><strong>lr=0.0001 (converges too slowly, underfittng)<br>No Dropout<br>80:20<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0173
+                        Root Mean Squared Error: 0.6130719319221452</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.027
+                        Root Mean Squared Error: 0.9599652594001916</p>
+                    <p>It seems that lr=0.001 is the best here, and having dropout regularisation of 0.2 worsened the
+                        model's performance, although I only tested it on 80:20 split with 100 and 200 epochs to save
+                        time.Also, I learnt that although using the minimum validation loss to find the best fit model
+                        (least under/overfitting) is viable, it does not necessarily imply it will have the lowest RMSE.
+                        Additionally, it seems that we should not overlook the proportion of the validation dataset. If
+                        it's too small, there may not be enough diverse samples to effectively evaluate the model's
+                        generalization performance. As a result, the model may become overly tuned to the training data
+                        and perform poorly on unseen data. This can lead to overfitting, where the model memorizes the
+                        training examples instead of learning the underlying patterns. Here I required more than a year
+                        of validation/test data due to the n_input = 12, thus I split that data into ratios instead of a
+                        static limit of 1 year as I did with the ARIMA models. I would have did this ratio splitting on
+                        the ARIMA models if it did not take so long to train on multiple years of test data but due to
+                        this limitation I restricted its test data to a year.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>It was at this point when I realised actually I don't need to split into training and validation sets. The validation set can be used during the training phase to monitor the model's performance on data that is closer to the present time. This can help in detecting overfitting or other issues that may arise during training. By evaluating the model's performance on the validation set, I can make adjustments to the model's architecture, hyperparameters, or training process to improve its generalization ability and overall performance. However, I felt that the entire data is relevant for training, as there is a slight upward trend for the mean temperature right from the start, thus splitting into training and validation might not fully capture this trend, thus I have decided to train uptil end of 2021 and predict on test data of 2022, just like the ARIMA models. I'll then assess the performance by comparing the RMSE values of the predictions. This way, I can make a fair judgement comparing LSTM and ARIMA as the train:test split ratio would be the same.</p>
-
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
             </div>
-        </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>It was at this point when I realised actually I don't need to split into training and validation
+                        sets. The validation set can be used during the training phase to monitor the model's
+                        performance on data that is closer to the present time. This can help in detecting overfitting
+                        or other issues that may arise during training. By evaluating the model's performance on the
+                        validation set, I can make adjustments to the model's architecture, hyperparameters, or training
+                        process to improve its generalization ability and overall performance. However, I felt that the
+                        entire data is relevant for training, as there is a slight upward trend for the mean temperature
+                        right from the start, thus splitting into training and validation might not fully capture this
+                        trend, thus I have decided to train uptil end of 2021 and predict on test data of 2022, just
+                        like the ARIMA models. I'll then assess the performance by comparing the RMSE values of the
+                        predictions. This way, I can make a fair judgement comparing LSTM and ARIMA as the train:test
+                        split ratio would be the same.</p>
+
+                </div>
+            </div>
         </div>
         <div class="cell border-box-sizing code_cell rendered">
             <div class="input">
@@ -6105,47 +8320,113 @@ Root Mean Squared Error: 0.6206300301271244
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set seed to ensure determinism and reproduceability (always retest from here)</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'TF_DETERMINISTIC_OPS'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'1'</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">set_random_seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">enable_op_determinism</span><span class="p">()</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'TF_DETERMINISTIC_OPS'</span><span
+                                    class="p">]</span> <span class="o">=</span> <span class="s1">'1'</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span
+                                    class="o">.</span><span class="n">set_random_seed</span><span
+                                    class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">experimental</span><span
+                                    class="o">.</span><span class="n">enable_op_determinism</span><span
+                                    class="p">()</span>
 
 <span class="c1"># print(series_monthly_mean_temp)</span>
-<span class="n">df_monthly_mean_temp</span> <span class="o">=</span> <span class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>  <span class="c1"># Convert Series to DataFrame</span>
+<span class="n">df_monthly_mean_temp</span> <span class="o">=</span> <span
+                                    class="n">series_monthly_mean_temp</span><span class="o">.</span><span class="n">to_frame</span><span
+                                    class="p">()</span>  <span class="c1"># Convert Series to DataFrame</span>
 <span class="c1"># print(df_monthly_mean_temp)</span>
 <span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
-<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_monthly_mean_temp</span><span class="p">)</span>
-<span class="n">df_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df_monthly_mean_temp</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_monthly_mean_temp</span><span
+                                    class="p">)</span>
+<span class="n">df_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">scaler</span><span
+                                    class="o">.</span><span class="n">transform</span><span class="p">(</span><span
+                                    class="n">df_monthly_mean_temp</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
 <span class="c1"># Create a new DataFrame with the normalized values</span>
-<span class="n">df_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'normalised'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">df_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">df_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">pd</span><span
+                                    class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="p">,</span> <span
+                                    class="n">columns</span><span class="o">=</span><span class="p">[</span><span
+                                    class="s1">'normalised'</span><span class="p">],</span> <span class="n">index</span><span
+                                    class="o">=</span><span class="n">df_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">)</span>
 <span class="c1"># print(df_normalised)</span>
-<span class="n">mean_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">df_normalised_monthly_mean_temp</span><span class="p">[</span><span class="s1">'normalised'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">mean_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="s1">'normalised'</span><span class="p">]</span><span
+                                    class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="c1"># Plot the normalized data</span>
-<span class="n">fig_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">df_normalised_monthly_mean_temp</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Normalised'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Normalised Mean Temperature'</span><span class="p">)</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M12'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Normalised Value: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_normalised_monthly_mean_temp</span> <span class="o">=</span> <span class="n">px</span><span
+                                    class="o">.</span><span class="n">line</span><span class="p">(</span><span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="p">,</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span
+                                    class="n">index</span><span class="o">.</span><span class="n">name</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Normalised'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Normalised Mean Temperature'</span><span
+                                    class="p">)</span>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M12'</span><span class="p">,</span> <span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.2</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Normalised Value: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
+<span class="n">fig_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">add_shape</span><span
+                                    class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-    <span class="n">y0</span><span class="o">=</span><span class="n">mean_normalised_monthly_mean_temp</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">df_normalised_monthly_mean_temp</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-    <span class="n">y1</span><span class="o">=</span><span class="n">mean_normalised_monthly_mean_temp</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="mi">0</span><span class="p">],</span>
+    <span class="n">y0</span><span class="o">=</span><span class="n">mean_normalised_monthly_mean_temp</span><span
+                                    class="p">,</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">df_normalised_monthly_mean_temp</span><span
+                                    class="o">.</span><span class="n">index</span><span class="p">[</span><span
+                                    class="o">-</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">y1</span><span class="o">=</span><span class="n">mean_normalised_monthly_mean_temp</span><span
+                                    class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="c1"># fig_normalised_monthly_mean_temp.show()</span>
 
 <span class="c1"># split to test 1 year of data</span>
-<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">df_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">df_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span>
-<span class="n">train_data_norm</span> <span class="o">=</span> <span class="n">df_normalised_monthly_mean_temp</span><span class="p">[:</span><span class="n">train_end</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">test_data_norm</span> <span class="o">=</span> <span class="n">df_normalised_monthly_mean_temp</span><span class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">train_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2022</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span
+                                    class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span
+                                    class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">df_monthly_mean_temp</span><span
+                                    class="p">[:</span><span class="n">train_end</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">df_monthly_mean_temp</span><span
+                                    class="p">[</span><span class="n">train_end</span> <span class="o">+</span> <span
+                                    class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span
+                                    class="o">=</span><span class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span>
+<span class="n">train_data_norm</span> <span class="o">=</span> <span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="p">[:</span><span
+                                    class="n">train_end</span><span class="p">]</span><span class="o">.</span><span
+                                    class="n">values</span>
+<span class="n">test_data_norm</span> <span class="o">=</span> <span
+                                    class="n">df_normalised_monthly_mean_temp</span><span class="p">[</span><span
+                                    class="n">train_end</span> <span class="o">+</span> <span class="n">timedelta</span><span
+                                    class="p">(</span><span class="n">days</span><span class="o">=</span><span
+                                    class="mi">1</span><span class="p">):</span><span class="n">test_end</span><span
+                                    class="p">]</span><span class="o">.</span><span class="n">values</span>
 
 <span class="c1"># print(train_data)</span>
 <span class="c1"># print(test_data)</span>
@@ -6155,20 +8436,44 @@ Root Mean Squared Error: 0.6206300301271244
 <span class="c1"># define generator</span>
 <span class="n">n_input</span> <span class="o">=</span> <span class="mi">12</span>
 <span class="n">n_features</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">generator</span> <span class="o">=</span> <span class="n">TimeseriesGenerator</span><span class="p">(</span><span class="n">train_data_norm</span><span class="p">,</span> <span class="n">train_data_norm</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">n_input</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">TimeseriesGenerator</span><span
+                                    class="p">(</span><span class="n">train_data_norm</span><span
+                                    class="p">,</span> <span class="n">train_data_norm</span><span
+                                    class="p">,</span> <span class="n">length</span><span class="o">=</span><span
+                                    class="n">n_input</span><span class="p">,</span> <span
+                                    class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span
+                                    class="p">)</span>
 
 <span class="c1"># define model</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">'tanh'</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_input</span><span class="p">,</span> <span class="n">n_features</span><span class="p">)))</span> <span class="c1"># here i used tanh instead of relu to take advantage of cuDNN to speed up training</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LSTM</span><span
+                                    class="p">(</span><span class="mi">100</span><span class="p">,</span> <span
+                                    class="n">activation</span><span class="o">=</span><span
+                                    class="s1">'tanh'</span><span class="p">,</span> <span
+                                    class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span
+                                    class="n">n_input</span><span class="p">,</span> <span
+                                    class="n">n_features</span><span class="p">)))</span> <span class="c1"># here i used tanh instead of relu to take advantage of cuDNN to speed up training</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span
+                                    class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span
+                                    class="p">(</span><span class="mi">1</span><span class="p">))</span>
 <span class="c1"># optimizer=tf.keras.optimizers.Adam(learning_rate=0.001)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">'mse'</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span
+                                    class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span
+                                    class="o">.</span><span class="n">keras</span><span class="o">.</span><span
+                                    class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span
+                                    class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span
+                                    class="mf">0.001</span><span class="p">),</span> <span class="n">loss</span><span
+                                    class="o">=</span><span class="s1">'mse'</span><span class="p">)</span>
 <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 
 <span class="c1"># fit model and save history</span>
-<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span><span class="n">epochs</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-</pre></div>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span
+                                    class="n">fit</span><span class="p">(</span><span class="n">generator</span><span
+                                    class="p">,</span><span class="n">epochs</span><span class="o">=</span><span
+                                    class="mi">300</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -6814,28 +9119,64 @@ Epoch 300/300
                 <div class="inner_cell">
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get loss history</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">'loss'</span><span class="p">]</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span
+                                    class="n">history</span><span class="p">[</span><span class="s1">'loss'</span><span
+                                    class="p">]</span>
 
 <span class="c1"># print(f"training loss: &#123loss}")</span>
 
 <span class="c1"># Find the epoch with the minimum loss </span>
-<span class="n">min_loss_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="n">min_loss</span> <span class="o">=</span> <span class="n">loss</span><span class="p">[</span><span class="n">min_loss_epoch</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">min_loss_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">argmin</span><span class="p">(</span><span class="n">loss</span><span
+                                    class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">min_loss</span> <span class="o">=</span> <span class="n">loss</span><span class="p">[</span><span
+                                    class="n">min_loss_epoch</span> <span class="o">-</span> <span
+                                    class="mi">1</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Minimum training loss: </span><span class="si">&#123</span><span class="n">min_loss</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Epoch with minimum training loss: </span><span class="si">&#123</span><span class="n">min_loss_epoch</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Minimum training loss: </span><span class="si">&#123</span><span
+                                    class="n">min_loss</span><span class="si">}</span><span class="s2">"</span><span
+                                    class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Epoch with minimum training loss: </span><span
+                                    class="si">&#123</span><span class="n">min_loss_epoch</span><span
+                                    class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Create DataFrame</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">loss_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'epoch'</span><span class="p">:</span> <span class="n">epochs</span><span class="p">,</span> <span class="s1">'training_loss'</span><span class="p">:</span> <span class="n">loss</span><span class="p">})</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span
+                                    class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span
+                                    class="p">(</span><span class="n">loss</span><span class="p">)</span> <span
+                                    class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">loss_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span
+                                    class="n">DataFrame</span><span class="p">(&#123</span><span
+                                    class="s1">'epoch'</span><span class="p">:</span> <span class="n">epochs</span><span
+                                    class="p">,</span> <span class="s1">'training_loss'</span><span
+                                    class="p">:</span> <span class="n">loss</span><span class="p">})</span>
 
 <span class="c1"># Plot loss</span>
-<span class="n">fig_loss</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">loss_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'epoch'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'training_loss'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Loss'</span><span class="p">,</span> <span class="s1">'epoch'</span><span class="p">:</span> <span class="s1">'Epoch'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Training Loss'</span><span class="p">)</span>
-<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Epoch: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Loss: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_loss</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">loss_df</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'epoch'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'training_loss'</span><span
+                                    class="p">],</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Loss'</span><span class="p">,</span> <span
+                                    class="s1">'epoch'</span><span class="p">:</span> <span
+                                    class="s1">'Epoch'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Training Loss'</span><span class="p">)</span>
+<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span
+                                    class="p">)</span>
+<span class="n">fig_loss</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Epoch: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Loss: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 <span class="n">fig_loss</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -6862,9 +9203,10 @@ Epoch with minimum training loss: 298
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_73.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_73.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -6879,49 +9221,101 @@ Epoch with minimum training loss: 298
                 <div class="prompt input_prompt">In&nbsp;[74]:</div>
                 <div class="inner_cell">
                     <div class="input_area">
-                        <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions_norm</span> <span class="o">=</span> <span class="p">[]</span>
+                        <div class=" highlight hl-ipython3"><pre><span></span><span
+                                class="n">predictions_norm</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">first_eval_batch</span> <span class="o">=</span> <span class="n">train_data_norm</span><span class="p">[</span><span class="o">-</span><span class="n">n_input</span><span class="p">:]</span>
-<span class="n">current_batch</span> <span class="o">=</span> <span class="n">first_eval_batch</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_input</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+<span class="n">first_eval_batch</span> <span class="o">=</span> <span class="n">train_data_norm</span><span
+                                    class="p">[</span><span class="o">-</span><span class="n">n_input</span><span
+                                    class="p">:]</span>
+<span class="n">current_batch</span> <span class="o">=</span> <span class="n">first_eval_batch</span><span
+                                    class="o">.</span><span class="n">reshape</span><span class="p">((</span><span
+                                    class="mi">1</span><span class="p">,</span> <span class="n">n_input</span><span
+                                    class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">test_data</span><span class="p">)):</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span
+                                    class="p">(</span><span class="nb">len</span><span class="p">(</span><span
+                                    class="n">test_data</span><span class="p">)):</span>
 
     <span class="c1"># get the prediction value for the first batch</span>
-    <span class="n">current_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">current_batch</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">current_pred</span> <span class="o">=</span> <span class="n">model</span><span
+                                    class="o">.</span><span class="n">predict</span><span class="p">(</span><span
+                                    class="n">current_batch</span><span class="p">)[</span><span
+                                    class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># append the prediction into the array</span>
-    <span class="n">predictions_norm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_pred</span><span class="p">)</span>
+    <span class="n">predictions_norm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span
+                                    class="n">current_pred</span><span class="p">)</span>
 
     <span class="c1"># use the prediction to update the batch and remove the first value</span>
-    <span class="n">current_batch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_batch</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:,:],[[</span><span class="n">current_pred</span><span class="p">]],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">current_batch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">append</span><span class="p">(</span><span
+                                    class="n">current_batch</span><span class="p">[:,</span><span
+                                    class="mi">1</span><span class="p">:,:],[[</span><span class="n">current_pred</span><span
+                                    class="p">]],</span><span class="n">axis</span><span class="o">=</span><span
+                                    class="mi">1</span><span class="p">)</span>
 
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">predictions_norm</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span
+                                    class="n">inverse_transform</span><span class="p">(</span><span class="n">predictions_norm</span><span
+                                    class="p">)</span>
 
-<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span class="o">-</span> <span class="n">predictions</span>
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">test_data</span> <span
+                                    class="o">-</span> <span class="n">predictions</span>
 
 <span class="c1"># print(type(residuals))</span>
 <span class="c1"># print(type(residuals))</span>
 
 <span class="c1"># Plot residuals</span>
-<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Residuals from LSTM Model'</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'error'</span><span class="p">,</span> <span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">fig_resid</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">labels</span><span class="o">=</span><span
+                                    class="p">&#123</span><span class="s1">'datetime'</span><span
+                                    class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span
+                                    class="s1">'value'</span><span class="p">:</span> <span
+                                    class="s1">'Error'</span><span class="p">},</span> <span class="n">title</span><span
+                                    class="o">=</span><span class="s1">'Residuals from LSTM Model'</span><span
+                                    class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span
+                                    class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span
+                                    class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span
+                                    class="mi">45</span><span class="p">)</span>
+<span class="n">fig_resid</span><span class="o">.</span><span class="n">update_traces</span><span
+                                    class="p">(</span><span class="n">name</span><span class="o">=</span><span
+                                    class="s1">'error'</span><span class="p">,</span> <span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Error: %</span><span
+                                    class="si">&#123y}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># add the mean line</span>
-<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mean_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span
+                                    class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span
+                                    class="p">,</span> <span class="n">axis</span><span class="o">=</span><span
+                                    class="mi">0</span><span class="p">)</span>
 <span class="c1"># print(mean_error)</span>
 <span class="c1"># print(type(mean_error))</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">add_shape</span><span class="p">(</span>
     <span class="nb">type</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-    <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-    <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">"dot"</span><span class="p">),</span>
+    <span class="n">x0</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="mi">0</span><span
+                                    class="p">],</span>
+    <span class="n">y0</span><span class="o">=</span><span class="n">mean_error</span><span class="o">.</span><span
+                                    class="n">values</span><span class="p">,</span>
+    <span class="n">x1</span><span class="o">=</span><span class="n">residuals</span><span class="o">.</span><span
+                                    class="n">index</span><span class="p">[</span><span class="o">-</span><span
+                                    class="mi">1</span><span class="p">],</span>
+    <span class="n">y1</span><span class="o">=</span><span class="n">mean_error</span><span class="o">.</span><span
+                                    class="n">values</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span
+                                    class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span
+                                    class="p">,</span> <span class="n">dash</span><span class="o">=</span><span
+                                    class="s2">"dot"</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fig_resid</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -6958,9 +9352,10 @@ Epoch with minimum training loss: 298
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_74.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_74.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -6977,17 +9372,64 @@ Epoch with minimum training loss: 298
                     <div class="input_area">
                         <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print(test_data_no_norm.index)</span>
 
-<span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span class="n">test_data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="s1">'predictions'</span><span class="p">:</span> <span class="n">predictions</span><span class="o">.</span><span class="n">flatten</span><span class="p">()})</span>
+<span class="n">plot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span
+                                    class="n">DataFrame</span><span class="p">(&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">index</span><span
+                                    class="p">,</span> <span class="s1">'test_data'</span><span class="p">:</span> <span
+                                    class="n">test_data</span><span class="o">.</span><span class="n">values</span><span
+                                    class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span
+                                    class="s1">'predictions'</span><span class="p">:</span> <span
+                                    class="n">predictions</span><span class="o">.</span><span
+                                    class="n">flatten</span><span class="p">()})</span>
 <span class="c1"># print(plot_data)</span>
-<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span class="s1">'predictions'</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span class="s1">'datetime'</span><span class="p">:</span> <span class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span class="p">},</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Test Data and Predictions'</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">dtick</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">hovertemplate</span><span class="o">=</span><span class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span
+                                    class="n">line</span><span class="p">(</span><span class="n">plot_data</span><span
+                                    class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">'datetime'</span><span
+                                    class="p">,</span> <span class="n">y</span><span class="o">=</span><span
+                                    class="p">[</span><span class="s1">'test_data'</span><span class="p">,</span> <span
+                                    class="s1">'predictions'</span><span class="p">],</span> <span
+                                    class="n">labels</span><span class="o">=</span><span class="p">&#123</span><span
+                                    class="s1">'datetime'</span><span class="p">:</span> <span
+                                    class="s1">'Datetime'</span><span class="p">,</span> <span class="s1">'value'</span><span
+                                    class="p">:</span> <span class="s1">'Mean Temperature (°C)'</span><span
+                                    class="p">},</span> <span class="n">title</span><span class="o">=</span><span
+                                    class="s1">'Test Data and Predictions'</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_xaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="s1">'M1'</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_yaxes</span><span
+                                    class="p">(</span><span class="n">dtick</span><span class="o">=</span><span
+                                    class="mf">0.5</span><span class="p">,</span> <span class="n">tickangle</span><span
+                                    class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig_pred_test</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span
+                                    class="n">hovertemplate</span><span class="o">=</span><span
+                                    class="s1">'Datetime: %</span><span class="si">&#123x}</span><span class="s1">&lt;br&gt;Mean Temperature: %</span><span
+                                    class="si">&#123y}</span><span class="s1">°C'</span><span class="p">)</span>
 <span class="n">fig_pred_test</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">test_data</span><span class="p">),</span><span class="w"> </span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Percent Error: </span><span
+                                    class="si">&#123</span><span class="nb">round</span><span class="p">(</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="nb">abs</span><span class="p">(</span><span
+                                    class="n">residuals</span><span class="o">/</span><span
+                                    class="n">test_data</span><span class="p">),</span><span class="w"> </span><span
+                                    class="n">axis</span><span class="o">=</span><span class="mi">0</span><span
+                                    class="p">)</span><span class="o">.</span><span class="n">item</span><span
+                                    class="p">(),</span><span class="w"> </span><span class="mi">4</span><span
+                                    class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span
+                                    class="s2">"Root Mean Squared Error: </span><span class="si">&#123</span><span
+                                    class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span
+                                    class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span
+                                    class="p">(</span><span class="n">residuals</span><span class="o">**</span><span
+                                    class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">axis</span><span
+                                    class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span
+                                    class="n">item</span><span class="p">()</span><span class="si">}</span><span
+                                    class="s2">"</span><span class="p">)</span>
+</pre>
+                        </div>
 
                     </div>
                 </div>
@@ -7002,9 +9444,10 @@ Epoch with minimum training loss: 298
                         <div class="prompt"></div>
 
 
-
                         <div class="output_html rendered_html output_subarea ">
-                            <iframe scrolling="no" width="100%" height="545px" data-src="model_iframe_figures/figure_75.html" frameborder="0" allowfullscreen=""></iframe>
+                            <iframe scrolling="no" width="100%" height="545px"
+                                    data-src="model_iframe_figures/figure_75.html" frameborder="0"
+                                    allowfullscreen=""></iframe>
 
                         </div>
 
@@ -7026,136 +9469,168 @@ Root Mean Squared Error: 0.44115552418544135
             </div>
 
         </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>lr=0.001<br>No Dropout<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0145
-                    Root Mean Squared Error: 0.463736843202713</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0125
-                    Root Mean Squared Error: 0.4086067127565924</p>
-                <p><strong>LSTM(300 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0161
-                    Root Mean Squared Error: 0.49609234464576174</p>
-                <p><strong>LSTM(400 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0215
-                    Root Mean Squared Error: 0.7295606305187063</p>
-                <p><strong>LSTM(500 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0186
-                    Root Mean Squared Error: 0.6123747241425901</p>
-                <p><strong>lr=0.001<br>Dropout=0.2<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0109
-                    Root Mean Squared Error: 0.38060867079652533</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0232
-                    Root Mean Squared Error: 0.8178379230143739</p>
-                <p><strong>LSTM(300 epochs):</strong>
-                    Mean Absolute Percent Error: 0.021
-                    Root Mean Squared Error: 0.7211043996734204</p>
-                <p><strong>LSTM(400 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0253
-                    Root Mean Squared Error: 0.8241299234489794</p>
-                <p><strong>LSTM(500 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0241
-                    Root Mean Squared Error: 0.7807227061381148</p>
-                <p><strong>lr=0.001<br>Dropout=0.5<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0093
-                    Root Mean Squared Error: 0.35471921266149</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.019
-                    Root Mean Squared Error: 0.6217788733394394</p>
-                <p><strong>LSTM(300 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0128
-                    Root Mean Squared Error: 0.44115552418544135</p>
-                <p><strong>LSTM(400 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0199
-                    Root Mean Squared Error: 0.6535082465484656</p>
-                <p><strong>LSTM(500 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0167
-                    Root Mean Squared Error: 0.5266831014363483</p>
-                <p><strong>lr=0.001<br>Dropout=0.8<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0116
-                    Root Mean Squared Error: 0.4013852371897046</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0131
-                    Root Mean Squared Error: 0.4403628214828945</p>
-                <p><strong>LSTM(300 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0176
-                    Root Mean Squared Error: 0.5717841047326412</p>
-                <p><strong>LSTM(400 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0229
-                    Root Mean Squared Error: 0.72180557066981</p>
-                <p><strong>LSTM(500 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0226
-                    Root Mean Squared Error: 0.733328831209713</p>
-                <p><strong>lr=0.01<br>No Dropout<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0146
-                    Root Mean Squared Error: 0.5309802458123353</p>
-                <p><strong>LSTM(200 epochs, still converging too slowly):</strong>
-                    Mean Absolute Percent Error: 0.0297
-                    Root Mean Squared Error: 1.010809026151784</p>
-                <p><strong>lr=0.02<br>No Dropout<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0216
-                    Root Mean Squared Error: 0.6944600408737768</p>
-                <p><strong>LSTM(200 epochs, converging too fast):</strong>
-                    Mean Absolute Percent Error: 0.0163
-                    Root Mean Squared Error: 0.6073242624178974</p>
-                <p><strong>lr=0.02<br>Dropout=0.2<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0215
-                    Root Mean Squared Error: 0.6796303223036045</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.016
-                    Root Mean Squared Error: 0.6058329055575409</p>
-                <p><strong>lr=0.001<br>Dropout=0.5<br>Timestep=24<br>LSTM(100 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0143
-                    Root Mean Squared Error: 0.45955529939231915</p>
-                <p><strong>LSTM(200 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0169
-                    Root Mean Squared Error: 0.5664092616646981</p>
-                <p><strong>LSTM(300 epochs):</strong>
-                    Mean Absolute Percent Error: 0.018
-                    Root Mean Squared Error: 0.6234701666336724</p>
-                <p><strong>LSTM(400 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0177
-                    Root Mean Squared Error: 0.6411966596634251</p>
-                <p><strong>LSTM(500 epochs):</strong>
-                    Mean Absolute Percent Error: 0.0212
-                    Root Mean Squared Error: 0.7293233216596274</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>lr=0.001<br>No Dropout<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0145
+                        Root Mean Squared Error: 0.463736843202713</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0125
+                        Root Mean Squared Error: 0.4086067127565924</p>
+                    <p><strong>LSTM(300 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0161
+                        Root Mean Squared Error: 0.49609234464576174</p>
+                    <p><strong>LSTM(400 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0215
+                        Root Mean Squared Error: 0.7295606305187063</p>
+                    <p><strong>LSTM(500 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0186
+                        Root Mean Squared Error: 0.6123747241425901</p>
+                    <p><strong>lr=0.001<br>Dropout=0.2<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0109
+                        Root Mean Squared Error: 0.38060867079652533</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0232
+                        Root Mean Squared Error: 0.8178379230143739</p>
+                    <p><strong>LSTM(300 epochs):</strong>
+                        Mean Absolute Percent Error: 0.021
+                        Root Mean Squared Error: 0.7211043996734204</p>
+                    <p><strong>LSTM(400 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0253
+                        Root Mean Squared Error: 0.8241299234489794</p>
+                    <p><strong>LSTM(500 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0241
+                        Root Mean Squared Error: 0.7807227061381148</p>
+                    <p><strong>lr=0.001<br>Dropout=0.5<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0093
+                        Root Mean Squared Error: 0.35471921266149</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.019
+                        Root Mean Squared Error: 0.6217788733394394</p>
+                    <p><strong>LSTM(300 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0128
+                        Root Mean Squared Error: 0.44115552418544135</p>
+                    <p><strong>LSTM(400 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0199
+                        Root Mean Squared Error: 0.6535082465484656</p>
+                    <p><strong>LSTM(500 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0167
+                        Root Mean Squared Error: 0.5266831014363483</p>
+                    <p><strong>lr=0.001<br>Dropout=0.8<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0116
+                        Root Mean Squared Error: 0.4013852371897046</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0131
+                        Root Mean Squared Error: 0.4403628214828945</p>
+                    <p><strong>LSTM(300 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0176
+                        Root Mean Squared Error: 0.5717841047326412</p>
+                    <p><strong>LSTM(400 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0229
+                        Root Mean Squared Error: 0.72180557066981</p>
+                    <p><strong>LSTM(500 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0226
+                        Root Mean Squared Error: 0.733328831209713</p>
+                    <p><strong>lr=0.01<br>No Dropout<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0146
+                        Root Mean Squared Error: 0.5309802458123353</p>
+                    <p><strong>LSTM(200 epochs, still converging too slowly):</strong>
+                        Mean Absolute Percent Error: 0.0297
+                        Root Mean Squared Error: 1.010809026151784</p>
+                    <p><strong>lr=0.02<br>No Dropout<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0216
+                        Root Mean Squared Error: 0.6944600408737768</p>
+                    <p><strong>LSTM(200 epochs, converging too fast):</strong>
+                        Mean Absolute Percent Error: 0.0163
+                        Root Mean Squared Error: 0.6073242624178974</p>
+                    <p><strong>lr=0.02<br>Dropout=0.2<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0215
+                        Root Mean Squared Error: 0.6796303223036045</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.016
+                        Root Mean Squared Error: 0.6058329055575409</p>
+                    <p><strong>lr=0.001<br>Dropout=0.5<br>Timestep=24<br>LSTM(100 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0143
+                        Root Mean Squared Error: 0.45955529939231915</p>
+                    <p><strong>LSTM(200 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0169
+                        Root Mean Squared Error: 0.5664092616646981</p>
+                    <p><strong>LSTM(300 epochs):</strong>
+                        Mean Absolute Percent Error: 0.018
+                        Root Mean Squared Error: 0.6234701666336724</p>
+                    <p><strong>LSTM(400 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0177
+                        Root Mean Squared Error: 0.6411966596634251</p>
+                    <p><strong>LSTM(500 epochs):</strong>
+                        Mean Absolute Percent Error: 0.0212
+                        Root Mean Squared Error: 0.7293233216596274</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <h3 id="Model-Evaluation" data-toc-modified-id="Model-Evaluation-1.0.8"><a class="toc-mod-link" id="Model-Evaluation-1.0.8"></a><span class="toc-item-num">1.0.8&nbsp;&nbsp;</span>Model Evaluation<a class="anchor-link" href="#Model-Evaluation">¶</a></h3>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <h3 id="Model-Evaluation" data-toc-modified-id="Model-Evaluation-1.0.8"><a class="toc-mod-link"
+                                                                                               id="Model-Evaluation-1.0.8"></a><span
+                            class="toc-item-num">1.0.8&nbsp;&nbsp;</span>Model Evaluation<a class="anchor-link"
+                                                                                            href="#Model-Evaluation">¶</a>
+                    </h3>
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>After much tinkering, I have found out that dropout=0.5 was better than dropout=0.2, turns out dropout can improve predictions. However, I could not find the right parameters such that it would result in near perfect predictions. Hence, after much analysis, I have decided to go with the standard <strong>lr=0.001, dropout=0.5, timestep=12, 300 epochs</strong>. Although at 100 epochs, it would give me the lowest RMSE I have ever acheived (0.354719), the shape had a gentle trend and did not follow the shape of the test data very closely (much spikier), thus I deduced it was underfitting too much. This coincided with the fact that the training loss was still decreasing at a significant rate at epoch 100. Thus I decided to use epoch 300 instead. Despite its RMSE being higher, its shape followed closer to that of the test data, with the exception of Jun 2022, where it significantly underpredicted the temperature. For some reason, looking at the data, there is always that dip in temperature during June. According to sources, this could be due to the Southwest Monsoon. However, our model failed to learn about this.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>After much tinkering, I have found out that dropout=0.5 was better than dropout=0.2, turns out
+                        dropout can improve predictions. However, I could not find the right parameters such that it
+                        would result in near perfect predictions. Hence, after much analysis, I have decided to go with
+                        the standard <strong>lr=0.001, dropout=0.5, timestep=12, 300 epochs</strong>. Although at 100
+                        epochs, it would give me the lowest RMSE I have ever acheived (0.354719), the shape had a gentle
+                        trend and did not follow the shape of the test data very closely (much spikier), thus I deduced
+                        it was underfitting too much. This coincided with the fact that the training loss was still
+                        decreasing at a significant rate at epoch 100. Thus I decided to use epoch 300 instead. Despite
+                        its RMSE being higher, its shape followed closer to that of the test data, with the exception of
+                        Jun 2022, where it significantly underpredicted the temperature. For some reason, looking at the
+                        data, there is always that dip in temperature during June. According to sources, this could be
+                        due to the Southwest Monsoon. However, our model failed to learn about this.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p>As to whether to use LSTM or the ARIMA series, I have decide to go with the LSTM model (the one stated above) as its prediction results are more or less comparable with that of the ARIMA series. The ARIMA series also has its downsides: I realised that although its predictions follow the shape of the test data, they are somewhat lagging behind/after, with alternating over and underpredictions. Additionally, LSTM has an advantage over ARIMA wherby it can predict over longer ranges much quicker. With the rolling forecast origin, ARIMA models take a very long time to predict data in the long term e.g. 5, 10 years.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p>As to whether to use LSTM or the ARIMA series, I have decide to go with the LSTM model (the one
+                        stated above) as its prediction results are more or less comparable with that of the ARIMA
+                        series. The ARIMA series also has its downsides: I realised that although its predictions follow
+                        the shape of the test data, they are somewhat lagging behind/after, with alternating over and
+                        underpredictions. Additionally, LSTM has an advantage over ARIMA wherby it can predict over
+                        longer ranges much quicker. With the rolling forecast origin, ARIMA models take a very long time
+                        to predict data in the long term e.g. 5, 10 years.</p>
 
+                </div>
             </div>
         </div>
-        </div>
-        <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-        </div><div class="inner_cell">
-            <div class="text_cell_render border-box-sizing rendered_html">
-                <p><strong>Final model chosen:</strong> LSTM (activation=tanh, loss metric=mse) train on entire data, lr=0.001, dropout=0.5, timestep=12, 300 epochs.</p>
+        <div class="cell border-box-sizing text_cell rendered">
+            <div class="prompt input_prompt">
+            </div>
+            <div class="inner_cell">
+                <div class="text_cell_render border-box-sizing rendered_html">
+                    <p><strong>Final model chosen:</strong> LSTM (activation=tanh, loss metric=mse) train on entire
+                        data, lr=0.001, dropout=0.5, timestep=12, 300 epochs.</p>
 
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </div>
