@@ -45,7 +45,6 @@
     }
      */
 
-
     .slot {
         margin-top: 52px;
     }

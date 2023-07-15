@@ -1,4 +1,8 @@
-<script>
+<script context="module">
+    export const prerender = true;
+
+    import { ArrowsRotateSolid, CaretDownSolid, GearSolid } from 'svelte-awesome-icons';
+
     // import table_of_contents from '$lib/toc2.js';
     // import MathJax from 'mathjax';
     // import {onMount} from 'svelte';
@@ -57,6 +61,101 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
+<div id="toc-wrapper" class="ui-draggable ui-resizable sidebar-wrapper" style="width: 288px; top: 0; left: 0;">
+    <div id="toc-header cursor-default"><span class="header">Contents </span>
+    </div>
+    <div id="toc" class="toc">
+        <ul class="toc-item">
+            <li><span class="highlight_on_scroll"><a
+                    href="#Singapore-Weather-Prediction" data-toc-modified-id="Singapore-Weather-Prediction-1"><span
+                    class="toc-item-num">1&nbsp;&nbsp;</span>Singapore Weather Prediction</a></span>
+                <ul class="toc-item">
+                    <li>
+                        <ul class="toc-item">
+                            <li><span class=""><a href="#Data-Acquisition"
+                                                                          data-toc-modified-id="Data-Acquisition-1.0.1"><span
+                                    class="toc-item-num">1.0.1&nbsp;&nbsp;</span>Data Acquisition</a></span></li>
+                            <li><span class=""><a href="#Data-Preprocessing"
+                                                                          data-toc-modified-id="Data-Preprocessing-1.0.2"><span
+                                    class="toc-item-num">1.0.2&nbsp;&nbsp;</span>Data Preprocessing</a></span></li>
+                            <li><span class=""><a href="#Data-Visualisation"
+                                                                          data-toc-modified-id="Data-Visualisation-1.0.3"><span
+                                    class="toc-item-num">1.0.3&nbsp;&nbsp;</span>Data Visualisation</a></span></li>
+                            <li><span><a href="#ARIMA-Series-Model-Development"
+                                                                               data-toc-modified-id="ARIMA-Series-Model-Development-1.0.4"><span
+                                    class="toc-item-num">1.0.4&nbsp;&nbsp;</span>ARIMA Series Model Development</a></span>
+                                <ul class="toc-item">
+                                    <li><span><a href="#Use-ACF-and-PACF-to-know-where-to-start"
+                                                                         data-toc-modified-id="Use-ACF-and-PACF-to-know-where-to-start-1.0.4.1"><span
+                                            class="toc-item-num">1.0.4.1&nbsp;&nbsp;</span>Use ACF and PACF to know where to start</a></span>
+                                    </li>
+                                    <li><span class=""><a href="#Augmented-Dickey-Fuller-Test"
+                                                                                  data-toc-modified-id="Augmented-Dickey-Fuller-Test-1.0.4.2"><span
+                                            class="toc-item-num">1.0.4.2&nbsp;&nbsp;</span>Augmented Dickey-Fuller Test</a></span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><span class=""><a
+                                    href="#ARIMA-Series-Model-Validation"
+                                    data-toc-modified-id="ARIMA-Series-Model-Validation-1.0.5"><span
+                                    class="toc-item-num">1.0.5&nbsp;&nbsp;</span>ARIMA Series Model Validation</a></span>
+                                <ul class="toc-item">
+                                    <li><span><a href="#AR-Model"
+                                                                         data-toc-modified-id="AR-Model-1.0.5.1"><span
+                                            class="toc-item-num">1.0.5.1&nbsp;&nbsp;</span>AR Model</a></span></li>
+                                    <li><span><a
+                                            href="#Rolling-Forecast-Origin-(Rolling-Window)"
+                                            data-toc-modified-id="Rolling-Forecast-Origin-(Rolling-Window)-1.0.5.2"><span
+                                            class="toc-item-num">1.0.5.2&nbsp;&nbsp;</span>Rolling Forecast Origin (Rolling Window)</a></span>
+                                    </li>
+                                    <li><span class=""><a href="#MA-Model"
+                                                                                  data-toc-modified-id="MA-Model-1.0.5.3"><span
+                                            class="toc-item-num">1.0.5.3&nbsp;&nbsp;</span>MA Model</a></span></li>
+                                    <li><span><a href="#ARMA-Model"
+                                                                         data-toc-modified-id="ARMA-Model-1.0.5.4"><span
+                                            class="toc-item-num">1.0.5.4&nbsp;&nbsp;</span>ARMA Model</a></span></li>
+                                    <li><span><a href="#ARIMA-Model"
+                                                                         data-toc-modified-id="ARIMA-Model-1.0.5.5"><span
+                                            class="toc-item-num">1.0.5.5&nbsp;&nbsp;</span>ARIMA Model</a></span></li>
+                                    <li><span><a href="#SARIMA-Model"
+                                                                         data-toc-modified-id="SARIMA-Model-1.0.5.6"><span
+                                            class="toc-item-num">1.0.5.6&nbsp;&nbsp;</span>SARIMA Model</a></span></li>
+                                </ul>
+                            </li>
+                            <li><span><a
+                                    href="#ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima"
+                                    data-toc-modified-id="ARIMA-Series-Model-Refinement:-Automated-Parameter-Selection-with-auto_arima-1.0.6"><span
+                                    class="toc-item-num">1.0.6&nbsp;&nbsp;</span>ARIMA Series Model Refinement: Automated Parameter Selection with <code>auto_arima</code></a></span>
+                                <ul class="toc-item">
+                                    <li><span><a href="#Auto-ARIMA"
+                                                                         data-toc-modified-id="Auto-ARIMA-1.0.6.1"><span
+                                            class="toc-item-num">1.0.6.1&nbsp;&nbsp;</span>Auto ARIMA</a></span></li>
+                                    <li><span><a href="#Auto-SARIMA"
+                                                                         data-toc-modified-id="Auto-SARIMA-1.0.6.2"><span
+                                            class="toc-item-num">1.0.6.2&nbsp;&nbsp;</span>Auto SARIMA</a></span></li>
+                                </ul>
+                            </li>
+                            <li><span><a href="#LSTM-Model-Approach"
+                                                                 data-toc-modified-id="LSTM-Model-Approach-1.0.7"><span
+                                    class="toc-item-num">1.0.7&nbsp;&nbsp;</span>LSTM Model Approach</a></span></li>
+                            <li><span><a href="#Model-Evaluation"
+                                                                 data-toc-modified-id="Model-Evaluation-1.0.8"><span
+                                    class="toc-item-num">1.0.8&nbsp;&nbsp;</span>Model Evaluation</a></span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="ui-resizable-handle ui-resizable-n" style="z-index: 1000;"></div>
+<!--    <div class="ui-resizable-handle ui-resizable-e ui-icon ui-icon-grip-dotted-vertical" style="z-index: 1000;"></div>-->
+    <div class="ui-resizable-handle ui-resizable-s" style="z-index: 1000;"></div>
+    <div class="ui-resizable-handle ui-resizable-w" style="z-index: 1000;"></div>
+    <div class="ui-resizable-handle ui-resizable-se ui-icon-gripsmall-diagonal-se" style="z-index: 1000;"></div>
+    <div class="ui-resizable-handle ui-resizable-sw" style="z-index: 1000;"></div>
+    <div class="ui-resizable-handle ui-resizable-ne" style="z-index: 1000;"></div>
+    <div class="ui-resizable-handle ui-resizable-nw" style="z-index: 1000;"></div>
+</div>
 <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container" style="margin-left: 308px; width: 1096px;">
 
@@ -13069,5 +13168,18 @@ Adapted from GitHub theme
             display: block;
             page-break-inside: avoid;
         }
+    }
+
+    #toc-wrapper {
+        z-index: 90;
+        position: fixed !important;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 10px;
+        border-style: solid;
+        border-width: thin;
+        background-color: #fff;
+        margin-top: 52px;
     }
 </style>
