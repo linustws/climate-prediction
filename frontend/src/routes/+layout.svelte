@@ -19,7 +19,6 @@
         font-size: 1.5rem;
         font-weight: 300;
         position: fixed;
-        overflow: auto;
     }
 
     /*
@@ -47,5 +46,7 @@
 
     .slot {
         margin-top: 52px;
+        overflow: auto;
+        height: calc(100vh - 52px);
     }
 </style>
