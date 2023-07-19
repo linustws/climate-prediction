@@ -3,7 +3,7 @@
 </script>
 
 <div class="sparkle-button">
-<SparkleButton buttonText="Predict" />
+    <SparkleButton buttonText="Predict"/>
 </div>
 
 <style lang="postcss">
