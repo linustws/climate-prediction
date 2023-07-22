@@ -7,11 +7,13 @@
 <div class="content">
     <div class="input-row">
         <label for="prediction-value">Predict for:</label>
-        <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="100" />
-        <select id="prediction-type" bind:value={predictionType}>
-            <option value="month">months</option>
-            <option value="year">years</option>
-        </select>
+        <div class="input-container">
+            <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="100" />
+            <select id="prediction-type" bind:value={predictionType}>
+                <option value="month">months</option>
+                <option value="year">years</option>
+            </select>
+        </div>
         <SparkleButton buttonText="Predict" />
     </div>
 </div>
@@ -41,9 +43,31 @@
         font-weight: bold;
     }
 
+    .input-container {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        overflow: hidden;
+        border: 1px solid #ccc;
+    }
+
     input[type="number"],
     select {
         font-size: 16px;
-        padding: 5px;
+        padding: 8px 12px;
+        border: none;
+        background-color: transparent;
+        outline: none;
+        appearance: none;
+        width: 80px;
+    }
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    .input-container select {
+        padding-right: 8px;
     }
 </style>
