@@ -49,6 +49,8 @@
         border-radius: 5px;
         overflow: hidden;
         border: 1px solid #ccc;
+        background-color: #f7f7f7; /* Add background color to the input container */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box-shadow */
     }
 
     input[type="number"],
@@ -60,6 +62,7 @@
         outline: none;
         appearance: none;
         width: 80px;
+        color: #333; /* Adjust font color for better readability */
     }
 
     select {
