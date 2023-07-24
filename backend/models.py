@@ -90,6 +90,7 @@ def prepare_data():
 
 class LSTMModel:
     def __init__(self):
+        self.is_trained = False
         # set seed to ensure determinism and reproducibility (always retest from here)
         os.environ['TF_DETERMINISTIC_OPS'] = '1'
         tf.keras.utils.set_random_seed(1)
@@ -143,8 +144,10 @@ class LSTMModel:
         # fit model and save history
         history = self.model.fit(generator, epochs=300)
         self.loss = history.history['loss']
+        self.is_trained = True
 
     def predict(self, num_months):
+        print("Predicting...")
         predictions_norm = []
 
         first_eval_batch = self.train_data_norm[-self.n_input:]
@@ -180,7 +183,9 @@ model = None
 
 def setup():
     global model
+    print("Initializing and training...")
     model = LSTMModel()
+    print(f"Model trained on {datetime.now()}")
 
     # schedule the job to run every sunday
     @repeat(every().sunday)
@@ -189,6 +194,7 @@ def setup():
         print("Updating model and retraining...")
         global model
         model = LSTMModel()
+        print(f"Model trained on {datetime.now()}")
 
     while True:
         # print(idle_seconds())
