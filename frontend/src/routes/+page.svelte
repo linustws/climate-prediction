@@ -1,5 +1,6 @@
 <script>
     import SparkleButton from '$lib/components/SparkleButton.svelte';
+
     let predictionValue = 1;
     let predictionType = 'month';
 </script>
@@ -9,14 +10,14 @@
         <div class="input-container">
             <label for="prediction-value" class="label">Predict for:</label>
             <div class="input-fields">
-                <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="100" />
+                <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="100"/>
                 <select id="prediction-type" bind:value={predictionType}>
                     <option value="month">months</option>
                     <option value="year">years</option>
                 </select>
             </div>
         </div>
-        <SparkleButton buttonText="Predict" />
+        <SparkleButton buttonText="Predict"/>
     </div>
 </div>
 
@@ -45,12 +46,12 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        border-radius: 5px;
         overflow: hidden;
         border: 1px solid #ccc;
         background-color: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin-right: 20px;
+        box-shadow: 0 0 calc(0.2em + 1px) rgba(0, 0, 0, 0.1), 0 0 calc(0.4em + 1px) rgba(0, 0, 0, 0.1);
+        border-radius: 100px;
     }
 
     .input-fields {
