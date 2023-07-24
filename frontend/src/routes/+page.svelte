@@ -6,7 +6,7 @@
 
 <div class="content">
     <div class="input-row">
-        <label for="prediction-value">Predict for:</label>
+        <label for="prediction-value" class="label">Predict for:</label>
         <div class="input-container">
             <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="100" />
             <select id="prediction-type" bind:value={predictionType}>
@@ -38,9 +38,13 @@
         gap: 10px;
     }
 
-    label {
+    .label {
         font-size: 16px;
         font-weight: bold;
+        background-color: rgba(255, 255, 255, 0.8); /* Add a background color to the label */
+        padding: 4px 8px; /* Add some padding to the label */
+        border-radius: 5px;
+        color: #333; /* Adjust font color for better readability */
     }
 
     .input-container {
