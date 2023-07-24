@@ -88,7 +88,7 @@
         ),
         hsl(260 calc(var(--active) * 97%) calc((var(--active) * 44%) + 12%));
         background: var(--bg);
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: 500;
         border: 0;
         cursor: pointer;
