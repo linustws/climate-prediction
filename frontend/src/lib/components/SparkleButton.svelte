@@ -99,7 +99,7 @@
         white-space: nowrap;
         border-radius: 100px;
         position: relative;
-        box-shadow: 0 0 calc(var(--active) * 6em) calc(var(--active) * 3em) hsl(260 97% 61% / 0.75),
+        box-shadow: 0 0 calc(var(--active) * 1em) calc(var(--active) * 0.5em) hsl(260 97% 61% / 0.75),
         0 0.05em 0 0 hsl(260 calc(var(--active) * 97%) calc((var(--active) * 50%) + 30%)) inset,
         0 -0.05em 0 0 hsl(260 calc(var(--active) * 97%) calc(var(--active) * 60%)) inset;
         transition: box-shadow var(--transition), scale var(--transition), background var(--transition);

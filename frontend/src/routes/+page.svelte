@@ -21,16 +21,9 @@
 </div>
 
 <style lang="postcss">
-    .sparkle-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-
     .content {
         display: flex;
-        margin-top: 25px; /* Space below the navbar */
+        margin-top: 25px;
         justify-content: center;
     }
 
@@ -41,11 +34,11 @@
     }
 
     .label {
-        font-size: 16px;
-        font-weight: bold;
-        padding: 4px 8px; /* Add some padding to the label */
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 4px 8px;
         border-radius: 5px;
-        color: #333; /* Adjust font color for better readability */
+        color: #333;
     }
 
     .input-container {
@@ -55,8 +48,9 @@
         border-radius: 5px;
         overflow: hidden;
         border: 1px solid #ccc;
-        background-color: rgba(255, 255, 255, 0.8); /* Add background color to the input container */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box-shadow */
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-right: 20px;
     }
 
     .input-fields {
@@ -66,14 +60,15 @@
 
     input[type="number"],
     select {
-        font-size: 16px;
+        font-size: 1rem;
+        font-weight: 500;
         padding: 8px 12px;
         border: none;
         background-color: transparent;
         outline: none;
         appearance: none;
         width: 80px;
-        color: #333; /* Adjust font color for better readability */
+        color: #333;
     }
 
     select {
