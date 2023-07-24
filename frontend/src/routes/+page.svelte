@@ -63,13 +63,21 @@
     select {
         font-size: 1rem;
         font-weight: 500;
-        padding: 8px 12px;
         border: none;
         background-color: transparent;
         outline: none;
         appearance: none;
-        width: 80px;
         color: #333;
+    }
+
+    select {
+        width: 80px;
+        padding: 8px 12px;
+    }
+
+    input[type="number"] {
+        width: 50px;
+        padding: 8px 0;
     }
 
     select {
