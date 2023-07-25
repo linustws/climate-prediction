@@ -1,5 +1,6 @@
 # setup
 import os
+import threading
 from datetime import datetime
 from datetime import timedelta
 from time import sleep
@@ -31,6 +32,8 @@ np.random.seed(123)
 # set the seed for tensorflow module
 tf.random.set_seed(123)
 
+model_lock = threading.Lock()
+model = None
 api_endpoint = "https://data.gov.sg/api/action/datastore_search"
 
 # resource ids
@@ -125,6 +128,7 @@ class LSTMModel:
         # self.predict()
 
     def train(self):
+        print("Training model...")
         df_monthly_mean_temp = self.series_monthly_mean_temp.to_frame()  # convert Series to DataFrame
         self.scaler.fit(df_monthly_mean_temp)
         df_normalised_monthly_mean_temp = self.scaler.transform(df_monthly_mean_temp)
@@ -178,23 +182,23 @@ class LSTMModel:
         print(f"Root Mean Squared Error: {np.sqrt(np.mean(residuals ** 2, axis=0)).item()}")
 
 
-model = None
-
-
 def setup():
-    global model
-    print("Initializing and training...")
-    model = LSTMModel()
-    print(f"Model trained on {datetime.now()}")
+    with model_lock:
+        print("Initializing...")
+        global model
+        model = LSTMModel()
+        print(f"Model trained on {datetime.now()}")
 
     # schedule the job to run every sunday
     @repeat(every().sunday)
     def job():
-        # update model and retrain data
-        print("Updating model and retraining...")
-        global model
-        model = LSTMModel()
-        print(f"Model trained on {datetime.now()}")
+        with model_lock:
+            # update model and retrain data
+            print("Initializing new model...")
+            global model
+            # initialize new instance of model
+            model = LSTMModel()
+            print(f"Model trained on {datetime.now()}")
 
     while True:
         # print(idle_seconds())
