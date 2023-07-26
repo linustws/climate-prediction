@@ -12,6 +12,7 @@ import plotly.io as pio
 import plotly.offline as pyo
 import requests
 import tensorflow as tf
+from flask_caching import Cache
 from keras.layers import Dense
 from keras.layers import Dropout
 from keras.layers import LSTM
@@ -32,7 +33,6 @@ np.random.seed(123)
 # set the seed for tensorflow module
 tf.random.set_seed(123)
 
-model_lock = threading.Lock()
 model = None
 api_endpoint = "https://data.gov.sg/api/action/datastore_search"
 
@@ -182,25 +182,37 @@ class LSTMModel:
         print(f"Root Mean Squared Error: {np.sqrt(np.mean(residuals ** 2, axis=0)).item()}")
 
 
+cache = Cache(config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_URL':
+    '***REMOVED***'})
+
+
 def setup():
-    with model_lock:
-        print("Initializing...")
-        global model
-        model = LSTMModel()
-        print(f"Model trained on {datetime.now()}")
+    print("Initializing...")
+    global model
+    model = LSTMModel()
+    cache.set('lstm_model', model)
+    print(f"Model trained on {datetime.now()}")
 
     # schedule the job to run every sunday
     @repeat(every().sunday)
     def job():
-        with model_lock:
-            # update model and retrain data
-            print("Initializing new model...")
-            global model
-            # initialize new instance of model
-            model = LSTMModel()
-            print(f"Model trained on {datetime.now()}")
+        # update model and retrain data
+        print("Initializing new model...")
+        global model
+        # initialize new instance of a model
+        model = LSTMModel()
+        cache.set('lstm_model', model)
+        print(f"Model trained on {datetime.now()}")
 
     while True:
         # print(idle_seconds())
         run_pending()
         sleep(1)
+
+
+# set the flag for setting up the model
+setup_model_flag = True
+
+if setup_model_flag:
+    training_thread = threading.Thread(target=setup)
+    training_thread.start()
