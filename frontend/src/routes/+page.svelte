@@ -91,23 +91,28 @@
         </div>
     </form>
     <div class="plotly-container">
-        <Plot
-                {data}
-                layout={{
-            margin: { t: 0 },
-            plot_bgcolor: 'rgba(255, 255, 255, 0)', // Adjust the opacity here (0.0 to 1.0)
-            paper_bgcolor: 'rgba(0, 0, 0, 0.75)', // Adjust the opacity here (0.0 to 1.0)
+        <Plot {data}
+              layout={{
+            margin: {t: 50},
+            plot_bgcolor: 'rgba(255, 255, 255, 0)',
+            paper_bgcolor: 'rgba(0, 0, 0, 0.75)',
             xaxis: {
-                color: 'white', // Set x-axis text and line color to white
-                gridcolor: 'rgba(255, 255, 255, 0.25)', // Adjust grid color and opacity
+                color: 'white',
+                gridcolor: 'rgba(255, 255, 255, 0.25)',
             },
             yaxis: {
-                color: 'white', // Set y-axis text and line color to white
-                gridcolor: 'rgba(255, 255, 255, 0.25)', // Adjust grid color and opacity
+                color: 'white',
+                gridcolor: 'rgba(255, 255, 255, 0.25)',
             },
-        }}
-                fillParent={true}
-                debounce={250}
+            modebar: {
+                activecolor: 'rgba(255, 255, 255, 0.85)',
+                bgcolor: 'rgba(0, 0, 0, 0)',
+                color: 'rgba(255, 255, 255, 0.5)',
+                orientation: 'v',
+            }
+        }} config={{scrollZoom: true}}
+              fillParent={true}
+              debounce={250}
         />
     </div>
 </div>
@@ -184,7 +189,7 @@
     .plotly-container {
         display: flex;
         width: 1000px;
-        height: 600px;
+        height: 625px;
         margin: 25px auto 0;
         border-radius: 20px;
         box-shadow: 0 0px 16px rgba(0, 0, 0, 0.75);
