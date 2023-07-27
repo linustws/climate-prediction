@@ -23,7 +23,7 @@ def predict():
         # An error occurred, return an error response with 400 status code
         return jsonify({'error': 'Invalid JSON format'}), 400
 
-    if selected_option == 'Years':
+    if selected_option == 'year':
         num_months = int(input_data) * 12
     else:
         num_months = int(input_data)
@@ -33,10 +33,6 @@ def predict():
     if model is None:
         # Model is not setup, return an error response with 500 status code
         return jsonify({'error': 'Model not setup'}), 500
-
-    if not model.is_trained:
-        # Model is not trained, return an error response with 500 status code
-        return jsonify({'error': 'Model not trained'}), 500
 
     else:
         try:

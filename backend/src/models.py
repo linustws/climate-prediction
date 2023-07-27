@@ -93,7 +93,6 @@ def prepare_data():
 
 class LSTMModel:
     def __init__(self):
-        self.is_trained = False
         # set seed to ensure determinism and reproducibility (always retest from here)
         os.environ['TF_DETERMINISTIC_OPS'] = '1'
         tf.keras.utils.set_random_seed(1)
@@ -148,7 +147,6 @@ class LSTMModel:
         # fit model and save history
         history = self.model.fit(generator, epochs=300)
         self.loss = history.history['loss']
-        self.is_trained = True
 
     def predict(self, num_months):
         print("Predicting...")
@@ -211,9 +209,7 @@ def setup():
         sleep(1)
 
 
-# set the flag for setting up the model
-setup_model_flag = True
-
-if setup_model_flag:
+def start_thread():
     training_thread = threading.Thread(target=setup)
     training_thread.start()
+

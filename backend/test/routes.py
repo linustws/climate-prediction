@@ -23,7 +23,7 @@ def predict():
         # An error occurred, return an error response with 400 status code
         return jsonify({'error': 'Invalid JSON format'}), 400
 
-    if selected_option == 'Years':
+    if selected_option == 'year':
         num_months = int(input_data) * 12
     else:
         num_months = int(input_data)
