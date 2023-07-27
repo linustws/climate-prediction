@@ -183,7 +183,8 @@ class LSTMModel:
 
 
 cache = Cache(config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_URL':
-    '***REMOVED***'})
+    '***REMOVED***',
+                      'CACHE_DEFAULT_TIMEOUT': 0})
 
 
 def setup():
