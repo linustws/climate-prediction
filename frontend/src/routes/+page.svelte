@@ -14,7 +14,7 @@
         try {
             const response = await fetch('http://127.0.0.1:5000', {
                 method: 'GET',
-                    headers: {
+                headers: {
                     'Content-Type': 'application/json',
                 },
             });
@@ -80,7 +80,7 @@
             <div class="input-container">
                 <label for="prediction-value" class="label">Predict for:</label>
                 <div class="input-fields">
-                    <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="100"/>
+                    <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="1000"/>
                     <select id="prediction-type" bind:value={predictionType}>
                         <option value="month">months</option>
                         <option value="year">years</option>
@@ -94,8 +94,18 @@
         <Plot
                 {data}
                 layout={{
-    margin: { t: 0 }
-  }}
+            margin: { t: 0 },
+            plot_bgcolor: 'rgba(255, 255, 255, 0)', // Adjust the opacity here (0.0 to 1.0)
+            paper_bgcolor: 'rgba(0, 0, 0, 0.75)', // Adjust the opacity here (0.0 to 1.0)
+            xaxis: {
+                color: 'white', // Set x-axis text and line color to white
+                gridcolor: 'rgba(255, 255, 255, 0.25)', // Adjust grid color and opacity
+            },
+            yaxis: {
+                color: 'white', // Set y-axis text and line color to white
+                gridcolor: 'rgba(255, 255, 255, 0.25)', // Adjust grid color and opacity
+            },
+        }}
                 fillParent={true}
                 debounce={250}
         />
@@ -176,5 +186,8 @@
         width: 1000px;
         height: 600px;
         margin: 25px auto 0;
+        border-radius: 20px;
+        box-shadow: 0 0px 16px rgba(0, 0, 0, 0.75);
+        overflow: hidden;
     }
 </style>
