@@ -1,8 +1,42 @@
 <script>
+    import Plot from 'svelte-plotly.js';
     import SparkleButton from '$lib/components/SparkleButton.svelte';
+    import {onMount} from "svelte";
 
     let predictionValue = 1;
     let predictionType = 'month';
+    let isLoading = false;
+    let actualData = [];
+    let predictionData = [];
+    let data = [];
+
+    const fetchActualData = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:5000', {
+                method: 'GET',
+                    headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error);
+            }
+
+            data = await response.json();
+            actualData = [data['data']];
+            data = actualData
+            console.log('Actual:', actualData);
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    };
+
+    onMount(() => {
+        fetchActualData();
+    });
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -26,12 +60,16 @@
                 throw new Error(errorData.error);
             }
 
-            const data = await response.json();
-            console.log('Prediction:', data.prediction);
-            // Process the prediction data as needed.
+            data = await response.json();
+            predictionData = [data['prediction']];
+            data = [{
+                'x': [...actualData[0]['x'], ...predictionData[0]['x']],
+                'y': [...actualData[0]['y'], ...predictionData[0]['y']]
+            }]
+            console.log('Prediction:', predictionData);
+            console.log('Combined:', data);
         } catch (error) {
             console.error('Error:', error.message);
-            // Handle any errors that occur during the API call.
         }
     };
 </script>
@@ -52,13 +90,24 @@
             <SparkleButton type="submit" buttonText="Predict"/>
         </div>
     </form>
+    <div class="plotly-container">
+        <Plot
+                {data}
+                layout={{
+    margin: { t: 0 }
+  }}
+                fillParent={true}
+                debounce={250}
+        />
+    </div>
 </div>
 
 <style lang="postcss">
     .content {
         display: flex;
+        flex-direction: column;
+        align-items: center;
         margin-top: 25px;
-        justify-content: center;
     }
 
     .input-row {
@@ -120,5 +169,12 @@
 
     .input-fields select {
         padding-right: 8px;
+    }
+
+    .plotly-container {
+        display: flex;
+        width: 1000px;
+        height: 600px;
+        margin: 25px auto 0;
     }
 </style>
