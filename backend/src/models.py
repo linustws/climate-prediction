@@ -158,7 +158,8 @@ class LSTMModel:
         data = self.train_data
         data_dict = {
             'x': data.index.strftime('%Y-%m-%d').tolist(),
-            'y': data['mean_temp'].tolist()
+            'y': data['mean_temp'].tolist(),
+            'mode': 'lines'
         }
         return data_dict
 
@@ -196,11 +197,13 @@ class LSTMModel:
             print(f"Root Mean Squared Error: {np.sqrt(np.mean(residuals ** 2, axis=0)).item()}")
 
         last_date = self.train_data.index[-1]
-        future_dates = [last_date + relativedelta(months=i+1) for i in range(num_months)]
+        last_data_point = self.train_data['mean_temp'][-1]
+        future_dates = [last_date] + [last_date + relativedelta(months=i+1) for i in range(num_months)]
         future_dates_str = [date.strftime('%Y-%m-%d') for date in future_dates]
         data_dict = {
             'x': future_dates_str,
-            'y': np.ravel(predictions).tolist()
+            'y': [last_data_point] + np.ravel(predictions).tolist(),
+            'mode': 'lines'
         }
         return data_dict
 

@@ -25,8 +25,8 @@
             }
 
             data = await response.json();
-            actualData = [data['data']];
-            data = actualData
+            actualData = data['data'];
+            data = [actualData]
             console.log('Actual:', actualData);
         } catch (error) {
             console.error('Error:', error.message);
@@ -61,11 +61,8 @@
             }
 
             data = await response.json();
-            predictionData = [data['prediction']];
-            data = [{
-                'x': [...actualData[0]['x'], ...predictionData[0]['x']],
-                'y': [...actualData[0]['y'], ...predictionData[0]['y']]
-            }]
+            predictionData = data['prediction'];
+            data = [actualData, predictionData]
             console.log('Prediction:', predictionData);
             console.log('Combined:', data);
         } catch (error) {
@@ -93,23 +90,28 @@
     <div class="plotly-container">
         <Plot {data}
               layout={{
-            margin: {t: 50},
+            margin: {t: 50, r: 150},
             plot_bgcolor: 'rgba(255, 255, 255, 0)',
             paper_bgcolor: 'rgba(0, 0, 0, 0.75)',
             xaxis: {
                 color: 'white',
-                gridcolor: 'rgba(255, 255, 255, 0.25)',
+                gridcolor: 'rgba(255, 255, 255, 0.1)',
             },
             yaxis: {
                 color: 'white',
-                gridcolor: 'rgba(255, 255, 255, 0.25)',
+                gridcolor: 'rgba(255, 255, 255, 0.1)',
             },
             modebar: {
                 activecolor: 'rgba(255, 255, 255, 0.85)',
                 bgcolor: 'rgba(0, 0, 0, 0)',
                 color: 'rgba(255, 255, 255, 0.5)',
                 orientation: 'v',
-            }
+            },
+            showlegend: true,
+            legend: {
+                orientation: 'v'
+            },
+            colorway: ['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52']
         }} config={{scrollZoom: true}}
               fillParent={true}
               debounce={250}
@@ -188,7 +190,7 @@
 
     .plotly-container {
         display: flex;
-        width: 1000px;
+        width: 1100px;
         height: 625px;
         margin: 25px auto 0;
         border-radius: 5px;
