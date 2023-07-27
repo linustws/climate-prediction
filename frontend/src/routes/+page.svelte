@@ -191,8 +191,8 @@
         width: 1000px;
         height: 625px;
         margin: 25px auto 0;
-        border-radius: 20px;
-        box-shadow: 0 0px 16px rgba(0, 0, 0, 0.75);
+        border-radius: 5px;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
         overflow: hidden;
     }
 </style>
