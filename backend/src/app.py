@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
 
-from models import cache
-
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
+
+from models import cache
 
 cache.init_app(app)
 

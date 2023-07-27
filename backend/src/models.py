@@ -12,6 +12,7 @@ import plotly.io as pio
 import plotly.offline as pyo
 import requests
 import tensorflow as tf
+from dateutil.relativedelta import relativedelta
 from flask_caching import Cache
 from keras.layers import Dense
 from keras.layers import Dropout
@@ -22,6 +23,10 @@ from schedule import every
 from schedule import repeat
 from schedule import run_pending
 from sklearn.preprocessing import MinMaxScaler
+
+cache = Cache(config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_URL':
+    '***REMOVED***',
+                      'CACHE_DEFAULT_TIMEOUT': 0})
 
 px.defaults.template = 'plotly'  # plotly, plotly_dark
 pyo.init_notebook_mode(connected=True)
@@ -148,6 +153,15 @@ class LSTMModel:
         history = self.model.fit(generator, epochs=300)
         self.loss = history.history['loss']
 
+    def get_data(self):
+        print("Getting data...")
+        data = self.train_data
+        data_dict = {
+            'x': data.index.strftime('%Y-%m-%d').tolist(),
+            'y': data['mean_temp'].tolist()
+        }
+        return data_dict
+
     def predict(self, num_months):
         print("Predicting...")
         predictions_norm = []
@@ -155,7 +169,7 @@ class LSTMModel:
         first_eval_batch = self.train_data_norm[-self.n_input:]
         current_batch = first_eval_batch.reshape((1, self.n_input, self.n_features))
 
-        for i in range(num_months):
+        for _ in range(num_months):
             # get the prediction value for the first batch
             current_pred = self.model.predict(current_batch)[0]
 
@@ -167,22 +181,28 @@ class LSTMModel:
 
         predictions = self.scaler.inverse_transform(predictions_norm)
 
-        residuals = self.test_data - predictions
+        if num_months == 12:
+            residuals = self.test_data - predictions
+            print(f'residuals: {residuals}')
 
-        # plot_data = pd.DataFrame({'datetime': self.test_data.index, 'test_data': self.test_data.values.flatten(),
-        # 'predictions': predictions.flatten()}) fig_pred_test = px.line(plot_data, x='datetime', y=['test_data',
-        # 'predictions'], labels={'datetime': 'Datetime', 'value': 'Mean Temperature (°C)'}, title='Test Data and
-        # Predictions') fig_pred_test.update_xaxes(dtick='M1', tickangle=45) fig_pred_test.update_yaxes(dtick=0.5,
-        # tickangle=45) fig_pred_test.update_traces(hovertemplate='Datetime: %{x}<br>Mean Temperature: %{y}°C')
-        # fig_pred_test.show()
+            # plot_data = pd.DataFrame({'datetime': self.test_data.index, 'test_data': self.test_data.values.flatten(),
+            # 'predictions': predictions.flatten()}) fig_pred_test = px.line(plot_data, x='datetime', y=['test_data',
+            # 'predictions'], labels={'datetime': 'Datetime', 'value': 'Mean Temperature (°C)'}, title='Test Data and
+            # Predictions') fig_pred_test.update_xaxes(dtick='M1', tickangle=45) fig_pred_test.update_yaxes(dtick=0.5,
+            # tickangle=45) fig_pred_test.update_traces(hovertemplate='Datetime: %{x}<br>Mean Temperature: %{y}°C')
+            # fig_pred_test.show()
 
-        print(f"Mean Absolute Percent Error: {round(np.mean(abs(residuals / self.test_data), axis=0).item(), 4)}")
-        print(f"Root Mean Squared Error: {np.sqrt(np.mean(residuals ** 2, axis=0)).item()}")
+            print(f"Mean Absolute Percent Error: {round(np.mean(abs(residuals / self.test_data), axis=0).item(), 4)}")
+            print(f"Root Mean Squared Error: {np.sqrt(np.mean(residuals ** 2, axis=0)).item()}")
 
-
-cache = Cache(config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_URL':
-    '***REMOVED***',
-                      'CACHE_DEFAULT_TIMEOUT': 0})
+        last_date = self.train_data.index[-1]
+        future_dates = [last_date + relativedelta(months=i+1) for i in range(num_months)]
+        future_dates_str = [date.strftime('%Y-%m-%d') for date in future_dates]
+        data_dict = {
+            'x': future_dates_str,
+            'y': np.ravel(predictions).tolist()
+        }
+        return data_dict
 
 
 def setup():
@@ -213,3 +233,5 @@ def start_thread():
     training_thread = threading.Thread(target=setup)
     training_thread.start()
 
+
+start_thread()

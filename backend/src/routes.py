@@ -3,8 +3,28 @@ from flask import jsonify
 from flask import request
 
 from models import cache
+from models import start_thread
 
 routes = Blueprint('routes', __name__)
+
+
+@routes.route('/', methods=['GET'])
+def get_data():
+    model = cache.get('lstm_model')
+
+    if model is None:
+        # Model not setup, setup model and return an error response with 500 status code
+        start_thread()
+        return jsonify({'error': 'Model not setup'}), 500
+
+    else:
+        try:
+            data = model.get_data()
+        except Exception as e:
+            return jsonify({'error': 'Prediction error: {}'.format(str(e))}), 500
+
+    # Return the prediction as a JSON response
+    return jsonify({'data': data})
 
 
 @routes.route('/predict', methods=['POST'])
@@ -31,7 +51,8 @@ def predict():
     model = cache.get('lstm_model')
 
     if model is None:
-        # Model is not setup, return an error response with 500 status code
+        # Model not setup, setup model and return an error response with 500 status code
+        start_thread()
         return jsonify({'error': 'Model not setup'}), 500
 
     else:
