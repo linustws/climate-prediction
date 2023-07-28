@@ -26,6 +26,12 @@
 
             data = await response.json();
             actualData = data['data'];
+            actualData = {
+                ...actualData,
+                'mode': 'lines',
+                'name': 'Actual',
+                'hovertemplate': 'Datetime: %{x}<br>Mean Temperature: %{y}°C'
+            }
             data = [actualData]
             console.log('Actual:', actualData);
         } catch (error) {
@@ -62,6 +68,12 @@
 
             data = await response.json();
             predictionData = data['prediction'];
+            predictionData = {
+                ...predictionData,
+                'mode': 'lines',
+                'name': 'Predicted',
+                'hovertemplate': 'Datetime: %{x}<br>Mean Temperature: %{y}°C'
+            }
             data = [actualData, predictionData]
             console.log('Prediction:', predictionData);
             console.log('Combined:', data);

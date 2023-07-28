@@ -158,8 +158,6 @@ class LSTMModel:
         data_dict = {
             'x': data.index.strftime('%Y-%m-%d').tolist(),
             'y': data['mean_temp'].tolist(),
-            'mode': 'lines',
-            'name': 'Actual'
         }
         return data_dict
 
@@ -203,8 +201,6 @@ class LSTMModel:
         data_dict = {
             'x': future_dates_str,
             'y': [last_data_point] + np.ravel(predictions).tolist(),
-            'mode': 'lines',
-            'name': 'Predicted'
         }
         return data_dict
 
