@@ -89,17 +89,24 @@
     </form>
     <div class="plotly-container">
         <Plot {data}
-              layout={{
-            margin: {t: 50, r: 150},
+            layout={{
+            margin: {t: 50, r: 150, l: 100},
             plot_bgcolor: 'rgba(255, 255, 255, 0)',
             paper_bgcolor: 'rgba(0, 0, 0, 0.75)',
             xaxis: {
+                automargin: true,
                 color: 'white',
                 gridcolor: 'rgba(255, 255, 255, 0.1)',
+                title: 'Datetime'
             },
             yaxis: {
+                automargin: true,
                 color: 'white',
                 gridcolor: 'rgba(255, 255, 255, 0.1)',
+                title: {
+                    text: 'Mean Temperature (°C)',
+                    standoff: 20
+                },
             },
             modebar: {
                 activecolor: 'rgba(255, 255, 255, 0.85)',
