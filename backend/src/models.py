@@ -32,12 +32,6 @@ px.defaults.template = 'plotly'  # plotly, plotly_dark
 pyo.init_notebook_mode(connected=True)
 pio.renderers.default = "iframe"  # must trust notebook for it to work, use iframe for lab
 
-# set the seed for numpy module
-np.random.seed(123)
-
-# set the seed for tensorflow module
-tf.random.set_seed(123)
-
 model = None
 api_endpoint = "https://data.gov.sg/api/action/datastore_search"
 
@@ -98,6 +92,11 @@ def prepare_data():
 
 class LSTMModel:
     def __init__(self):
+        # set the seed for numpy module
+        np.random.seed(123)
+
+        # set the seed for tensorflow module
+        tf.random.set_seed(123)
         # set seed to ensure determinism and reproducibility (always retest from here)
         os.environ['TF_DETERMINISTIC_OPS'] = '1'
         tf.keras.utils.set_random_seed(1)
@@ -159,7 +158,8 @@ class LSTMModel:
         data_dict = {
             'x': data.index.strftime('%Y-%m-%d').tolist(),
             'y': data['mean_temp'].tolist(),
-            'mode': 'lines'
+            'mode': 'lines',
+            'name': 'Actual'
         }
         return data_dict
 
@@ -203,7 +203,8 @@ class LSTMModel:
         data_dict = {
             'x': future_dates_str,
             'y': [last_data_point] + np.ravel(predictions).tolist(),
-            'mode': 'lines'
+            'mode': 'lines',
+            'name': 'Predicted'
         }
         return data_dict
 
