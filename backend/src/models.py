@@ -24,9 +24,8 @@ from schedule import repeat
 from schedule import run_pending
 from sklearn.preprocessing import MinMaxScaler
 
-cache = Cache(config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_URL':
-    '***REMOVED***',
-                      'CACHE_DEFAULT_TIMEOUT': 0})
+redis_cache_url = os.environ.get('REDIS_CACHE_URL')
+cache = Cache(config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_URL': redis_cache_url, 'CACHE_DEFAULT_TIMEOUT': 0})
 
 px.defaults.template = 'plotly'  # plotly, plotly_dark
 pyo.init_notebook_mode(connected=True)
@@ -196,7 +195,7 @@ class LSTMModel:
 
         last_date = self.train_data.index[-1]
         last_data_point = self.train_data['mean_temp'][-1]
-        future_dates = [last_date] + [last_date + relativedelta(months=i+1) for i in range(num_months)]
+        future_dates = [last_date] + [last_date + relativedelta(months=i + 1) for i in range(num_months)]
         future_dates_str = [date.strftime('%Y-%m-%d') for date in future_dates]
         data_dict = {
             'x': future_dates_str,
