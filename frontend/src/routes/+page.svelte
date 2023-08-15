@@ -175,7 +175,7 @@
         align-items: center;
         gap: 10px;
         overflow: hidden;
-        border: 3px solid rgba(0, 0, 0, 0.75);
+        border: 3px solid rgba(0, 0, 0, 0.85);
         background-color: rgba(255, 255, 255, 1);
         margin-right: 20px;
         box-shadow: 0 0 calc(0.2em + 1px) rgba(0, 0, 0, 0.1), 0 0 calc(0.4em + 1px) rgba(0, 0, 0, 0.1);
