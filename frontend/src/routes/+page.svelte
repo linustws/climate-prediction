@@ -46,7 +46,7 @@
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Make an API call to your backend here with the form data
+        isLoading = true;
         const formData = {
             value: predictionValue,
             type: predictionType,
@@ -79,26 +79,35 @@
             console.log('Combined:', data);
         } catch (error) {
             console.error('Error:', error.message);
+        } finally {
+            isLoading = false;
         }
     };
 </script>
 
 <div class="content">
-    <form on:submit={handleSubmit}>
-        <div class="input-row">
-            <div class="input-container">
-                <label for="prediction-value" class="label">Predict for:</label>
-                <div class="input-fields">
-                    <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="1000"/>
-                    <select id="prediction-type" bind:value={predictionType}>
-                        <option value="month">months</option>
-                        <option value="year">years</option>
-                    </select>
-                </div>
-            </div>
-            <SparkleButton type="submit" buttonText="Predict"/>
+    {#if isLoading}
+        <!-- Loading bar -->
+        <div class="loading-bar">
+            <div class="bar"></div>
         </div>
-    </form>
+    {:else}
+        <form on:submit={handleSubmit}>
+            <div class="input-row">
+                <div class="input-container">
+                    <label for="prediction-value" class="label">Predict for:</label>
+                    <div class="input-fields">
+                        <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="1000"/>
+                        <select id="prediction-type" bind:value={predictionType}>
+                            <option value="month">months</option>
+                            <option value="year">years</option>
+                        </select>
+                    </div>
+                </div>
+                <SparkleButton type="submit" buttonText="Predict"/>
+            </div>
+        </form>
+    {/if}
     <div class="plotly-container">
         <Plot {data}
             layout={{
@@ -215,5 +224,28 @@
         border-radius: 5px;
         box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
         overflow: hidden;
+    }
+
+    .loading-bar {
+        width: 100%;
+        height: 4px;
+        background-color: #ccc;
+        position: relative;
+    }
+
+    .bar {
+        height: 100%;
+        width: 0;
+        background-color: #636EFA;
+        animation: loading 2s infinite;
+    }
+
+    @keyframes loading {
+        0% {
+            width: 0;
+        }
+        100% {
+            width: 100%;
+        }
     }
 </style>
