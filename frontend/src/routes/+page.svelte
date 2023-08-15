@@ -89,7 +89,7 @@
     {#if isLoading}
         <!-- Loading bar -->
         <div class="loading-bar">
-            <div class="bar"></div>
+            <div class="spinner"></div>
         </div>
     {:else}
         <form on:submit={handleSubmit}>
@@ -152,13 +152,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 25px;
+        margin-top: 20px;
     }
 
     .input-row {
         display: flex;
         align-items: center;
         gap: 10px;
+        width: 376px;
     }
 
     .label {
@@ -174,7 +175,7 @@
         align-items: center;
         gap: 10px;
         overflow: hidden;
-        border: 1px solid #ccc;
+        border: 3px solid rgba(0, 0, 0, 0.75);
         background-color: rgba(255, 255, 255, 1);
         margin-right: 20px;
         box-shadow: 0 0 calc(0.2em + 1px) rgba(0, 0, 0, 0.1), 0 0 calc(0.4em + 1px) rgba(0, 0, 0, 0.1);
@@ -220,32 +221,37 @@
         display: flex;
         width: 1100px;
         height: 625px;
-        margin: 25px auto 0;
+        margin: 20px auto 0;
         border-radius: 5px;
         box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
         overflow: hidden;
     }
 
     .loading-bar {
-        width: 100%;
-        height: 4px;
-        background-color: #ccc;
+        width: 376px; /* Width of the form field */
+        height: 46px; /* Height of the form field */
+        background-color: rgba(26, 17, 16, 1);
         position: relative;
+        border-radius: 100px;
+        border: 3px solid rgba(0, 0, 0, 0.75);
+        box-shadow: 0 0 calc(0.2em + 1px) rgba(0, 0, 0, 0.1), 0 0 calc(0.4em + 1px) rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* Hide overflowing parts */
     }
 
-    .bar {
+    .spinner {
+        width: 100%;
         height: 100%;
-        width: 0;
-        background-color: #636EFA;
-        animation: loading 2s infinite;
+        position: absolute;
+        background: linear-gradient(90deg, transparent, rgba(99, 110, 250, 0.8), transparent);
+        animation: loading 1.5s infinite;
     }
 
     @keyframes loading {
         0% {
-            width: 0;
+            transform: translateX(-100%);
         }
         100% {
-            width: 100%;
+            transform: translateX(100%);
         }
     }
 </style>
