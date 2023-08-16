@@ -1,47 +1,4 @@
-<script context="module">
-    export const prerender = true;
-
-    import { ArrowsRotateSolid, CaretDownSolid, GearSolid } from 'svelte-awesome-icons';
-
-    // import table_of_contents from '$lib/toc2.js';
-    // import MathJax from 'mathjax';
-    // import {onMount} from 'svelte';
-    //
-    // MathJax.config({
-    //     tex: {
-    //         inlineMath: [['$', '$'], ["\\(", "\\)"]],
-    //         displayMath: [['$$', '$$'], ["\\[", "\\]"]],
-    //         processEscapes: true,
-    //         processEnvironments: true
-    //     },
-    //     displayAlign: 'center',
-    //     'HTML-CSS': {
-    //         styles: {'.MathJax_Display': {'margin': 0}},
-    //         linebreaks: {automatic: true}
-    //     }
-    // });
-    //
-    // let cfg = {};
-    // onMount(() => {
-    //     table_of_contents(cfg);
-    //
-    //     // Insert the PlotlyConfig and Plotly code here
-    //     window.PlotlyConfig = {MathJaxConfig: 'local'};
-    //     if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {
-    //         window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});
-    //     }
-    //     if (typeof require !== 'undefined') {
-    //         require.undef("plotly");
-    //         requirejs.config({
-    //             paths: {
-    //                 'plotly': ['https://cdn.plot.ly/plotly-2.20.0.min']
-    //             }
-    //         });
-    //         require(['plotly'], function (Plotly) {
-    //             window._Plotly = Plotly;
-    //         });
-    //     }
-    // });
+<script>
 </script>
 
 <html lang="en">
@@ -10097,14 +10054,6 @@ Root Mean Squared Error: 0.44115552418544135
         }
     }
 
-    .panel > .table:first-child > thead:first-child > tr:first-child,
-    .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child,
-    .panel > .table:first-child > tbody:first-child > tr:first-child,
-    .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child {
-        border-top-left-radius: 1px;
-        border-top-right-radius: 1px;
-    }
-
     .panel > .table:first-child > thead:first-child > tr:first-child td:first-child,
     .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child td:first-child,
     .panel > .table:first-child > tbody:first-child > tr:first-child td:first-child,
@@ -10125,14 +10074,6 @@ Root Mean Squared Error: 0.44115552418544135
     .panel > .table:first-child > tbody:first-child > tr:first-child th:last-child,
     .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child {
         border-top-right-radius: 1px;
-    }
-
-    .panel > .table:last-child > tbody:last-child > tr:last-child,
-    .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child,
-    .panel > .table:last-child > tfoot:last-child > tr:last-child,
-    .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child {
-        border-bottom-left-radius: 1px;
-        border-bottom-right-radius: 1px;
     }
 
     .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child,
@@ -10442,7 +10383,6 @@ new spec completely include:
         display: -moz-box;
         -moz-box-orient: vertical;
         -moz-box-align: stretch;
-        display: box;
         box-orient: vertical;
         box-align: stretch;
         /* Modern browsers */
@@ -10524,7 +10464,6 @@ new spec completely include:
         display: -moz-box;
         -moz-box-orient: vertical;
         -moz-box-align: stretch;
-        display: box;
         box-orient: vertical;
         box-align: stretch;
         /* Modern browsers */
@@ -10555,15 +10494,6 @@ new spec completely include:
         padding-bottom: 0;
     }
 
-    div.unrecognized_cell .inner_cell {
-        border-radius: 2px;
-        padding: 5px;
-        font-weight: bold;
-        color: red;
-        border: 1px solid #cfcfcf;
-        background: #eaeaea;
-    }
-
     div.unrecognized_cell .inner_cell a {
         color: inherit;
         text-decoration: none;
@@ -10575,9 +10505,6 @@ new spec completely include:
     }
 
     @media (max-width: 540px) {
-        div.unrecognized_cell > div.prompt {
-            display: none;
-        }
     }
 
     div.code_cell {
@@ -10600,7 +10527,6 @@ new spec completely include:
         display: -moz-box;
         -moz-box-orient: horizontal;
         -moz-box-align: stretch;
-        display: box;
         box-orient: horizontal;
         box-align: stretch;
         /* Modern browsers */
@@ -10618,7 +10544,6 @@ new spec completely include:
             display: -moz-box;
             -moz-box-orient: vertical;
             -moz-box-align: stretch;
-            display: box;
             box-orient: vertical;
             box-align: stretch;
             /* Modern browsers */
@@ -10659,14 +10584,6 @@ new spec completely include:
  * }
  */
 
-    .CodeMirror pre {
-        /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
-    use .CodeMirror-lines for vertical */
-        padding: 0 0.4em;
-        border: 0;
-        border-radius: 0;
-    }
-
     @media screen and (min-width: 2138px) and (max-width: 4319px) {
     }
 
@@ -10694,7 +10611,6 @@ Adapted from GitHub theme
         display: -moz-box;
         -moz-box-orient: vertical;
         -moz-box-align: stretch;
-        display: box;
         box-orient: vertical;
         box-align: stretch;
         /* Modern browsers */
@@ -10723,7 +10639,6 @@ Adapted from GitHub theme
         display: -moz-box;
         -moz-box-orient: horizontal;
         -moz-box-align: stretch;
-        display: box;
         box-orient: horizontal;
         box-align: stretch;
         /* Modern browsers */
@@ -10757,7 +10672,6 @@ Adapted from GitHub theme
         display: -moz-box;
         -moz-box-orient: vertical;
         -moz-box-align: stretch;
-        display: box;
         box-orient: vertical;
         box-align: stretch;
         /* Modern browsers */
@@ -10775,7 +10689,6 @@ Adapted from GitHub theme
             display: -moz-box;
             -moz-box-orient: vertical;
             -moz-box-align: stretch;
-            display: box;
             box-orient: vertical;
             box-align: stretch;
             /* Modern browsers */
@@ -10807,10 +10720,6 @@ Adapted from GitHub theme
         /* Modern browsers */
         flex: 1;
         max-width: calc(100% - 14ex);
-    }
-
-    div.output_scroll div.output_subarea {
-        overflow-x: visible;
     }
 
     /* The rest of the output_* classes are for special styling of the different
@@ -10929,17 +10838,6 @@ Adapted from GitHub theme
         margin-top: 1em;
     }
 
-    .rendered_html hr {
-        color: black;
-        background-color: black;
-    }
-
-    .rendered_html pre {
-        margin: 1em 2em;
-        padding: 0px;
-        background-color: #fff;
-    }
-
     .rendered_html code {
         background-color: #eff0f1;
     }
@@ -10952,15 +10850,10 @@ Adapted from GitHub theme
         background-color: #fff;
     }
 
-    .rendered_html pre,
     .rendered_html code {
         border: 0;
         color: #000;
         font-size: 100%;
-    }
-
-    .rendered_html blockquote {
-        margin: 1em 2em;
     }
 
     .rendered_html table {
@@ -11015,22 +10908,6 @@ Adapted from GitHub theme
         margin-top: 1em;
     }
 
-    .rendered_html img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .rendered_html * + img {
-        margin-top: 1em;
-    }
-
-    .rendered_html img,
-    .rendered_html svg {
-        max-width: 100%;
-        height: auto;
-    }
-
     [dir="rtl"] .rendered_html p {
         text-align: right;
     }
@@ -11043,7 +10920,6 @@ Adapted from GitHub theme
         display: -moz-box;
         -moz-box-orient: horizontal;
         -moz-box-align: stretch;
-        display: box;
         box-orient: horizontal;
         box-align: stretch;
         /* Modern browsers */
@@ -11085,16 +10961,9 @@ Adapted from GitHub theme
     }
 
     h1:hover .anchor-link,
-    h2:hover .anchor-link,
     h3:hover .anchor-link,
-    h4:hover .anchor-link,
-    h5:hover .anchor-link,
-    h6:hover .anchor-link {
+    h4:hover .anchor-link {
         visibility: visible;
-    }
-
-    .text_cell.rendered .input_area {
-        display: none;
     }
 
     .text_cell.rendered .rendered_html {
@@ -11106,15 +10975,6 @@ Adapted from GitHub theme
     .text_cell.rendered .rendered_html th,
     .text_cell.rendered .rendered_html td {
         max-width: none;
-    }
-
-    .text_cell.unrendered .text_cell_render {
-        display: none;
-    }
-
-    .text_cell .dropzone .input_area {
-        border: 2px dashed #bababa;
-        margin: -1px;
     }
 
     /*!
@@ -11161,9 +11021,7 @@ Adapted from GitHub theme
    to not honor it correctly.  Webkit browsers (Chrome, rekonq, Safari) do.
  */
     pre,
-    code,
-    kbd,
-    samp {
+    code {
         white-space: pre-wrap;
     }
 
@@ -11172,223 +11030,24 @@ Adapted from GitHub theme
     }
 
     @media not print {
-        .notebook_app {
-            background-color: #EEE;
-        }
-    }
-
-    kbd {
-        border-style: solid;
-        border-width: 1px;
-        box-shadow: none;
-        margin: 2px;
-        padding-left: 2px;
-        padding-right: 2px;
-        padding-top: 1px;
-        padding-bottom: 1px;
-    }
-
-    .jupyter-keybindings input {
-        margin: 0;
-        padding: 0;
-        border: none;
-    }
-
-    .jupyter-keybindings i {
-        padding: 6px;
-    }
-
-    .well code {
-        background-color: #ffffff;
-        border-color: #ababab;
-        border-width: 1px;
-        border-style: solid;
-        padding: 2px;
-        padding-top: 1px;
-        padding-bottom: 1px;
     }
 
     /* CSS for the cell toolbar */
 
     @media print {
-        .celltoolbar {
-            display: none;
-        }
     }
 
     /* ctb_show is added to the ctb_hideshow div to show the cell toolbar.
    Cell toolbars are only shown when the ctb_global_show class is also set.
 */
 
-    .ctb_global_show .ctb_show ~ div.text_cell_render {
-        border: 1px solid #cfcfcf;
-    }
-
-    .celltoolbar select {
-        display: block;
-        width: 100%;
-        height: 32px;
-        padding: 6px 12px;
-        font-size: 13px;
-        line-height: 1.42857143;
-        color: #555555;
-        background-color: #fff;
-        background-image: none;
-        border: 1px solid #ccc;
-        border-radius: 2px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-        height: 30px;
-        padding: 5px 10px;
-        font-size: 12px;
-        line-height: 1.5;
-        border-radius: 1px;
-        width: inherit;
-        font-size: inherit;
-        height: 22px;
-        padding: 0px;
-        display: inline-block;
-    }
-
-    .celltoolbar select:focus {
-        border-color: #66afe9;
-        outline: 0;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
-    }
-
-    .celltoolbar select::-moz-placeholder {
-        color: #999;
-        opacity: 1;
-    }
-
-    .celltoolbar select:-ms-input-placeholder {
-        color: #999;
-    }
-
-    .celltoolbar select::-webkit-input-placeholder {
-        color: #999;
-    }
-
-    .celltoolbar select::-ms-expand {
-        border: 0;
-        background-color: transparent;
-    }
-
-    .celltoolbar select[disabled],
-    .celltoolbar select[readonly],
-    fieldset[disabled] .celltoolbar select {
-        background-color: #eeeeee;
-        opacity: 1;
-    }
-
-    .celltoolbar select[disabled],
-    fieldset[disabled] .celltoolbar select {
-        cursor: not-allowed;
-    }
-
-    textarea.celltoolbar select {
-        height: auto;
-    }
-
-    select.celltoolbar select {
-        height: 30px;
-        line-height: 30px;
-    }
-
-    textarea.celltoolbar select,
-    select[multiple].celltoolbar select {
-        height: auto;
-    }
-
-    .celltoolbar label {
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-
-    .tag-container > * {
-        margin: 0 4px;
-    }
-
-    .tags-input > * {
-        margin-left: 4px;
-    }
-
-    .tags-input input[type=text]:focus {
-        outline: none;
-        box-shadow: none;
-        border-color: #ccc;
-    }
-
-    .completions select {
-        background: white;
-        outline: none;
-        border: none;
-        padding: 0px;
-        margin: 0px;
-        overflow: auto;
-        font-family: monospace;
-        font-size: 110%;
-        color: #000;
-        width: auto;
-    }
-
-    [dir="rtl"] #menubar .navbar-nav > li {
-        float: right;
-    }
-
     ul#help_menu li a {
         overflow: hidden;
         padding-right: 2.2em;
     }
 
-    ul#help_menu li a i {
-        margin-right: -1.2em;
-    }
-
     [dir="rtl"] ul#help_menu li a {
         padding-left: 2.2em;
-    }
-
-    [dir="rtl"] ul#help_menu li a i {
-        margin-right: 0;
-        margin-left: -1.2em;
-    }
-
-    .dropdown-submenu > a:after {
-        display: inline-block;
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: inherit;
-        text-rendering: auto;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        display: block;
-        content: "\f0da";
-        float: right;
-        color: #333333;
-        margin-top: 2px;
-        margin-right: -10px;
-    }
-
-    [dir="rtl"] .dropdown-submenu > a:after {
-        float: left;
-        content: "\f0d9";
-        margin-right: 0;
-        margin-left: -10px;
-    }
-
-    .dropdown-submenu:hover > a:after {
-        color: #262626;
-    }
-
-    div#pager pre {
-        line-height: 1.21429em;
-        color: #000;
-        background-color: #f7f7f7;
-        padding: 0.4em;
     }
 
     @media (max-width: 767px) {
@@ -11397,20 +11056,6 @@ Adapted from GitHub theme
 
     @media (min-width: 768px) and (max-width: 991px) {
 
-    }
-
-    .toolbar select,
-    .toolbar label {
-        width: auto;
-        vertical-align: middle;
-        margin-right: 2px;
-        margin-bottom: 0px;
-        display: inline;
-        font-size: 92%;
-        margin-left: 0.3em;
-        margin-right: 0.3em;
-        padding: 0px;
-        padding-top: 3px;
     }
 
     /**
@@ -11466,46 +11111,6 @@ Adapted from GitHub theme
     /*properties of tooltip after "expand"*/
 
     /*properties of tooltip before "expand"*/
-
-    .ipython_tooltip a {
-        float: right;
-    }
-
-    .ipython_tooltip .tooltiptext pre {
-        border: 0;
-        border-radius: 0;
-        font-size: 100%;
-        background-color: #f7f7f7;
-    }
-
-    ul.typeahead-list i {
-        margin-left: -10px;
-        width: 18px;
-    }
-
-    [dir="rtl"] ul.typeahead-list i {
-        margin-left: 0;
-        margin-right: -10px;
-    }
-
-    ul.typeahead-list > li > a {
-        /** Firefox bug **/
-        /* see https://github.com/jupyter/notebook/issues/559 */
-        white-space: normal;
-    }
-
-    .cmd-palette form {
-        background: white;
-    }
-
-    .cmd-palette input {
-        outline: none;
-    }
-
-    #find-and-replace #replace-preview pre {
-        padding: 5px 10px;
-    }
-
     /*# sourceMappingURL=style.min.css.map */
     pre {
         line-height: 125%;

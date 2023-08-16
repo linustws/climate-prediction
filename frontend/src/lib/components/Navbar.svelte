@@ -1,5 +1,28 @@
 <script>
     import { ChartLineSolid, CubesSolid, GithubBrand } from 'svelte-awesome-icons';
+    import {onMount} from "svelte";
+
+    let currentPath = '/';
+
+    onMount(() => {
+        currentPath = window.location.pathname;
+    });
+
+    const handlePredictClick = () => {
+        if (currentPath === '/') {
+            window.location.reload();
+        } else {
+            window.location.href = '/';
+        }
+    };
+
+    const handleModelClick = () => {
+        if (currentPath === '/model') {
+            window.location.reload();
+        } else {
+            window.location.href = '/model';
+        }
+    };
 </script>
 
 
@@ -9,8 +32,8 @@
     </div>
     <nav class="navbar">
         <ul>
-            <li><a href="/"><i><ChartLineSolid class="outline-none"/></i>Predict</a></li>
-            <li><a href="/model"><i><CubesSolid class="outline-none"/></i>Model</a></li>
+            <li><a href="/" on:click={handlePredictClick}><i><ChartLineSolid class="outline-none"/></i>Predict</a></li>
+            <li><a href="/model" on:click={handleModelClick}><i><CubesSolid class="outline-none"/></i>Model</a></li>
         </ul>
     </nav>
     <div class="github"><a href="https://github.com/linustws/singapore-weather-prediction"><i><GithubBrand class="outline-none"/></i></a></div>
