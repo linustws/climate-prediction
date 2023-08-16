@@ -61,19 +61,6 @@
         --spark: 1.8s;
     }
 
-    body {
-        --active: 0;
-        background: hsl(
-                260 calc(var(--active) * 97%) 6%
-        );
-        display: grid;
-        place-items: center;
-        min-height: 100vh;
-        font-family: system-ui, sans-serif;
-        transition: background var(--transition);
-        overflow: hidden;
-    }
-
     button {
         --cut: 0.1em;
         --active: 0;

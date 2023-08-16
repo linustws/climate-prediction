@@ -1,4 +1,15 @@
 <script>
+    import { browser } from '$app/environment';
+    import {onMount} from 'svelte';
+    import LazyLoad from 'vanilla-lazyload';
+
+    let lazyLoadInstance;
+
+    onMount(() => {
+        if (browser) {
+            lazyLoadInstance = new LazyLoad();
+        }
+    });
 </script>
 
 <html lang="en">
@@ -30,24 +41,24 @@
                     <li>
                         <ul class="toc-item">
                             <li><span class=""><a href="#Data-Acquisition"
-                                                                          data-toc-modified-id="Data-Acquisition-1.0.1"><span
+                                                  data-toc-modified-id="Data-Acquisition-1.0.1"><span
                                     class="toc-item-num">1.0.1&nbsp;&nbsp;</span>Data Acquisition</a></span></li>
                             <li><span class=""><a href="#Data-Preprocessing"
-                                                                          data-toc-modified-id="Data-Preprocessing-1.0.2"><span
+                                                  data-toc-modified-id="Data-Preprocessing-1.0.2"><span
                                     class="toc-item-num">1.0.2&nbsp;&nbsp;</span>Data Preprocessing</a></span></li>
                             <li><span class=""><a href="#Data-Visualisation"
-                                                                          data-toc-modified-id="Data-Visualisation-1.0.3"><span
+                                                  data-toc-modified-id="Data-Visualisation-1.0.3"><span
                                     class="toc-item-num">1.0.3&nbsp;&nbsp;</span>Data Visualisation</a></span></li>
                             <li><span><a href="#ARIMA-Series-Model-Development"
-                                                                               data-toc-modified-id="ARIMA-Series-Model-Development-1.0.4"><span
+                                         data-toc-modified-id="ARIMA-Series-Model-Development-1.0.4"><span
                                     class="toc-item-num">1.0.4&nbsp;&nbsp;</span>ARIMA Series Model Development</a></span>
                                 <ul class="toc-item">
                                     <li><span><a href="#Use-ACF-and-PACF-to-know-where-to-start"
-                                                                         data-toc-modified-id="Use-ACF-and-PACF-to-know-where-to-start-1.0.4.1"><span
+                                                 data-toc-modified-id="Use-ACF-and-PACF-to-know-where-to-start-1.0.4.1"><span
                                             class="toc-item-num">1.0.4.1&nbsp;&nbsp;</span>Use ACF and PACF to know where to start</a></span>
                                     </li>
                                     <li><span class=""><a href="#Augmented-Dickey-Fuller-Test"
-                                                                                  data-toc-modified-id="Augmented-Dickey-Fuller-Test-1.0.4.2"><span
+                                                          data-toc-modified-id="Augmented-Dickey-Fuller-Test-1.0.4.2"><span
                                             class="toc-item-num">1.0.4.2&nbsp;&nbsp;</span>Augmented Dickey-Fuller Test</a></span>
                                     </li>
                                 </ul>
@@ -58,7 +69,7 @@
                                     class="toc-item-num">1.0.5&nbsp;&nbsp;</span>ARIMA Series Model Validation</a></span>
                                 <ul class="toc-item">
                                     <li><span><a href="#AR-Model"
-                                                                         data-toc-modified-id="AR-Model-1.0.5.1"><span
+                                                 data-toc-modified-id="AR-Model-1.0.5.1"><span
                                             class="toc-item-num">1.0.5.1&nbsp;&nbsp;</span>AR Model</a></span></li>
                                     <li><span><a
                                             href="#Rolling-Forecast-Origin-(Rolling-Window)"
@@ -66,16 +77,16 @@
                                             class="toc-item-num">1.0.5.2&nbsp;&nbsp;</span>Rolling Forecast Origin (Rolling Window)</a></span>
                                     </li>
                                     <li><span class=""><a href="#MA-Model"
-                                                                                  data-toc-modified-id="MA-Model-1.0.5.3"><span
+                                                          data-toc-modified-id="MA-Model-1.0.5.3"><span
                                             class="toc-item-num">1.0.5.3&nbsp;&nbsp;</span>MA Model</a></span></li>
                                     <li><span><a href="#ARMA-Model"
-                                                                         data-toc-modified-id="ARMA-Model-1.0.5.4"><span
+                                                 data-toc-modified-id="ARMA-Model-1.0.5.4"><span
                                             class="toc-item-num">1.0.5.4&nbsp;&nbsp;</span>ARMA Model</a></span></li>
                                     <li><span><a href="#ARIMA-Model"
-                                                                         data-toc-modified-id="ARIMA-Model-1.0.5.5"><span
+                                                 data-toc-modified-id="ARIMA-Model-1.0.5.5"><span
                                             class="toc-item-num">1.0.5.5&nbsp;&nbsp;</span>ARIMA Model</a></span></li>
                                     <li><span><a href="#SARIMA-Model"
-                                                                         data-toc-modified-id="SARIMA-Model-1.0.5.6"><span
+                                                 data-toc-modified-id="SARIMA-Model-1.0.5.6"><span
                                             class="toc-item-num">1.0.5.6&nbsp;&nbsp;</span>SARIMA Model</a></span></li>
                                 </ul>
                             </li>
@@ -85,18 +96,18 @@
                                     class="toc-item-num">1.0.6&nbsp;&nbsp;</span>ARIMA Series Model Refinement: Automated Parameter Selection with <code>auto_arima</code></a></span>
                                 <ul class="toc-item">
                                     <li><span><a href="#Auto-ARIMA"
-                                                                         data-toc-modified-id="Auto-ARIMA-1.0.6.1"><span
+                                                 data-toc-modified-id="Auto-ARIMA-1.0.6.1"><span
                                             class="toc-item-num">1.0.6.1&nbsp;&nbsp;</span>Auto ARIMA</a></span></li>
                                     <li><span><a href="#Auto-SARIMA"
-                                                                         data-toc-modified-id="Auto-SARIMA-1.0.6.2"><span
+                                                 data-toc-modified-id="Auto-SARIMA-1.0.6.2"><span
                                             class="toc-item-num">1.0.6.2&nbsp;&nbsp;</span>Auto SARIMA</a></span></li>
                                 </ul>
                             </li>
                             <li><span><a href="#LSTM-Model-Approach"
-                                                                 data-toc-modified-id="LSTM-Model-Approach-1.0.7"><span
+                                         data-toc-modified-id="LSTM-Model-Approach-1.0.7"><span
                                     class="toc-item-num">1.0.7&nbsp;&nbsp;</span>LSTM Model Approach</a></span></li>
                             <li><span><a href="#Model-Evaluation"
-                                                                 data-toc-modified-id="Model-Evaluation-1.0.8"><span
+                                         data-toc-modified-id="Model-Evaluation-1.0.8"><span
                                     class="toc-item-num">1.0.8&nbsp;&nbsp;</span>Model Evaluation</a></span></li>
                         </ul>
                     </li>
@@ -710,7 +721,7 @@ datetime
 
                         <div class="output_html rendered_html output_subarea ">
                             <iframe scrolling="no" width="100%" height="545px"
-                                    data-src="model_iframe_figures/figure_4.html" frameborder="0"
+                                    data-src="../../lib/model/model_iframe_figures/figure_4.html" frameborder="0"
                                     allowfullscreen=""></iframe>
 
                         </div>
@@ -860,7 +871,7 @@ datetime
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_11_0.png">
+                            <img src="" data-src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_11_0.png" alt="Singapore%20Weather%20Prediction_11_0">
                         </div>
 
                     </div>
@@ -906,7 +917,7 @@ datetime
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_13_0.png">
+                            <img src="" data-src="src/lib/model/model_matplotlib_figures/Singapore%20Weather%20Prediction_13_0.png" alt="Singapore%20Weather%20Prediction_13_0">
                         </div>
 
                     </div>
@@ -1225,7 +1236,7 @@ Warnings:
 
                         <div class="output_html rendered_html output_subarea ">
                             <iframe scrolling="no" width="100%" height="545px"
-                                    data-src="model_iframe_figures/figure_10.html" frameborder="0"
+                                    data-src="src/lib/model/model_iframe_figures/figure_10.html" frameborder="0"
                                     allowfullscreen=""></iframe>
 
                         </div>
@@ -1681,7 +1692,7 @@ Root Mean Squared Error: 0.4852945337116935
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_32_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_32_0.png" alt="Singapore%20Weather%20Prediction_32_0" src="">
                         </div>
 
                     </div>
@@ -2212,7 +2223,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_43_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_43_0.png" alt="Singapore%20Weather%20Prediction_43_0" src="">
                         </div>
 
                     </div>
@@ -2257,7 +2268,7 @@ Freq: M, Name: mean_temp, Length: 495, dtype: float64
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_45_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_45_0.png" alt="Singapore%20Weather%20Prediction_45_0" src="">
                         </div>
 
                     </div>
@@ -2750,7 +2761,7 @@ Root Mean Squared Error: 0.5841389478876554
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_55_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_55_0.png" alt="Singapore%20Weather%20Prediction_55_0" src="">
                         </div>
 
                     </div>
@@ -2785,7 +2796,7 @@ Root Mean Squared Error: 0.5841389478876554
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_56_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_56_0.png" alt="Singapore%20Weather%20Prediction_56_0" src="">
                         </div>
 
                     </div>
@@ -3709,7 +3720,7 @@ Root Mean Squared Error: 0.4101693694305862
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_70_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_70_0.png" alt="Singapore%20Weather%20Prediction_70_0" src="">
                         </div>
 
                     </div>
@@ -3750,7 +3761,7 @@ Root Mean Squared Error: 0.4101693694305862
 
 
                         <div class="output_png output_subarea ">
-                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_71_0.png">
+                            <img data-src="model_matplotlib_figures/Singapore%20Weather%20Prediction_71_0.png" alt="Singapore%20Weather%20Prediction_71_0" src="">
                         </div>
 
                     </div>
@@ -9877,7 +9888,7 @@ Root Mean Squared Error: 0.44115552418544135
 
     pre {
         display: block;
-        padding: 8.5px;
+        padding: 9px;
         margin: 0 0 9px;
         font-size: 12px;
         line-height: 1.42857143;
@@ -9892,8 +9903,8 @@ Root Mean Squared Error: 0.44115552418544135
     .container {
         margin-right: auto;
         margin-left: auto;
-        padding-left: 0px;
-        padding-right: 0px;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     @media (min-width: 768px) {
@@ -10296,10 +10307,10 @@ new spec completely include:
         /* This makes sure that the body covers the entire window and needs to
        be in a different element than the display: box in wrapper below */
         /*position: absolute;*/
-        left: 0px;
-        right: 0px;
-        top: 0px;
-        bottom: 0px;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
         overflow: visible;
     }
 
@@ -10399,7 +10410,7 @@ new spec completely include:
         width: 100%;
         padding: 5px;
         /* This acts as a spacer between cells, that is outside the border */
-        margin: 0px;
+        margin: 0;
         outline: none;
         position: relative;
         overflow: visible;
@@ -10433,7 +10444,7 @@ new spec completely include:
         min-width: 14ex;
         /* This padding is tuned to match the padding on the CodeMirror editor. */
         padding: 0.4em;
-        margin: 0px;
+        margin: 0;
         font-family: monospace;
         text-align: right;
         /* This has to match that of the the CodeMirror class line-height below */
@@ -10562,14 +10573,14 @@ new spec completely include:
     div.input_area > div.highlight {
         margin: 0.4em;
         border: none;
-        padding: 0px;
+        padding: 0;
         background-color: transparent;
     }
 
     div.input_area > div.highlight > pre {
-        margin: 0px;
+        margin: 0;
         border: none;
-        padding: 0px;
+        padding: 0;
         background-color: transparent;
     }
 
@@ -10630,7 +10641,7 @@ Adapted from GitHub theme
 
     /* This class is the outer container of all output sections. */
     div.output_area {
-        padding: 0px;
+        padding: 0;
         page-break-inside: avoid;
         /* Old browsers */
         display: -webkit-box;
@@ -10956,7 +10967,7 @@ Adapted from GitHub theme
 
     a.anchor-link:link {
         text-decoration: none;
-        padding: 0px 20px;
+        padding: 0 20px;
         visibility: hidden;
     }
 
@@ -10993,7 +11004,7 @@ Adapted from GitHub theme
         width: 100%;
         /* This spaces the page away from the edge of the notebook area */
         padding-top: 20px;
-        margin: 0px;
+        margin: 0;
         outline: none;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -11006,8 +11017,8 @@ Adapted from GitHub theme
             padding: 15px;
             background-color: #fff;
             min-height: 0;
-            -webkit-box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
-            box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
+            -webkit-box-shadow: 0 0 12px 1px rgba(87, 87, 87, 0.2);
+            box-shadow: 0 0 12px 1px rgba(87, 87, 87, 0.2);
         }
     }
 
