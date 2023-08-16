@@ -53,6 +53,8 @@
         grid-template-columns: max-content auto min-content;
         grid-template-areas: "title nav github";
         z-index: 2;
+        font-family: "Lato", sans-serif;
+        height: 52px;
     }
 
     header > * {

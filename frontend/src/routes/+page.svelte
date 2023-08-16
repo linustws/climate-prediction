@@ -153,6 +153,7 @@
         flex-direction: column;
         align-items: center;
         margin-top: 20px;
+        font-family: "Lato", sans-serif;
     }
 
     .input-row {

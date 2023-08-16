@@ -11341,7 +11341,7 @@ Adapted from GitHub theme
     }
 
     #toc-wrapper {
-        z-index: 90;
+        z-index: 1;
         position: fixed !important;
         display: flex;
         flex-direction: column;
