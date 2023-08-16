@@ -97,7 +97,7 @@
                 <div class="input-container">
                     <label for="prediction-value" class="label">Predict for:</label>
                     <div class="input-fields">
-                        <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="1000"/>
+                        <input type="number" id="prediction-value" bind:value={predictionValue} min="1" max="100"/>
                         <select id="prediction-type" bind:value={predictionType}>
                             <option value="month">months</option>
                             <option value="year">years</option>

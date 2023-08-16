@@ -24,6 +24,7 @@
         width: 100%;
         min-width: 750px;
         background: var(--background-color);
+        opacity: 0.75;
         box-shadow: 3px 3px 8px 0 var(--background-color);
         --color: #008aff;
         grid-template-columns: max-content auto min-content;
