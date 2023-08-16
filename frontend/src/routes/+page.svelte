@@ -90,6 +90,7 @@
         <!-- Loading bar -->
         <div class="loading-bar">
             <div class="spinner"></div>
+            <div class="loading-text">Predicting...</div>
         </div>
     {:else}
         <form on:submit={handleSubmit}>
@@ -229,14 +230,26 @@
     }
 
     .loading-bar {
-        width: 376px; /* Width of the form field */
-        height: 46px; /* Height of the form field */
+        width: 376px;
+        height: 46px;
         background-color: rgba(26, 17, 16, 1);
         position: relative;
         border-radius: 100px;
         border: 3px solid rgba(0, 0, 0, 0.75);
         box-shadow: 0 0 calc(0.2em + 1px) rgba(0, 0, 0, 0.1), 0 0 calc(0.4em + 1px) rgba(0, 0, 0, 0.1);
-        overflow: hidden; /* Hide overflowing parts */
+        overflow: hidden;
+    }
+
+    .loading-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1rem;
+        color: var(--foreground-color);
+        user-select: none;
+        pointer-events: none;
+        z-index: 2;
     }
 
     .spinner {
