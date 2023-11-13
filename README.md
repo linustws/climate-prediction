@@ -1,6 +1,6 @@
 # Singapore Weather Prediction
 
-using time series ml
+SvelteKit front-end, Flask back-end, Redis cache that stores LSTM prediction model to allow users to predict Singapore's temperature dynamically.
 
 ![img.png](img.png)
 
